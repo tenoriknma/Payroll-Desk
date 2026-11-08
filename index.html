@@ -579,7 +579,7 @@ function viewAttendance(){
   const foot=dates.map(d=>{let n=0;emps.forEach(e=>{if(dayHrs(e,d).r>0)n++});return '<td>'+(n||'')+'</td>'}).join('');
   return lockedBanner()+
   '<div class="bar"><button class="btn primary" data-act="import">IMPORT BIOMETRICS</button>'+
-  '<button class="btn" data-act="markAll">Mark all unmarked days present</button><span class="grow"></span>'+
+  '<button class="btn" data-act="markAll">Mark all unmarked days present</button><button class="btn" data-act="unmarkAll">Unmark all</button><span class="grow"></span>'+
   '<div class="legend"><span><span class="chip P">P</span> present ('+H+' hrs)</span><span><span class="chip H">½</span> half day</span><span><span class="chip A">A</span> absent</span><span><span class="chip R">·</span> rest day (OFF)</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--accent)"></span> custom hours</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--warn)"></span> one punch only</span></div></div>'+
   '<div class="panel scroll"><table class="grid"><thead><tr><th class="lead">Employee</th>'+head+'<th>Days</th><th>Absent</th><th>Unmarked</th><th></th></tr></thead><tbody>'+rows+'</tbody>'+
   '<tfoot><tr><td class="lead">Working per day</td>'+foot+'<td colspan="4"></td></tr></tfoot></table></div>'+
@@ -808,6 +808,17 @@ const actions={
     if(isLocked())return;let n=0;
     visibleEmps().forEach(e=>{S.att[e.id]=S.att[e.id]||{};periodDates().filter(isWork).forEach(d=>{if(!S.att[e.id][d]){S.att[e.id][d]='P';n++}})});
     save();refreshAtt();toast(n+' days marked present. Click a day to change it to half day or absent.');
+  },
+  unmarkAll(){
+    if(isLocked())return;let n=0;const ds=periodDates();
+    visibleEmps().forEach(e=>{const a=S.att[e.id]||{},r=S.review[e.id]||{},h=S.hrs[e.id]||{};ds.forEach(d=>{if(a[d]||r[d]||h[d])n++})});
+    if(!n)return toast('Nothing is marked in this period.');
+    openModal('<h2>Unmark all?</h2><p style="margin:0">This clears '+n+' marked day'+(n===1?'':'s')+' (present, half day, absent and custom hours) for '+esc(filterLabel()||'all locations')+' in '+esc(periodLabel())+'. Employees and other periods are not touched.</p><div class="actions"><button class="btn" data-act="closeModal">Cancel</button><button class="btn danger" data-act="unmarkYes">Clear marks</button></div>');
+  },
+  unmarkYes(){
+    if(isLocked())return;const ds=periodDates();
+    visibleEmps().forEach(e=>{ds.forEach(d=>{if(S.att[e.id])delete S.att[e.id][d];if(S.review[e.id])delete S.review[e.id][d];if(S.hrs[e.id])delete S.hrs[e.id][d]})});
+    save();closeModal();refreshAtt();toast('Marks cleared');
   },
   import(){$('#fileIn').value='';$('#fileIn').click()},
   addEmp(){empForm()},
@@ -1091,6 +1102,7 @@ function makeCanvas(w,draw){
   const cv=document.createElement('canvas');cv.width=w*2;cv.height=h*2;const x=cv.getContext('2d');x.scale(2,2);
   x.fillStyle='#fff';x.fillRect(0,0,w,h);draw(x,w);return cv;
 }
+let slipEnd=0;
 const DAYN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 function loadSig(){return new Promise(res=>{if(!S.settings.signature)return res(null);const i=new Image();i.onload=()=>res(i);i.onerror=()=>res(null);i.src=S.settings.signature})}
 /* Payslip drawn to match the Eastland weekly salary layout (850 px wide page). */
@@ -1098,7 +1110,7 @@ function drawSlip(e,sig){
   const c=calc(e),dates=periodDates();
   const TEAL='#5ba593',MINT='#e6fbf0',TT='#3f7d6e',HEAD='#595959',LN='#8c8c8c',ZB='#f2f2f2',G1='#e9fcf1',G2='#d3f8e5',INK='#1d1d1d';
   const SERIF='Cambria,Constantia,Georgia,"Times New Roman",serif',SANS='"Segoe UI","Helvetica Neue",Arial,sans-serif';
-  const xs=[115,203,291,380,468,557,645,735];
+  const xs=[115,203,291,380,468,557,645,735],RH=dates.length>8?22:30;
   return (x)=>{
     const rect=(x0,y0,x1,y1,fill)=>{x.fillStyle=fill;x.fillRect(x0,y0,x1-x0,y1-y0)};
     const box=(x0,y0,x1,y1,fill)=>{rect(x0,y0,x1,y1,fill);x.strokeStyle=LN;x.lineWidth=1;x.strokeRect(x0+.5,y0+.5,x1-x0-1,y1-y0-1)};
@@ -1120,10 +1132,10 @@ function drawSlip(e,sig){
       if(L.length>1){txt(L[0],cx,y+20,'600 13px '+SANS,'#fff','center');txt(L[1],cx,y+37,'600 13px '+SANS,'#fff','center')}else txt(t,cx,y+27,'600 13px '+SANS,'#fff','center')});
     y+=46;
     dates.forEach((d,i)=>{const h=dayHrs(e,d),f=i%2?ZB:'#fff',g=i%2?G2:G1,w=isWork(d);
-      box(xs[0],y,xs[1],y+30,f);box(xs[1],y,xs[2],y+30,f);[2,3,4,5].forEach(k=>box(xs[k],y,xs[k+1],y+30,f));box(xs[6],y,xs[7],y+30,g);
-      ctr(DAYN[dowOf(d)],xs[0],xs[1],y,y+30,'13px '+SANS);ctr(fmtMD(d),xs[1],xs[2],y,y+30,'13px '+SANS);
-      [h.r,h.o,h.s,h.v].forEach((v,k)=>{let s=v>0?v.toFixed(2):'',font='13px '+SANS;if(k===0&&!v&&!w){s='OFF';font='600 13px '+SANS}if(s)ctr(s,xs[k+2],xs[k+3],y,y+30,font)});
-      ctr((h.r+h.o+h.s+h.v).toFixed(2),xs[6],xs[7],y,y+30,'13px '+SANS);y+=30});
+      box(xs[0],y,xs[1],y+RH,f);box(xs[1],y,xs[2],y+RH,f);[2,3,4,5].forEach(k=>box(xs[k],y,xs[k+1],y+RH,f));box(xs[6],y,xs[7],y+RH,g);
+      ctr(DAYN[dowOf(d)],xs[0],xs[1],y,y+RH,'13px '+SANS);ctr(fmtMD(d),xs[1],xs[2],y,y+RH,'13px '+SANS);
+      [h.r,h.o,h.s,h.v].forEach((v,k)=>{let s=v>0?v.toFixed(2):'',font='13px '+SANS;if(k===0&&!v&&!w){s='OFF';font='600 13px '+SANS}if(s)ctr(s,xs[k+2],xs[k+3],y,y+RH,font)});
+      ctr((h.r+h.o+h.s+h.v).toFixed(2),xs[6],xs[7],y,y+RH,'13px '+SANS);y+=RH});
     y+=30;
     const row=(label,align,fills,vals,opt)=>{opt=opt||{};const f=(opt.b?'600 ':'')+'13px '+SANS;
       box(xs[0],y,xs[2],y+30,opt.lf||'#fff');
@@ -1143,16 +1155,40 @@ function drawSlip(e,sig){
     const sl='13px '+SANS;
         txt(S.settings.signLabel||"Accounting Head's signature",557,yl+16,sl,INK,'center',180);txt('Date',694,yl+16,sl,INK,'center');
     rect(115,y+129,735,y+139,TEAL);
+    slipEnd=y+139;
     return Math.max(1100,y+139+84);
   };
 }
 async function slipBlob(e){const sig=await loadSig();return jpg(makeCanvas(850,drawSlip(e,sig)))}
 async function slipJpg(e){saveFile('payslip-'+slug(e.name)+'-'+pTag()+'.jpg',await slipBlob(e))}
+/* Four payslips on one US Letter sheet (8.5 x 11 in at 300 dpi), each centred in its own quarter with a margin for cutting. */
+async function slipCard(e,sig){
+  const cv=makeCanvas(850,drawSlip(e,sig));
+  return {cv,y0:46,y1:Math.min(cv.height/2,slipEnd+3)};
+}
+async function setDpi(blob,dpi){
+  try{const b=new Uint8Array(await blob.arrayBuffer());
+    if(b[0]===0xFF&&b[1]===0xD8&&b[2]===0xFF&&b[3]===0xE0&&b[6]===0x4A){b[13]=1;b[14]=dpi>>8;b[15]=dpi&255;b[16]=dpi>>8;b[17]=dpi&255;return new Blob([b],{type:'image/jpeg'})}}catch(x){}
+  return blob;
+}
+async function sheetBlob(items,sig){
+  const W=2550,H=3300,PAGE=60,PAD=24,cw=(W-PAGE*2)/2,ch=(H-PAGE*2)/2;
+  const pg=document.createElement('canvas');pg.width=W;pg.height=H;const x=pg.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,W,H);
+  x.imageSmoothingQuality='high';
+  for(let i=0;i<items.length;i++){
+    const k=await slipCard(items[i],sig),sx=112*2,sw=(738-112)*2,sy=k.y0*2,sh=(k.y1-k.y0)*2;
+    const sc=Math.min((cw-PAD*2)/sw,(ch-PAD*2)/sh),dw=sw*sc,dh=sh*sc;
+    const ox=PAGE+(i%2)*cw+(cw-dw)/2,oy=PAGE+Math.floor(i/2)*ch+(ch-dh)/2;
+    x.drawImage(k.cv,sx,sy,sw,sh,ox,oy,dw,dh);
+  }
+  return setDpi(await jpg(pg),300);
+}
 async function allSlips(){
   if(typeof JSZip==='undefined')return toast('The ZIP tool did not load. Check your internet connection and reload.');
   const emps=ofType(visibleEmps(),zipType);if(!emps.length)return toast('No employees with this wage type to export.');
-  toast('Building '+emps.length+' payslips…');const z=new JSZip();
-  for(const e of emps)z.file('payslip-'+slug(e.name)+'.jpg',await slipBlob(e));
+  await fonts();const sig=await loadSig(),n=Math.ceil(emps.length/4);
+  toast('Building '+n+' sheet'+(n===1?'':'s')+' for '+emps.length+' payslips…');const z=new JSZip();
+  for(let i=0;i<n;i++)z.file('payslips-sheet-'+String(i+1).padStart(2,'0')+'.jpg',await sheetBlob(emps.slice(i*4,i*4+4),sig));
   saveFile('payslips-'+pTag()+typeTag(zipType)+(S.siteFilter==='all'?'':'-'+slug(filterLabel()))+'.zip',await z.generateAsync({type:'blob'}));
 }
 async function summaryJpg(){
