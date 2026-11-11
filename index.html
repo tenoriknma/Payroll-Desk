@@ -1216,18 +1216,8 @@ function applyImport(){
 
 /* ---------- files out ---------- */
 async function saveFile(filename,data){
-  try{
-    const blob=data instanceof Blob?data:new Blob([data]),a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);
-    a.download=filename;
-    a.rel='noopener';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(()=>{a.remove();URL.revokeObjectURL(a.href);},1000);
-    toast('Saved '+filename);
-  }catch(e){
-    toast('Could not save the file here.');
-  }
+  try{const blob=data instanceof Blob?data:new Blob([data]),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.rel='noopener';document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(a.href)},1000);toast('Saved '+filename)}
+  catch(e){toast('Could not save the file here.')}
 }
 const jpg=cv=>new Promise(r=>cv.toBlob(r,'image/jpeg',0.92));
 const FS=(w,s)=>w+' '+s+'px "IBM Plex Sans","Segoe UI",Arial,sans-serif';
@@ -1383,18 +1373,27 @@ async function sheetBlob(items,sig){
   x.fillStyle='#000';x.fillRect(W/2-2,0,4,H);x.fillRect(0,H/2-2,W,4);
   return setDpi(await jpg(pg),300);
 }
+function zipSaveAs(name,blob){
+  return new Promise(res=>{
+    if(!window.showSaveFilePicker){saveFile(name,blob);return res()}
+    const ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:99999;display:flex;align-items:center;justify-content:center';
+    ov.innerHTML='<div style="background:#fff;color:#111;border-radius:12px;padding:22px 24px;max-width:380px;font:14px/1.45 system-ui,sans-serif;box-shadow:0 10px 40px rgba(0,0,0,.35)"><b style="font-size:16px">Your payslips are ready</b><p style="margin:8px 0 16px">Click below, then choose where to save <b></b>.</p><div style="display:flex;gap:8px;justify-content:flex-end"><button id="zsC" style="padding:8px 14px;border:1px solid #bbb;background:#fff;border-radius:8px;cursor:pointer">Cancel</button><button id="zsD" style="padding:8px 14px;border:0;background:#1a56db;color:#fff;border-radius:8px;cursor:pointer">Choose where to save</button></div></div>';
+    ov.querySelector('b+p b').textContent=name;document.body.appendChild(ov);
+    const done=()=>{ov.remove();res()};
+    ov.querySelector('#zsC').onclick=done;
+    ov.querySelector('#zsD').onclick=async()=>{
+      try{const h=await window.showSaveFilePicker({suggestedName:name,types:[{description:'ZIP file',accept:{'application/zip':['.zip']}}]});
+        const w=await h.createWritable();await w.write(blob);await w.close();toast('Saved '+h.name);done()}
+      catch(e){if(e&&e.name==='AbortError')return;done();saveFile(name,blob)}
+    };
+  });
+}
 async function allSlips(){
   const emps=ofSlipType(visibleEmps(),zipType);if(!emps.length)return toast('No employees with this group on payslip to export.');
   let dir=null;
-  if(window.showDirectoryPicker){
-    try{
-      dir=await window.showDirectoryPicker({mode:'readwrite'}).catch(()=>null);
-      if(dir&&dir.requestPermission){
-        const p=await dir.requestPermission({mode:'readwrite'}).catch(()=>null);
-        if(p!=='granted')dir=null;
-      }
-    }catch(e){dir=null;}
-  }
+  if(window.showDirectoryPicker){try{dir=await window.showDirectoryPicker({mode:'readwrite'});
+      if(dir.requestPermission){const p=await dir.requestPermission({mode:'readwrite'});if(p!=='granted')dir=null}}
+    catch(e){if(e&&e.name==='AbortError')return;dir=null}}
   const long=m=>{toast(m);clearTimeout(toastT);toastT=setTimeout(()=>$('#toast').style.display='none',9000)};
   try{
   await fonts();const sig=await loadSig();
@@ -1412,11 +1411,8 @@ async function allSlips(){
     catch(e){toast('Could not write to that folder ('+(e&&e.name||'error')+'). Downloading a ZIP instead. Tip: pick a new empty folder, not Documents or Downloads itself.')}
   }
   if(typeof JSZip==='undefined')return long('The ZIP tool did not load. Check your internet connection and reload.');
-  const z=new JSZip();
-  for(const f of files){
-    z.file(f.n, await f.b.arrayBuffer());
-  }
-  await saveFile(base+'.zip',await z.generateAsync({type:'blob'}));
+  const z=new JSZip();for(const f of files)z.file(f.n,await f.b.arrayBuffer());
+  await zipSaveAs(base+'.zip',await z.generateAsync({type:'blob'}));
   }catch(e){long('Export failed: '+(e&&e.message||e))}
 }
 /* ---------- Editable payslips in Excel: 4 per Letter page; the dashed frame marks each quarter of the page ---------- */
