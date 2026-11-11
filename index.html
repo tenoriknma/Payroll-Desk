@@ -1383,63 +1383,7 @@ async function sheetBlob(items,sig){
   x.fillStyle='#000';x.fillRect(W/2-2,0,4,H);x.fillRect(0,H/2-2,W,4);
   return setDpi(await jpg(pg),300);
 }
-<script>
-  // Replace your old allSlips function with this optimized version
-  async function allSlips() {
-    const emps = ofSlipType(visibleEmps(), zipType);
-    if (!emps.length) return toast('No employees with this group on payslip to export.');
 
-    const showLongToast = msg => {
-      toast(msg);
-      clearTimeout(toastT);
-      toastT = setTimeout(() => $('#toast').style.display = 'none', 9000);
-    };
-
-    try {
-      await fonts();
-      const sig = await loadSig();
-      
-      const wk = emps.filter(e => !semiOnWeek(e));
-      const sm = emps.filter(semiOnWeek);
-      const sp = semiPeriod();
-      const smTag = `-semi-monthly-${sp.part === 'first' ? '1-15' : '16-end'}-${sp.ym}`;
-      
-      // Helper to chunk arrays into groups of 4
-      const chunk = (arr, size) => Array.from({ length: Math.ceil(arr.length / size) }, (_, i) => arr.slice(i * size, i * size + size));
-      
-      const jobs = [
-        ...chunk(wk, 4).map(l => ({ l, t: '' })),
-        ...chunk(sm, 4).map(l => ({ l, t: smTag }))
-      ];
-      
-      showLongToast(`Building ${jobs.length} sheet${jobs.length === 1 ? '' : 's'} for ${emps.length} payslips…`);
-      
-      // Build all sheets in parallel for much faster performance
-      const files = await Promise.all(
-        jobs.map(async (job, i) => ({
-          n: `payslips-sheet-${String(i + 1).padStart(2, '0')}${job.t}.jpg`.replace(/[^\w.\-]/g, '-'),
-          b: await sheetBlob(job.l, sig)
-        }))
-      );
-      
-      const siteSlug = S.siteFilter === 'all' ? '' : `-${slug(filterLabel())}`;
-      const base = `payslips-${pTag()}${typeTag(zipType)}${siteSlug}`.replace(/[^\w.\-]/g, '-');
-
-      if (typeof JSZip === 'undefined') {
-        return showLongToast('The ZIP tool did not load. Check your internet connection and reload.');
-      }
-      
-      const z = new JSZip();
-      files.forEach(f => z.file(f.n, f.b));
-      
-      await saveFile(`${base}.zip`, await z.generateAsync({ type: 'blob' }));
-      showLongToast(`Payslips downloaded successfully as ${base}.zip`);
-
-    } catch (e) {
-      showLongToast('Export failed: ' + (e?.message || e));
-    }
-  }
-</script>
   if(typeof JSZip==='undefined')return long('The ZIP tool did not load. Check your internet connection and reload.');
   const z=new JSZip();
   for(const f of files){
