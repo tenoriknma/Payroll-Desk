@@ -1386,14 +1386,7 @@ async function sheetBlob(items,sig){
 async function allSlips(){
   const emps=ofSlipType(visibleEmps(),zipType);if(!emps.length)return toast('No employees with this group on payslip to export.');
   let dir=null;
-  if(window.showDirectoryPicker){
-    try{
-      dir=await window.showDirectoryPicker({mode:'readwrite'}).catch(()=>null);
-      if(dir&&dir.requestPermission){
-        const p=await dir.requestPermission({mode:'readwrite'}).catch(()=>null);
-        if(p!=='granted')dir=null;
-      }
-    }catch(e){dir=null;}
+  
   }
   const long=m=>{toast(m);clearTimeout(toastT);toastT=setTimeout(()=>$('#toast').style.display='none',9000)};
   try{
