@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
+<script>/* apply the saved colour theme before first paint */try{var t=localStorage.getItem("payrolldesk.visualTheme");if(t!=="dark"&&t!=="light")t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t}catch(e){}</script>
 <style>
 /* Layout: one working surface. Header with period controls, four tabs, a wide scrollable grid or table underneath. */
 :root{
@@ -139,6 +139,54 @@ input.txt{width:100%;min-width:140px}
 .menu{position:relative;display:inline-block}
 .menuList{position:absolute;top:calc(100% + 4px);left:0;z-index:20;min-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.18);padding:4px;display:grid;white-space:nowrap}
 .menuList[hidden]{display:none}
+.enc #tabs [data-tab]:not([data-tab=attendance]){display:none}
+@keyframes vin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+#view.vin{animation:vin .28s ease-out}
+@keyframes rowin{from{opacity:0;transform:translateY(10px)}}
+#view.vin tbody tr{animation:rowin .3s ease-out backwards}
+#view.vin tbody tr:nth-child(2){animation-delay:0.022s}
+#view.vin tbody tr:nth-child(3){animation-delay:0.044s}
+#view.vin tbody tr:nth-child(4){animation-delay:0.066s}
+#view.vin tbody tr:nth-child(5){animation-delay:0.088s}
+#view.vin tbody tr:nth-child(6){animation-delay:0.110s}
+#view.vin tbody tr:nth-child(7){animation-delay:0.132s}
+#view.vin tbody tr:nth-child(8){animation-delay:0.154s}
+#view.vin tbody tr:nth-child(9){animation-delay:0.176s}
+#view.vin tbody tr:nth-child(10){animation-delay:0.198s}
+#view.vin tbody tr:nth-child(11){animation-delay:0.220s}
+#view.vin tbody tr:nth-child(12){animation-delay:0.242s}
+#view.vin tbody tr:nth-child(13){animation-delay:0.264s}
+#view.vin tbody tr:nth-child(14){animation-delay:0.286s}
+#view.vin tbody tr:nth-child(15){animation-delay:0.308s}
+#view.vin tbody tr:nth-child(16){animation-delay:0.330s}
+#view.vin tbody tr:nth-child(17){animation-delay:0.352s}
+#view.vin tbody tr:nth-child(n+18){animation-delay:.37s}
+@keyframes flashbg{0%{background-color:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}60%{box-shadow:inset 0 0 0 2px var(--accent)}100%{box-shadow:inset 0 0 0 2px transparent}}
+@keyframes pulseb{0%,100%{transform:scale(1)}35%{transform:scale(1.14)}}
+.flash{animation:flashbg 1.8s ease-out}
+.flash b{display:inline-block;animation:pulseb .7s ease-out}
+@keyframes fadeb{from{opacity:0}}
+@keyframes dlgin{from{opacity:0;transform:translateY(10px) scale(.97)}}
+#modal.open{animation:fadeb .18s ease-out}
+#modal.open .dlg{animation:dlgin .22s ease-out}
+@keyframes menuin{from{opacity:0;transform:translateY(-6px)}}
+.menuList:not([hidden]){animation:menuin .16s ease-out}
+.btn{transition:transform .12s ease,box-shadow .12s ease,background-color .12s ease,filter .12s ease}
+.btn:not(.sm):not([disabled]):hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.12)}
+.btn:not([disabled]):active{transform:translateY(0) scale(.97);box-shadow:none}
+@keyframes popin{0%{transform:scale(.6);opacity:.4}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+@keyframes btnpop{0%,100%{transform:scale(1)}40%{transform:scale(1.12)}}
+@keyframes notein{from{opacity:0;transform:translateY(-8px)}}
+td.cell.pop{animation:popin .32s cubic-bezier(.2,.8,.3,1.3);z-index:1}
+.btn.pop{animation:btnpop .4s ease-out}
+.note.pop{animation:notein .4s ease-out}
+.skel{display:grid;gap:10px;margin-top:18px}
+.skel i{display:block;height:14px;border-radius:7px;background:linear-gradient(90deg,var(--line) 25%,var(--soft) 50%,var(--line) 75%);background-size:200% 100%;animation:shim 1.2s linear infinite}
+@keyframes shim{to{background-position:-200% 0}}
+#prog{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:61;display:none;min-width:260px;max-width:90vw;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 14px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-size:14px}
+#prog .pb{height:6px;border-radius:3px;background:var(--line);margin-top:8px;overflow:hidden}
+#prog .pb i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s ease}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 .menuList button{all:unset;cursor:pointer;padding:8px 12px;border-radius:6px;color:var(--ink)}
 .menuList button:hover,.menuList button:focus-visible{background:var(--accent-soft);outline:none}
 .rates{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;margin-bottom:6px}.rate{min-width:0;overflow-wrap:anywhere;border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:8px;align-content:start;background:var(--soft)}.rate .rt{font-weight:600;font-size:13px}.rate .rv{display:flex;align-items:center;gap:8px}.rate .rv input,.rate .rv select{width:100%;max-width:100%;height:38px;box-sizing:border-box;flex:1;min-width:0}.rate .unit{color:var(--muted);font-size:12px;white-space:nowrap}h4.sub{margin:14px 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
@@ -157,7 +205,11 @@ html.locked .app{display:none}
 .gbox code{word-break:break-all;background:var(--soft);padding:2px 5px;border-radius:4px}
 input[type=password]{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:7px 9px}
 #who{margin-left:8px}
-
+/* ---- fonts served from this site (no request to Google) ---- */
+@font-face{font-family:"Inter";font-style:normal;font-weight:100 900;font-display:swap;src:url(inter-latin-ext.woff2) format("woff2-variations"),url(inter-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Inter";font-style:normal;font-weight:100 900;font-display:swap;src:url(inter-latin.woff2) format("woff2-variations"),url(inter-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Plus Jakarta Sans";font-style:normal;font-weight:200 800;font-display:swap;src:url(plus-jakarta-sans-latin-ext.woff2) format("woff2-variations"),url(plus-jakarta-sans-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Plus Jakarta Sans";font-style:normal;font-weight:200 800;font-display:swap;src:url(plus-jakarta-sans-latin.woff2) format("woff2-variations"),url(plus-jakarta-sans-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 
 /* ===================================================================
    Payroll Desk v2 — presentation layer only.
@@ -255,8 +307,7 @@ td.n,th.n,.card b,.grid td.cell,.grid td.sum,.grid tfoot td,input.num,.chip,td.n
 .tabs button[aria-selected="true"]::after{content:"";position:absolute;left:-18px;top:10px;bottom:10px;width:4px;border-radius:0 4px 4px 0;background:var(--accent);box-shadow:0 0 14px 1px var(--accent)}
 
 /* ---- main surface ---- */
-#view{margin-left:272px;max-width:1520px;padding:32px 36px 60px;animation:pageEnter .32s cubic-bezier(.2,.7,.2,1) both}
-@keyframes pageEnter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#view{margin-left:272px;max-width:1520px;padding:32px 36px 60px}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--sh-1);transition:box-shadow .22s,border-color .22s,transform .22s,background-color .25s}
 .bar{gap:8px;margin-bottom:16px}
 .note{position:relative;padding:12px 16px 12px 18px;border-radius:var(--r-sm);line-height:1.5;border:1px solid color-mix(in srgb,var(--warn) 22%,transparent);box-shadow:inset 3px 0 0 var(--amber)}
@@ -351,15 +402,11 @@ tbody tr:last-child>td{border-bottom-color:var(--line)}
 .grid td.sum.bad{color:var(--bad);font-weight:700} .grid td.sum.warn{color:var(--warn);font-weight:700}
 
 /* ---- menus, dialogs, toast ---- */
-.menuList{padding:5px;border-radius:var(--r-md);border:1px solid var(--line);box-shadow:var(--sh-2);animation:pop .16s ease both;transform-origin:top left}
+.menuList{padding:5px;border-radius:var(--r-md);border:1px solid var(--line);box-shadow:var(--sh-2)}
 .menuList button{padding:9px 12px;border-radius:9px;font-size:12.5px;font-weight:500;transition:background .12s}
 .menuList button:hover,.menuList button:focus-visible{background:var(--accent-soft);color:var(--accent-text);box-shadow:none}
-@keyframes pop{from{opacity:0;transform:translateY(-4px) scale(.97)}to{opacity:1;transform:none}}
 #modal{padding-top:7vh;background:rgba(9,13,22,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-#modal.open{animation:fade .2s ease both}
-@keyframes fade{from{opacity:0}to{opacity:1}}
-.dlg{padding:26px;border-radius:var(--r-lg);border:1px solid var(--line);box-shadow:0 30px 80px -20px rgba(2,6,23,.45),0 0 0 1px rgba(255,255,255,.04) inset;animation:scaleIn .26s cubic-bezier(.2,.9,.25,1) both}
-@keyframes scaleIn{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+.dlg{padding:26px;border-radius:var(--r-lg);border:1px solid var(--line);box-shadow:0 30px 80px -20px rgba(2,6,23,.45),0 0 0 1px rgba(255,255,255,.04) inset}
 .dlg h2{font-size:21px}
 #toast{padding:11px 18px;border-radius:var(--r-md);font-size:13px;font-weight:500;box-shadow:0 18px 40px -12px rgba(2,6,23,.5);animation:toastIn .26s cubic-bezier(.2,.9,.25,1) both}
 @keyframes toastIn{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
@@ -368,7 +415,7 @@ tbody tr:last-child>td{border-bottom-color:var(--line)}
 /* ---- sign-in / MFA gate ---- */
 #gate{background-color:var(--bg);background-image:var(--bgfx)}
 .gbox{padding:30px;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--glass);background-color:var(--surface);
-  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 30px 70px -24px rgba(15,23,42,.35);animation:scaleIn .3s cubic-bezier(.2,.9,.25,1) both}
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 30px 70px -24px rgba(15,23,42,.35)}
 .gbox h1{font-size:24px;letter-spacing:-.04em}
 .gbox input{border-radius:var(--r-sm);padding:10px 12px;transition:border-color .16s,box-shadow .16s}
 .gbox input:focus{border-color:var(--accent);box-shadow:var(--glow);outline:none}
@@ -395,7 +442,12 @@ tbody tr:last-child>td{border-bottom-color:var(--line)}
 }
 @media(max-width:420px){.ctrls{grid-template-columns:1fr 1fr}.brand h1{font-size:17px}.tabs button{padding:8px;font-size:11px}.tabs button::before{display:none}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.panel.card{padding:15px}.card b{font-size:22px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.btn:hover,.panel.card:hover,.tabs button:hover{transform:none!important}}
-
+/* ---- privacy notice links ---- */
+.plink{margin-top:auto;padding:12px 12px 2px;font-size:12px}
+.plink a,.gfoot a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.plink a:hover,.gfoot a:hover{color:var(--accent-text)}
+.gfoot{margin:16px 0 0;text-align:center;font-size:12px}
+@media(max-width:700px){.plink{display:none}}
 </style>
 
 </head>
@@ -429,6 +481,7 @@ tbody tr:last-child>td{border-bottom-color:var(--line)}
     <button role="tab" data-act="tab" data-tab="employees">Employees</button>
     <button role="tab" data-act="tab" data-tab="settings">Settings</button>
   </nav>
+  <div class="plink"><a href="privacy.html" target="_blank" rel="noopener">Privacy notice</a></div>
   </div>
   <main id="view"></main>
 </div>
@@ -439,9 +492,9 @@ tbody tr:last-child>td{border-bottom-color:var(--line)}
 <input type="file" id="restoreIn" accept=".json,application/json" hidden>
 <input type="file" id="sigIn" accept="image/*" hidden>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="supabase.js"></script>
+<script src="xlsx.full.min.js"></script>
+<script src="jszip.min.js"></script>
 <script>
 /* ---------- helpers ---------- */
 const $=s=>document.querySelector(s);
@@ -481,7 +534,7 @@ const sb=window.supabase.createClient(CFG.url,CFG.key,{auth:{persistSession:true
 const UIKEY='payrolldesk.ui',IDLE_MS=30*60*1000;
 const newId=()=>crypto.randomUUID();
 const UUID_RE=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-let pendingRestore=null,S=defaults(),tab='attendance',saveTimer=null,RO=false,me={id:'',email:'',role:''};
+let pendingRestore=null,S=defaults(),tab='attendance',saveTimer=null,RO=false,ENC=false,me={id:'',email:'',role:''};
 function setState(t){const el=$('#saveState');if(el)el.textContent=t}
 function uiLoad(){try{const u=JSON.parse(localStorage.getItem(UIKEY)||'null');if(u){if(u.period)S.period=Object.assign(S.period,u.period);if(u.siteFilter)S.siteFilter=u.siteFilter;if(u.tab)tab=u.tab}}catch(e){}}
 function uiSave(){try{localStorage.setItem(UIKEY,JSON.stringify({period:S.period,siteFilter:S.siteFilter,tab}))}catch(e){}}
@@ -489,6 +542,8 @@ function uiSave(){try{localStorage.setItem(UIKEY,JSON.stringify({period:S.period
 /* tables, keys and order (parents first when writing, children first when deleting) */
 const KEYS={locations:['key'],employees:['id'],payroll_paid:['payroll_key'],payroll_locks:['payroll_key'],attendance:['employee_id','work_date'],hour_overrides:['employee_id','work_date'],payroll_adjustments:['payroll_key','employee_id'],payroll_paid_rows:['payroll_key','employee_id'],settings:['id']};
 const UP=['locations','employees','payroll_paid','payroll_locks','attendance','hour_overrides','payroll_adjustments','payroll_paid_rows','settings'];
+/* The attendance-only role may write these two tables and nothing else. */
+const ENC_T=['attendance','hour_overrides'];
 const DOWN=['payroll_paid_rows','payroll_adjustments','hour_overrides','attendance','payroll_locks','payroll_paid','employees','locations'];
 
 function normalize(){
@@ -505,7 +560,7 @@ function normalize(){
   for(const id in S.hrs){if(!ids.has(id))continue;for(const d in S.hrs[id]){const o=S.hrs[id][d];
     put('hour_overrides',{employee_id:id,work_date:d,regular:o.r!=null?num(o.r):null,overtime:num(o.o),sick:num(o.s),vacation:num(o.v)})}}
   for(const pk in S.adj){for(const id in S.adj[pk]){if(!ids.has(id))continue;const a=S.adj[pk][id];
-    put('payroll_adjustments',{payroll_key:pk,employee_id:id,rate:a.rate!=null?num(a.rate):null,wage_type:a.type==='monthly'||a.type==='daily'?a.type:null,deductions:(a.ded||[]).map(x=>({l:x.l,a:x.a}))})}}
+    put('payroll_adjustments',{payroll_key:pk,employee_id:id,rate:a.rate!=null?num(a.rate):null,wage_type:a.type==='monthly'||a.type==='daily'?a.type:null,deductions:(a.ded||[]).map(x=>x.m!=null?{l:x.l,a:num(x.a),m:num(x.m),gm:x.gm!=null?num(x.gm):null}:{l:x.l,a:x.a})})}}
   for(const pk in S.locked)if(S.locked[pk])put('payroll_locks',{payroll_key:pk});
   for(const pk in S.paid){const P=S.paid[pk];put('payroll_paid',{payroll_key:pk,label:P.label||''});
     for(const id in P.rows){if(!ids.has(id))continue;const r=P.rows[id];
@@ -519,6 +574,7 @@ let snap=null,syncing=false,dirty=false,allowBulk=false,retryT=null;
 function diff(cur){
   const up={},del={};let delCount=0,upCount=0;
   UP.forEach(t=>{up[t]=[];del[t]=[];
+    if(ENC&&!ENC_T.includes(t))return;
     for(const [k,v] of cur[t])if(snap[t].get(k)!==v.j){up[t].push(v.r);upCount++}
     for(const [k,j] of snap[t])if(!cur[t].has(k)){del[t].push(JSON.parse(j));delCount++}});
   return {up,del,delCount,upCount};
@@ -561,8 +617,12 @@ window.addEventListener('beforeunload',e=>{if(!RO&&(saveTimer||syncing||dirty||r
 async function fetchAll(t,order){let out=[],from=0;
   for(;;){let q=sb.from(t).select('*');order.forEach(o=>{q=q.order(o)});const {data,error}=await q.range(from,from+999);if(error)throw error;out=out.concat(data);if(data.length<1000)break;from+=1000}
   return out}
+/* The attendance-only role gets names and a few safe settings through two database functions, never the employees or settings tables. */
+async function rpcAll(fn){const {data,error}=await sb.rpc(fn);if(error)throw error;
+  return (data||[]).map(r=>Object.assign({wage_type:'daily',rate:0,deduction:0,address:'',contact:'',email:'',manager:'',ca_plan:null,ca_log:[],funds_on:false,funds_amount:0,funds_total:0,funds_log:[],ded_prefs:{}},r))}
+async function rpcSettings(){const {data,error}=await sb.rpc('get_settings_basic');if(error)throw error;return [{data:data||{}}]}
 async function loadAll(){
-  const [loc,emp,att,hrs,adj,lck,pd,pdr,set]=await Promise.all([fetchAll('locations',['key']),fetchAll('employees',['created_at','id']),fetchAll('attendance',['employee_id','work_date']),fetchAll('hour_overrides',['employee_id','work_date']),fetchAll('payroll_adjustments',['payroll_key','employee_id']),fetchAll('payroll_locks',['payroll_key']),fetchAll('payroll_paid',['payroll_key']),fetchAll('payroll_paid_rows',['payroll_key','employee_id']),fetchAll('settings',['id'])]);
+  const [loc,emp,att,hrs,adj,lck,pd,pdr,set]=await Promise.all([fetchAll('locations',['key']),ENC?rpcAll('get_employees_basic'):fetchAll('employees',['created_at','id']),fetchAll('attendance',['employee_id','work_date']),fetchAll('hour_overrides',['employee_id','work_date']),ENC?[]:fetchAll('payroll_adjustments',['payroll_key','employee_id']),fetchAll('payroll_locks',['payroll_key']),ENC?[]:fetchAll('payroll_paid',['payroll_key']),ENC?[]:fetchAll('payroll_paid_rows',['payroll_key','employee_id']),ENC?rpcSettings():fetchAll('settings',['id'])]);
   const o=defaults();
   o.settings=Object.assign(o.settings,(set[0]&&set[0].data)||{});if(o.settings.company==='Eastland Management Consultancy & Ass.')o.settings.company='EASTLAND MANAGEMENT CONSULTANCY and ASSISTANCE SERVICES CO.';o.settings.restDays=[0];if(!o.settings.companyAddress)o.settings.companyAddress='Unit G-H Everex Minimart BLDG., Sitio Halang na Gubat, Brgy. Sampaloc Tanay, Rizal';
   const sites={};loc.forEach(l=>sites[l.key]=l.name);o.settings.sites=Object.keys(sites).length?sites:{office:'Office',field:'Site'};
@@ -577,7 +637,7 @@ async function loadAll(){
 }
 
 /* ---------- sign-in screens ---------- */
-const gate=h=>{$('#gate').innerHTML='<div class="gbox">'+h+'</div>';document.documentElement.classList.add('locked');$('#gate').hidden=false};
+const gate=h=>{$('#gate').innerHTML='<div class="gbox">'+h+'<p class="gfoot"><a href="privacy.html" target="_blank" rel="noopener">Privacy notice</a></p></div>';document.documentElement.classList.add('locked');$('#gate').hidden=false};
 const gmsg=t=>{const m=$('#gmsg');if(m)m.textContent=t||''};
 function showLogin(msg){
   gate('<h1>Payroll Desk</h1><p class="muted">Sign in to continue.</p><form id="fLogin" autocomplete="on"><label>Email<input type="email" id="gEmail" autocomplete="username" required></label><label>Password<input type="password" id="gPass" autocomplete="current-password" required></label><p id="gmsg" class="gerr" role="alert">'+(msg||'')+'</p><button class="btn primary" type="submit" id="gBtn">Sign in</button></form>');
@@ -622,18 +682,18 @@ async function afterPassword(){
   if(e3)throw e3;showEnrol(data);
 }
 async function enter(){
-  gate('<h1>Payroll Desk</h1><p class="muted">Loading your data…</p>');
+  gate('<h1>Payroll Desk</h1><p class="muted">Loading your data…</p><div class="skel" aria-hidden="true"><i style="width:100%"></i><i style="width:82%"></i><i style="width:91%"></i><i style="width:64%"></i></div>');
   const {data:{user}}=await sb.auth.getUser();
   if(!user)return showLogin();
   me={id:user.id,email:user.email||'',role:''};
   const {data:st,error}=await sb.from('staff_users').select('role').eq('user_id',user.id).maybeSingle();
   if(error)return showFail('Could not check your access. '+error.message);
   if(!st)return showNoAccess();
-  me.role=st.role;RO=st.role!=='admin';
+  me.role=st.role;ENC=st.role==='encoder';RO=st.role!=='admin'&&!ENC;if(ENC){tab='attendance';document.documentElement.classList.add('enc')}
   try{S=await loadAll()}catch(e){return showFail('Could not load the data. '+(e.message||e))}
-  uiLoad();snap=toSnap(normalize());
+  uiLoad();if(ENC)tab='attendance';snap=toSnap(normalize());
   $('#gate').hidden=true;document.documentElement.classList.remove('locked');
-  $('#who').textContent=me.email+(RO?' (view only)':'');
+  $('#who').textContent=me.email+(RO?' (view only)':ENC?' (attendance only)':'');
   setState(RO?'View only. Changes are not saved.':'Saved');
   syncHeader();render();startIdle();
 }
@@ -681,15 +741,17 @@ function periodLabel(){
   const {y,m}=ymParts();const dim=new Date(y,m,0).getDate();const mn=MONTHS[m-1]+' '+y;
   if(S.period.part==='first')return '1–15 '+mn;if(S.period.part==='second')return '16–'+dim+' '+mn;return mn;
 }
-const periodWord=()=>S.period.part==='week'?'Weekly':S.period.part==='month'?'Monthly':'Semi-monthly';
-function periodDateText(){const d=periodDates();return S.period.part==='week'?fmtUS(d[6]):fmtUS(d[0])+' – '+fmtUS(d[d.length-1])}
+function periodDateText(){const d=periodDates(),a=d[0],z=d[d.length-1],p2=n=>String(+n).padStart(2,'0'),mn=i=>MONTHS[+i.slice(5,7)-1],dd=i=>p2(i.slice(8));
+  if(a.slice(0,7)===z.slice(0,7))return mn(a)+' '+dd(a)+'-'+dd(z)+', '+z.slice(0,4);
+  if(a.slice(0,4)===z.slice(0,4))return mn(a)+' '+dd(a)+' - '+mn(z)+' '+dd(z)+', '+z.slice(0,4);
+  return mn(a)+' '+dd(a)+', '+a.slice(0,4)+' - '+mn(z)+' '+dd(z)+', '+z.slice(0,4)}
 const siteName=k=>S.settings.sites[k]||k;
 /* Employees stay together by location in the order of settings.locOrder, then A to Z by name. Locations not in that list come last. */
 const LOC_NAMES=['OFFICE','OFFICE SITE','DAYAPA SITE','PA-OO SITE','BINANGONAN SITE','BARAS SITE'];
 const normLoc=t=>String(t||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
 /* Rank by the location's current name first (so renamed or re-created locations still sort right), then by its saved key. */
 const siteRank=k=>{const n=LOC_NAMES.map(normLoc).indexOf(normLoc(siteName(k)));if(n>=0)return n;const i=(S.settings.locOrder||[]).indexOf(k);return i<0?1e6:100+i};
-const empCmp=(a,b)=>siteRank(a.site)-siteRank(b.site)||siteName(a.site).localeCompare(siteName(b.site),undefined,{sensitivity:'base'})||(a.name||'').localeCompare(b.name||'',undefined,{sensitivity:'base'});
+const empCmp=(a,b)=>siteRank(a.site)-siteRank(b.site)||siteName(a.site).localeCompare(siteName(b.site),undefined,{sensitivity:'base'})||nameCmp(a.name,b.name);
 function filterLabel(){const f=S.siteFilter;return f==='all'?'':f.startsWith('g:')?f.slice(2):siteName(f)}
 
 /* ---------- employees + calc ---------- */
@@ -701,6 +763,9 @@ const ofType=(l,t)=>t==='all'?l:l.filter(e=>adjOf(e).type===t);
 /* Payslip sheets follow "Group on payslip": WEEKLY goes with Daily wage, SEMI - MONTHLY with Monthly salary. Other groups fall back to the wage type. */
 const slipKind=e=>{const g=(e.group||'').toLowerCase().replace(/[^a-z]/g,'');return g.startsWith('semi')?'monthly':g.startsWith('week')?'daily':adjOf(e).type};
 const ofSlipType=(l,t)=>t==='all'?l:l.filter(e=>slipKind(e)===t);
+/* Gross pay as printed everywhere: regular pay + overtime pay + any leave pay. Net = gross - deductions. */
+const regPay=c=>c.gross+c.paySick+c.payVac;   /* regular pay: full pay for the period (absences are a deduction), plus any leave pay */
+const grossAll=c=>regPay(c)+c.payOt;
 function visibleEmps(){
   const pk=pKey(),lk=S.locked[pk],f=S.siteFilter;
   const ok=e=>f==='all'||((S.settings.sites[f]!==undefined)?e.site===f:('g:'+(e.group||''))===f);
@@ -712,6 +777,14 @@ const who=()=>(typeof me!=='undefined'&&me&&me.email)||'User';
 const DED_PRESETS=[{k:'Late',n:'Late'},{k:'Cash Advance',n:'Cash Advance'},{k:'Fund',n:'Fund',rec:1},{k:'LWOP',n:'LWOP (Leave without Pay)'},{k:'SSS',n:'SSS',rec:1},{k:'PHILHEALTH',n:'PHILHEALTH',rec:1},{k:'Pag-Ibig',n:'Pag-Ibig',rec:1}];
 const dedKey=l=>{const t=String(l||'').toLowerCase().replace(/[^a-z]/g,'');return ({absent:'Absent',halfday:'Half day',late:'Late',cashadvance:'Cash Advance',fund:'Fund',funds:'Fund',lwop:'LWOP',lwopleavewithoutpay:'LWOP',sss:'SSS',philhealth:'PHILHEALTH',pagibig:'Pag-Ibig'})[t]||null};
 const prefsOf=e=>(e&&e.dedPrefs)||{};
+/* Late is typed as minutes. 1 minute = daily rate / hours per day / 60. The monthly grace (Settings) is shared by every pay run of the same month, by the month of the run's last day. */
+const pkEnd=pk=>{let m=/^w:(\d{4}-\d\d-\d\d)$/.exec(pk);if(m)return m[1];m=/^(\d{4})-(\d\d):(first|second|month)$/.exec(pk);if(!m)return '';return m[3]==='first'?m[1]+'-'+m[2]+'-15':m[1]+'-'+m[2]+'-'+String(new Date(+m[1],+m[2],0).getDate()).padStart(2,'0')};
+const lateMin=(e,pk)=>{const o=(S.adj[pk]||{})[e.id];return o&&Array.isArray(o.ded)?o.ded.reduce((t,x)=>t+(dedKey(x.l)==='Late'&&x.m!=null?num(x.m):0),0):0};
+function lateBefore(e){const pk0=pKey(),end=pkEnd(pk0);if(!end)return 0;let t=0;for(const pk in S.adj){if(pk===pk0)continue;const en=pkEnd(pk);if(en&&en.slice(0,7)===end.slice(0,7)&&en<end)t+=lateMin(e,pk)}return t}
+const lateEq=(rate,type)=>type==='monthly'?num(rate)/((S.settings.factor||313)/12):num(rate);
+function lateCalc(e,rate,type,m){const G=S.settings.lateGrace?30:0,pr=lateBefore(e),gm=Math.max(0,pr+m-G)-Math.max(0,pr-G),H=S.settings.hoursPerDay||8;return {gm,a:Math.round(gm*lateEq(rate,type)/H/60*100)/100}}
+function lateInfoHTML(e,a,leg){const G=S.settings.lateGrace?30:0,pr=lateBefore(e),H=S.settings.hoursPerDay||8,pm=lateEq(a.rate,a.type)/H/60;
+  return '<div class="muted" style="margin:-2px 0 2px 24px;font-size:12px">1 minute = '+money(pm)+' (rate ÷ '+H+' hrs ÷ 60). '+(G?'Monthly grace is on: '+Math.min(G,pr)+' of '+G+' free minutes already used this month, '+Math.max(0,G-pr)+' left.':'Monthly grace is off (Settings).')+(leg?' This payroll has an older Late amount of '+money(leg)+' typed in pesos. It stays unless you type minutes here.':'')+'</div>'}
 const fundOn=e=>!!(prefsOf(e).Fund||{}).on;
 /* Cash advance paid back in equal instalments (3, 6, 9 or 12 payrolls). Progress moves when a payroll is recorded as paid. */
 const isSemi=e=>/semi/i.test((e&&e.group)||'');
@@ -734,6 +807,8 @@ function adjOf(e){
   {const pr=((S.paid[pKey()]||{}).rows||{})[e.id];
     if(pr){ded=ded.filter(x=>dedKey(x.l)!=='Cash Advance'||x.cap);if(pr.ca&&pr.ca.a>0&&!ded.some(x=>x.cap))ded=ded.concat([{l:'Cash Advance ('+pr.ca.i+'/'+pr.ca.n+')',a:pr.ca.a,cap:pr.ca}])}
     else if(!S.locked[pKey()]&&S.period.part!=='month'&&caActive(e)){const n=caNext(e.caPlan);ded=ded.filter(x=>dedKey(x.l)!=='Cash Advance').concat([{l:'Cash Advance ('+n.i+'/'+n.n+')',a:n.a,cap:n}])}}
+  const rt=a.rate!=null?a.rate:e.rate,ty=a.type||e.wageType;
+  if(!S.locked[pKey()])ded=ded.map(x=>{if(dedKey(x.l)!=='Late'||x.m==null)return x;const r=lateCalc(e,rt,ty,num(x.m));return Object.assign({},x,{a:r.a,gm:r.gm})});
   const funds=a.funds!=null?num(a.funds):0;
   return {rate:a.rate!=null?a.rate:e.rate,type:a.type||e.wageType,ded,funds,edited:a.rate!=null&&a.rate!==e.rate&&!S.locked[pKey()]};
 }
@@ -774,7 +849,7 @@ function calcCore(e,dates,a,part){
   /* Absence is shown as a deduction: Gross is the full pay, and Absent = absent days x one day's rate. Net pay is unchanged. */
   const gross0=gross,absX=monthly?Math.min(aEq,absentDays):aEq,absAmt=absX>0?absX*eqDay:0;gross=gross0+absAmt;
   const payOt=ot*hourly*otR,paySick=monthly?0:sick*hourly,payVac=monthly?0:vac*hourly;
-  const ded0=a.ded||[],hX=aEq>0?absX*hEq/aEq:0,aX=absX-hX,ded=(aX*eqDay>0.004?[{l:'Absent',a:aX*eqDay,auto:true,days:aX}]:[]).concat(hX*eqDay>0.004?[{l:'Half day',a:hX*eqDay,auto:true,days:hX,half:true}]:[]).concat(ded0.filter(x=>!['Fund','Absent','Half day'].includes(dedKey(x.l)))),funds=num(a.funds)+ded0.filter(x=>dedKey(x.l)==='Fund').reduce((t,x)=>t+num(x.a),0),dedOther=ded.reduce((t,x)=>t+num(x.a),0),dedTotal=dedOther+funds,net=gross-dedTotal+payOt+paySick+payVac;
+  const ded0=a.ded||[],hX=aEq>0?absX*hEq/aEq:0,aX=absX-hX,ded=(aX*eqDay>0.004?[{l:'Absent',a:aX*eqDay,auto:true,days:aX}]:[]).concat(hX*eqDay>0.004?[{l:'Half day',a:hX*eqDay,auto:true,days:hX,half:true}]:[]).concat(ded0.filter(x=>!['Fund','Absent','Half day'].includes(dedKey(x.l))&&!(x.m!=null&&!(num(x.a)>0)))),funds=num(a.funds)+ded0.filter(x=>dedKey(x.l)==='Fund').reduce((t,x)=>t+num(x.a),0),dedOther=ded.reduce((t,x)=>t+num(x.a),0),dedTotal=dedOther+funds,net=gross-dedTotal+payOt+paySick+payVac;
   const by={};dates.forEach(d=>{const h=per[d];by[d]=(monthly?gross0/dates.length:(days>0?gross0*dEq[d]/days:0))+h.o*hourly*otR+(monthly?0:(h.s+h.v)*hourly)});
   return {absAmt,absDays:absX,reg,ot,sick,vac,unmarked,absent,rate:a.rate,type:a.type,hourly,gross,payOt,paySick,payVac,ded,dedOther,funds,dedTotal,net,edited:a.edited,by,monthly,eqDay,absEq,restEq:premEq,frac,workDays,vars,formula,days};
 }
@@ -826,31 +901,78 @@ function syncHeader(){
   $('#weekCtl').hidden=p.part!=='week';$('#endIn').value=p.end;
   document.querySelectorAll('#partSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.part===p.part));
   document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===tab));
-  const groups=[...new Set(S.employees.map(e=>(e.group||'').trim()).filter(Boolean))].sort();
   const sel=$('#siteSel');
   sel.innerHTML='<option value="all">All Location</option>'+Object.keys(S.settings.sites).map(k=>'<option value="'+esc(k)+'">'+esc(siteName(k))+'</option>').join('');
   sel.value=S.siteFilter;if(sel.value!==S.siteFilter){S.siteFilter='all';sel.value='all'}
 }
 
 /* ---------- views ---------- */
+/* Keep the scroll position when a screen is redrawn after a change (marking a day, saving a deduction, ...). */
+function scrollSnap(){
+  const el=document.scrollingElement||document.documentElement;
+  return {y:el.scrollTop,x:el.scrollLeft,box:[...document.querySelectorAll('#view .scroll')].map(n=>[n.scrollTop,n.scrollLeft])};
+}
+function scrollBack(s){
+  if(!s)return;
+  [...document.querySelectorAll('#view .scroll')].forEach((n,i)=>{const b=s.box[i];if(b){n.scrollTop=b[0];n.scrollLeft=b[1]}});
+  const el=document.scrollingElement||document.documentElement;el.scrollTop=s.y;el.scrollLeft=s.x;
+}
+/* ---------- motion: all of it is switched off when the device asks for reduced motion ---------- */
+const calm=()=>!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+const numMem={},rowMem={};
+/* Totals roll from the old value to the new one. The last frame always shows the exact value. */
+function countTo(el,to,fmt){
+  if(!el)return;const id=el.id||'',from=numMem[id];numMem[id]=to;
+  if(el.__raf){cancelAnimationFrame(el.__raf);el.__raf=0}
+  const cur=el.__cur!=null?el.__cur:from;
+  if(calm()||cur==null||Math.abs(cur-to)<0.005){el.__cur=to;el.textContent=fmt(to);return}
+  const t0=performance.now(),D=700;el.textContent=fmt(cur);
+  const step=t=>{const k=Math.min(1,(t-t0)/D),v=k<1?cur+(to-cur)*(1-Math.pow(1-k,3)):to;el.__cur=v;el.textContent=fmt(v);el.__raf=k<1?requestAnimationFrame(step):0};
+  el.__raf=requestAnimationFrame(step)}
+/* Progress bar for long exports. */
+const prog={
+  show(t,d,n){let el=document.getElementById('prog');if(!el){el=document.createElement('div');el.id='prog';el.setAttribute('role','status');el.innerHTML='<div class="pl"></div><div class="pb"><i></i></div>';document.body.appendChild(el)}
+    el.querySelector('.pl').textContent=t;el.querySelector('i').style.width=(n?Math.max(3,Math.min(100,d/n*100)):3)+'%';el.style.display='block'},
+  hide(){const el=document.getElementById('prog');if(el)el.style.display='none'}};
+function popEl(el){if(!el||calm())return;el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop')}
+function lockPop(){[...document.querySelectorAll('#view .note')].filter(n=>/^Locked/.test(n.textContent)).forEach(popEl);document.querySelectorAll('#view [data-act=lock],#view [data-act=unpay]').forEach(popEl)}
+let lastView='';
 function render(){
+  if(ENC)tab='attendance';
   syncHeader();
-  const v=$('#view');
+  const v=$('#view'),key=tab+'|'+pKey()+'|'+S.siteFilter,fresh=key!==lastView,keep=fresh?null:scrollSnap();
+  lastView=key;
+  if(fresh){for(const k in numMem)delete numMem[k];for(const k in rowMem)delete rowMem[k];if(!calm()){v.classList.remove('vin');void v.offsetWidth;v.classList.add('vin');clearTimeout(v.__vt);v.__vt=setTimeout(()=>v.classList.remove('vin'),900)}}
   if(tab==='attendance')v.innerHTML=viewAttendance();
   else if(tab==='payroll')v.innerHTML=viewPayroll();
   else if(tab==='reconcile')v.innerHTML=viewReconcile();
   else if(tab==='employees')v.innerHTML=viewEmployees();
   else v.innerHTML=viewSettings();
+  scrollBack(keep);
+  if(tab==='payroll')refreshPayroll();
 }
 function emptyState(imp){
   return '<div class="panel empty"><h2>Start with your biometric report</h2><p>Upload the .xls file from the biometric software. Employees and their present or absent days are filled in for you. Staff at the manual site are added by hand and marked with a click.</p>'+
   '<div class="bar">'+(imp?'<button class="btn primary" data-act="import">IMPORT BIOMETRICS</button><button class="btn" data-act="addEmp">Add an employee</button>':'<button class="btn primary" data-act="addEmp">Add an employee</button><button class="btn" data-act="tab" data-tab="attendance">Go to Attendance to import</button>')+'</div></div>';
 }
-function lockedBanner(){return S.locked[pKey()]?'<div class="note">This payroll is locked. Open the Payroll tab and choose Unlock to change it.</div>':''}
+function lockedBanner(){return S.locked[pKey()]?'<div class="note">'+(ENC?'This period is locked. Ask the admin to unlock it before you change attendance.':'This payroll is locked. Open the Payroll tab and choose Unlock to change it.')+'</div>':''}
 
+/* Names: surname A to Z. A surname can be several words (De Leon, Del Rosario, De la Cruz); Jr., Sr., II, III, IV are not part of it. */
+const SURNAME_PARTS=new Set(['de','del','dela','delas','delos','della','di','da','dos','van','von','la','le','san','santa','sta','sto','st']);
+function nameParts(name){
+  let n=String(name||'').replace(/\s+/g,' ').trim(),sur='',given='',suf='';
+  const sm=n.match(/^(.*?)[\s,]+(jr\.?|sr\.?|ii|iii|iv)$/i);if(sm&&sm[1]&&/\S\s+\S/.test(sm[1].trim())){n=sm[1].replace(/,\s*$/,'');suf=sm[2]}
+  if(n.includes(',')){const i=n.indexOf(',');sur=n.slice(0,i).trim();given=n.slice(i+1).trim()}
+  else{const t=n.split(' ').filter(Boolean);
+    if(t.length<2){sur=t[0]||''}
+    else{let k=t.length-1;while(k>1&&SURNAME_PARTS.has(t[k-1].toLowerCase().replace(/\.$/,'')))k--;sur=t.slice(k).join(' ');given=t.slice(0,k).join(' ')}}
+  return {sur,given,suf};
+}
+const nameCmp=(a,b)=>{const c=(x,y)=>x.localeCompare(y,'en',{sensitivity:'base',numeric:true}),x=nameParts(a),y=nameParts(b);return c(x.sur,y.sur)||c(x.given,y.given)||c(x.suf,y.suf)||c(String(a||''),String(b||''))};
+const bySurname=list=>list.slice().sort((a,b)=>nameCmp(a.name,b.name));
 function viewAttendance(){
-  if(!S.employees.length)return emptyState(true);
-  const dates=periodDates(),emps=visibleEmps(),H=S.settings.hoursPerDay;
+  if(!S.employees.length)return ENC?'<div class="panel empty"><h2>No employees yet</h2><p>The admin has not added any employees. Ask the admin to import the biometric report.</p></div>':emptyState(true);
+  const dates=periodDates(),emps=bySurname(visibleEmps()),H=S.settings.hoursPerDay;
   const head=dates.map(d=>'<th class="day'+(isWork(d)?'':' rest')+'" data-act="dayHead" data-d="'+d+'" title="Mark everyone present on this day"><span>'+d.slice(8)+'</span><small>'+DOW[dowOf(d)]+'</small></th>').join('');
   let rows='';
   for(const e of emps){
@@ -860,29 +982,29 @@ function viewAttendance(){
     const c=calc(e);
     rows+='<tr><td class="lead"><b>'+esc(e.name)+'</b><br><small class="muted">'+esc(e.group||siteName(e.site))+'</small></td>'+cells+
       '<td class="sum">'+fd(c.reg/H)+'</td><td class="sum bad">'+(c.absent||'')+'</td><td class="sum warn">'+(c.unmarked||'')+'</td>'+
-      '<td class="sum"><button class="btn sm" data-act="rowAll" data-e="'+e.id+'">All present</button> <button class="btn sm" data-act="hours" data-e="'+e.id+'">Hours</button></td></tr>';
+      '<td class="sum"><button class="btn sm" data-act="hours" data-e="'+e.id+'">Hours</button></td></tr>';
   }
   const foot=dates.map(d=>{let n=0;emps.forEach(e=>{if(dayHrs(e,d).r>0)n++});return '<td>'+(n||'')+'</td>'}).join('');
   return lockedBanner()+
-  '<div class="bar"><button class="btn primary" data-act="import">IMPORT BIOMETRICS</button>'+
+  '<div class="bar">'+(ENC?'':'<button class="btn primary" data-act="import">IMPORT BIOMETRICS</button>')+
   '<button class="btn" data-act="markAll">Mark all unmarked days present</button><button class="btn" data-act="unmarkAll">Unmark all</button><span class="grow"></span>'+
   '<div class="legend"><span><span class="chip P">P</span> present ('+H+' hrs)</span><span><span class="chip H">½</span> half day</span><span><span class="chip A">A</span> absent</span><span><span class="chip R">·</span> rest day (OFF)</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--accent)"></span> custom hours</span><span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--warn)"></span> one punch only</span></div></div>'+
   '<div class="panel scroll"><table class="grid"><thead><tr><th class="lead">Employee</th>'+head+'<th>Days</th><th>Absent</th><th>Unmarked</th><th></th></tr></thead><tbody>'+rows+'</tbody>'+
   '<tfoot><tr><td class="lead">Working per day</td>'+foot+'<td colspan="4"></td></tr></tfoot></table></div>'+
-  '<p class="muted" style="margin-top:10px">Click a day to cycle present, half day, absent, blank. Click a date at the top to mark everyone present that day. Use Hours to type overtime, sick or vacation hours. A rest day left blank prints OFF on the payslip.</p>';
+  '<p class="muted" style="margin-top:10px">Click a day to cycle present, half day, absent, blank. Click a date at the top to mark everyone present that day. Use Hours to type overtime hours. A rest day left blank prints OFF on the payslip.</p>';
 }
 
 function viewPayroll(){
   if(!S.employees.length)return emptyState();
   const emps=visibleEmps(),locked=!!S.locked[pKey()],dis=locked?' disabled':'',paidRows=(S.paid[pKey()]||{}).rows||{},nPaid=emps.filter(e=>paidRows[e.id]).length;
   const chg=emps.filter(e=>paidRows[e.id]&&Math.abs(paidRows[e.id].net-calc(e).net)>0.005);
-  const T={reg:0,ot:0,sick:0,vac:0,gross:0,ded:0,net:0};let unm=0,rows='';
+  const T={reg:0,ot:0,sick:0,vac:0,rp:0,op:0,gross:0,ded:0,net:0};let unm=0,rows='';
   for(const e of emps){
-    const c=calc(e);T.reg+=c.reg;T.ot+=c.ot;T.sick+=c.sick;T.vac+=c.vac;T.gross+=c.gross;T.ded+=c.dedTotal;T.net+=c.net;unm+=c.unmarked;
+    const c=calc(e);T.reg+=c.reg;T.ot+=c.ot;T.sick+=c.sick;T.vac+=c.vac;T.rp+=regPay(c);T.op+=c.payOt;T.gross+=grossAll(c);T.ded+=c.dedTotal;T.net+=c.net;unm+=c.unmarked;
     rows+='<tr data-e="'+e.id+'"><td class="name">'+esc(e.name)+(paidRows[e.id]?' <span class="badge good" title="'+esc('Paid '+fmtUS(paidRows[e.id].date)+(paidRows[e.id].ref?' · '+paidRows[e.id].ref:''))+'">Paid '+esc(fmtMD(paidRows[e.id].date))+'</span>':'')+(paidRows[e.id]&&Math.abs(paidRows[e.id].net-c.net)>0.005?' <span class="badge warn" title="'+esc('Paid '+money(paidRows[e.id].net)+', now '+money(c.net))+'">Changed since paid</span>':'')+(c.unmarked?' <span class="badge warn" title="Working days not marked pay nothing">'+c.unmarked+' unmarked</span>':'')+'<small>'+esc(e.group||siteName(e.site))+' · '+(c.type==='daily'?'Daily wage':'Monthly salary')+'</small></td>'+
     '<td><input class="num'+(c.edited?' edited':'')+(c.rate?'':' missing')+'" type="number" step="0.01" min="0" inputmode="decimal" data-f="rate" value="'+c.rate+'" aria-label="Rate for '+esc(e.name)+'"'+dis+(c.edited?' title="Changed for this payroll only"':'')+'><small class="muted" data-c="hourly" style="display:block;text-align:right">'+money(c.hourly)+' / hr</small></td>'+
     '<td class="n" data-c="reg">'+fh(c.reg)+'</td><td class="n" data-c="ot">'+fh(c.ot)+'</td><td class="n" data-c="sick">'+fh(c.sick)+'</td><td class="n" data-c="vac">'+fh(c.vac)+'</td>'+
-    '<td class="n" data-c="gross">'+money(c.gross)+'</td>'+
+    '<td class="n" data-c="regpay">'+money(regPay(c))+'</td><td class="n" data-c="otpay">'+money(c.payOt)+'</td><td class="n" data-c="gross">'+money(grossAll(c))+'</td>'+
     '<td class="n"><button class="btn sm" data-act="ded" data-e="'+e.id+'"'+dis+' data-c="ded">'+(c.dedTotal?money(c.dedTotal):'Add')+'</button></td>'+
     '<td class="n" data-c="net"><b>'+money(c.net)+'</b></td>'+
     '<td><button class="btn sm" data-act="why" data-e="'+e.id+'">Computation</button> <button class="btn sm" data-act="hours" data-e="'+e.id+'"'+dis+'>Hours</button> <button class="btn sm" data-act="slip" data-e="'+e.id+'">Payslip JPG</button></td></tr>';
@@ -895,19 +1017,21 @@ function viewPayroll(){
   '<div class="bar">'+menuHTML('sum','PAYROLL SUMMARY',false)+menuHTML('zip','PAYSLIP (ZIP)',false)+'<button class="btn" data-act="excel">Excel</button><span class="grow"></span>'+
   '<button class="btn" data-act="'+(nPaid&&nPaid===emps.length?'unpay':'markPaid')+'">'+(nPaid&&nPaid===emps.length?'Undo payment':'Mark as paid')+'</button> <button class="btn" data-act="lock">'+(locked?'Unlock this payroll':'Lock this payroll')+'</button></div>'+
   (locked?'<div class="note">Locked. Rates and deductions are saved as they are now, even if you later change an employee\'s salary.</div>':'')+
-  '<div class="panel scroll"><table><thead><tr><th>Employee</th><th class="n">Rate</th><th class="n">Regular hrs</th><th class="n">OT hrs</th><th class="n">Sick</th><th class="n">Vacation</th><th class="n">Gross pay</th><th class="n">Deductions</th><th class="n">Net pay</th><th></th></tr></thead><tbody>'+rows+
-  '</tbody><tfoot><tr><td>Total</td><td></td><td class="n" id="tReg">'+fh(T.reg)+'</td><td class="n" id="tOt">'+fh(T.ot)+'</td><td class="n" id="tSick">'+fh(T.sick)+'</td><td class="n" id="tVac">'+fh(T.vac)+'</td><td class="n" id="tGross">'+money(T.gross)+'</td><td class="n" id="tDed">'+money(T.ded)+'</td><td class="n" id="tNet">'+money(T.net)+'</td><td></td></tr></tfoot></table></div>'+
+  '<div class="panel scroll"><table><thead><tr><th>Employee</th><th class="n">Rate</th><th class="n">Regular hrs</th><th class="n">OT hrs</th><th class="n">Sick</th><th class="n">Vacation</th><th class="n">Regular pay</th><th class="n">OT pay</th><th class="n">Gross pay</th><th class="n">Deductions</th><th class="n">Net pay</th><th></th></tr></thead><tbody>'+rows+
+  '</tbody><tfoot><tr><td>Total</td><td></td><td class="n" id="tReg">'+fh(T.reg)+'</td><td class="n" id="tOt">'+fh(T.ot)+'</td><td class="n" id="tSick">'+fh(T.sick)+'</td><td class="n" id="tVac">'+fh(T.vac)+'</td><td class="n" id="tRegPay">'+money(T.rp)+'</td><td class="n" id="tOtPay">'+money(T.op)+'</td><td class="n" id="tGross">'+money(T.gross)+'</td><td class="n" id="tDed">'+money(T.ded)+'</td><td class="n" id="tNet">'+money(T.net)+'</td><td></td></tr></tfoot></table></div>'+
   '<p class="muted" style="margin-top:10px">Rate is per day for daily wage, or per month for monthly salary. Rate per hour is the daily rate divided by '+S.settings.hoursPerDay+' hours. Overtime is paid at '+S.settings.otRate+' times the hourly rate. Editing a rate here changes this payroll only. Change it for good in the Employees tab.</p>';
 }
 function refreshPayroll(){
-  const T={reg:0,ot:0,sick:0,vac:0,gross:0,ded:0,net:0};
-  for(const e of visibleEmps()){const c=calc(e);T.reg+=c.reg;T.ot+=c.ot;T.sick+=c.sick;T.vac+=c.vac;T.gross+=c.gross;T.ded+=c.dedTotal;T.net+=c.net;
+  const T={reg:0,ot:0,sick:0,vac:0,rp:0,op:0,gross:0,ded:0,net:0};
+  for(const e of visibleEmps()){const c=calc(e);T.reg+=c.reg;T.ot+=c.ot;T.sick+=c.sick;T.vac+=c.vac;T.rp+=regPay(c);T.op+=c.payOt;T.gross+=grossAll(c);T.ded+=c.dedTotal;T.net+=c.net;
     const tr=document.querySelector('tr[data-e="'+e.id+'"]');if(!tr)continue;
-    tr.querySelector('[data-c=gross]').textContent=money(c.gross);tr.querySelector('[data-c=net]').innerHTML='<b>'+money(c.net)+'</b>';
+    {const prev=rowMem[e.id],g=grossAll(c);rowMem[e.id]={g,n:c.net};
+     if(prev&&!calm()&&(Math.abs(prev.n-c.net)>0.004||Math.abs(prev.g-g)>0.004))['gross','net'].forEach(k=>{const td=tr.querySelector('[data-c='+k+']');if(td){td.classList.remove('flash');void td.offsetWidth;td.classList.add('flash')}})}
+    tr.querySelector('[data-c=regpay]').textContent=money(regPay(c));tr.querySelector('[data-c=otpay]').textContent=money(c.payOt);tr.querySelector('[data-c=gross]').textContent=money(grossAll(c));tr.querySelector('[data-c=net]').innerHTML='<b>'+money(c.net)+'</b>';
     tr.querySelector('[data-c=hourly]').textContent=money(c.hourly)+' / hr';
     const r=tr.querySelector('[data-f=rate]');r.classList.toggle('edited',c.edited);r.classList.toggle('missing',!c.rate)}
-  const set=(id,v,h)=>{const el=$(id);if(el)el.textContent=h?fh(v):money(v)};
-  set('#tReg',T.reg,1);set('#tOt',T.ot,1);set('#tSick',T.sick,1);set('#tVac',T.vac,1);set('#tGross',T.gross);set('#tDed',T.ded);set('#tNet',T.net);set('#totNetCard',T.net);
+  const set=(id,v,h)=>countTo($(id),v,h?fh:money);
+  set('#tReg',T.reg,1);set('#tOt',T.ot,1);set('#tSick',T.sick,1);set('#tVac',T.vac,1);set('#tRegPay',T.rp);set('#tOtPay',T.op);set('#tGross',T.gross);set('#tDed',T.ded);set('#tNet',T.net);set('#totNetCard',T.net);
 }
 
 let empMode=null,empSel=new Set();
@@ -947,13 +1071,16 @@ function viewSettings(){
   '<div class="rates">'+
   '<div class="rate"><div class="rt">Regular hours in one day<span class="info" tabindex="0" role="note" aria-label="A present day counts this many hours. A half day counts half." data-tip="A present day counts this many hours. A half day counts half.">i</span></div><div class="rv"><input type="number" id="s_hpd" aria-label="Regular hours in one day" min="1" max="24" step="0.5" data-sf="hoursPerDay" value="'+s.hoursPerDay+'"><span class="unit">hours</span></div></div>'+
   '<div class="rate"><div class="rt">Overtime pay multiplier'+tipI('Overtime hours are paid at the hourly rate times this number.')+'</div><div class="rv"><input type="number" id="s_ot" aria-label="Overtime pay multiplier" min="0" step="0.05" data-sf="otRate" value="'+s.otRate+'"><span class="unit">× hourly rate</span></div></div>'+
-  '<div class="rate"><div class="rt">Factor for monthly salary'+tipI('Daily rate = monthly salary × 12 ÷ '+s.factor+' = salary ÷ '+(s.factor/12).toFixed(2)+'. One absent day deducts that daily rate.')+'</div><div class="rv"><select id="s_fac" aria-label="Factor for monthly salary" data-sf="factor">'+[[313,'313: 6-day week, Sunday rest day'],[261,'261: 5-day week, Saturday and Sunday rest'],[365,'365: paid every day']].map(o=>'<option value="'+o[0]+'"'+(+s.factor===o[0]?' selected':'')+'>'+o[1]+'</option>').join('')+'</select></div></div>'+
+  '<div class="rate"><div class="rt">Factor for monthly salary'+tipI('Daily rate = monthly salary × 12 ÷ '+s.factor+' = salary ÷ '+(s.factor/12).toFixed(2)+'. One absent day deducts that daily rate.')+'</div><div class="rv"><select id="s_fac" aria-label="Factor for monthly salary" data-sf="factor">'+[[312,'312: 6-day week, 26 working days a month'],[313,'313: 6-day week, Sunday rest day'],[261,'261: 5-day week, Saturday and Sunday rest'],[365,'365: paid every day']].map(o=>'<option value="'+o[0]+'"'+(+s.factor===o[0]?' selected':'')+'>'+o[1]+'</option>').join('')+'</select></div></div>'+
   '</div>'+
   '<h4 class="sub">Gross pay formulas</h4>'+
   '<div class="form two">'+
   '<div class="field"><label for="s_fd">Daily wage: gross pay ='+tipI('Names you can use: rate (pay per day), days (present = 1, half day = 0.5), hours, hourly. Example: rate * days')+'</label><input type="text" id="s_fd" data-sf="fDaily" value="'+esc(s.fDaily)+'" spellcheck="false" style="font-family:monospace"><button class="btn sm" type="button" data-act="fReset" data-f="fDaily" style="justify-self:start">Use standard formula</button></div>'+
   '<div class="field"><label for="s_fm">Monthly salary: gross pay ='+tipI('Names you can use: salary, share (1 for a full month, 1/2 for semi-monthly), absentDays, dailyRate, restDays, workDays. Also max, min, round.')+'</label><input type="text" id="s_fm" data-sf="fMonthly" value="'+esc(s.fMonthly)+'" spellcheck="false" style="font-family:monospace"><button class="btn sm" type="button" data-act="fReset" data-f="fMonthly" style="justify-self:start">Use standard formula</button></div></div></div>'+
-  '<div class="panel settings"><h3>Rest day and holiday pay</h3><p class="muted" style="margin:0 0 10px">Both are off until management approves. Tick them once approved.</p>'+
+  '<div class="panel settings"><h3>Payslip format</h3>'+
+  '<div class="chk"><label class="chk" style="margin:0"><input type="checkbox" data-sfb="newSlip"'+(s.newSlip?' checked':'')+'> Use the new payslip format</label>'+tipI('Applies to the payslip JPG and the 4-up sheet. Unticked = old format (green, with Regular, Overtime, Sick and Vacation columns). Ticked = new format (black and white, with Salary Period beside Salary).')+'</div></div>'+
+  '<div class="panel settings"><h3>Late, rest day and holiday pay</h3><p class="muted" style="margin:0 0 10px">These are off until you tick them. Tick the rest day and holiday options once management approves.</p>'+
+  '<div class="chk"><label class="chk" style="margin:0"><input type="checkbox" data-sfb="lateGrace"'+(s.lateGrace?' checked':'')+'> 30 minutes late grace per month (all employees)</label>'+tipI('Late is typed in minutes in each employee\'s Deductions. The first 30 late minutes of each calendar month are not deducted, counted across all pay runs of that month (a weekly run belongs to the month of its Friday). Minutes beyond 30 are deducted: minutes × daily rate ÷ hours per day ÷ 60. When this is off, every late minute is deducted.')+'</div>'+
   '<label class="chk"><input type="checkbox" data-sfb="restPremium"'+(s.restPremium?' checked':'')+'> Pay 130% for work on a rest day (Sunday)</label>'+
   '<div class="chk"><label class="chk" style="margin:0"><input type="checkbox" data-sfb="holidays"'+(s.holidays?' checked':'')+'> Use the holiday calendar</label>'+tipI('Regular holiday: not worked, paid 100% unless absent on the working day before. Worked, 200%. Worked on a rest day, 260%.\nSpecial non-working day: not worked, no work no pay. Worked, 130%. Worked on a rest day, 150%.\nRates apply to the regular hours of the day. Overtime keeps the single multiplier above. The holiday list is used only when the calendar is ticked.')+'</div>'+
   '<div style="height:8px"></div>'+
@@ -965,7 +1092,9 @@ function viewSettings(){
   '<div><b>Monthly staff:</b> daily equivalent = salary × 12 ÷ '+s.factor+' (salary ÷ '+(s.factor/12).toFixed(2)+'). Gross = salary − (absent days × daily equivalent) + rest days worked × daily equivalent. Weekly and semi-monthly payments take their share of the salary.</div>'+
   '<div><b>Overtime:</b> overtime hours × hourly rate × '+s.otRate+'.</div>'+
   '<div><b>Net pay:</b> gross + overtime + sick and vacation pay − deductions.</div>'+
+  '<div><b>Late:</b> typed in minutes. Deduction = minutes × daily rate ÷ hours per day ÷ 60, after the monthly grace when it is ticked.</div>'+
   '<div>You can change the numbers above (hours in one day, overtime multiplier, days for monthly salary, rest days) and each person\'s rate and deductions. Open Payroll and press Computation on any row to see the working for that person. If you want the formula itself changed, tell me the rule and I will update it.</div></div></div>'+
+  x13Panel()+
   '<div class="panel settings"><h3>Backup</h3><p class="muted" style="margin:0">Your data is saved automatically. Download a backup file now and then, and before clearing anything.</p>'+
   '<div class="bar" style="margin:0"><button class="btn" data-act="backup">Download backup</button><button class="btn" data-act="restore">Restore from backup</button><button class="btn danger" data-act="reset">Erase all data</button><button class="btn danger" data-act="clearYear">Clear '+new Date().getFullYear()+' data</button></div></div>';
 }
@@ -983,7 +1112,7 @@ function fundsMove(e,delta,kind,note){
 function recordPaid(date,ref){
   const pk=pKey();
   if(!S.locked[pk]){S.adj[pk]=S.adj[pk]||{};
-    visibleEmps().forEach(e=>{const a=adjOf(e);S.adj[pk][e.id]=Object.assign(S.adj[pk][e.id]||{},{rate:a.rate,type:a.type,funds:a.funds,ded:a.ded.map(x=>x.cap?{l:x.l,a:x.a,cap:x.cap}:{l:x.l,a:x.a})})});
+    visibleEmps().forEach(e=>{const a=adjOf(e);S.adj[pk][e.id]=Object.assign(S.adj[pk][e.id]||{},{rate:a.rate,type:a.type,funds:a.funds,ded:a.ded.map(x=>x.cap?{l:x.l,a:x.a,cap:x.cap}:x.m!=null?{l:x.l,a:x.a,m:x.m,gm:x.gm}:{l:x.l,a:x.a})})});
     S.locked[pk]=true}
   const P=S.paid[pk]=S.paid[pk]||{label:periodLabel(),rows:{}},r4=n=>Math.round(n*1e4)/1e4;
   visibleEmps().forEach(e=>{const c=calc(e),by={};for(const d in c.by)by[d]=r4(c.by[d]);
@@ -991,7 +1120,7 @@ function recordPaid(date,ref){
     if(delta)fundsMove(e,delta,delta>0?'deposit':'correction',periodLabel());
     const cl=c.ded.find(x=>x.cap),ncap=cl?{a:cl.cap.a,i:cl.cap.i,n:cl.cap.n,bal:cl.cap.bal}:null,pcap=(P.rows[e.id]||{}).ca||null;
     if(e.caPlan&&(ncap||pcap)){e.caPlan.paid=Math.max(0,num(e.caPlan.paid)+(ncap?1:0)-(pcap?1:0));e.caPlan.paidAmt=Math.max(0,caR2(num(e.caPlan.paidAmt)+(ncap?ncap.a:0)-(pcap?pcap.a:0)))}
-    P.rows[e.id]={date,ref,pay:r4(c.gross+c.payOt+c.paySick+c.payVac),ded:r4(c.dedTotal),funds:r4(c.funds),net:r4(c.net),ca:ncap,by}});
+    P.rows[e.id]={date,ref,pay:r4(grossAll(c)),ded:r4(c.dedTotal),funds:r4(c.funds),net:r4(c.net),ca:ncap,by}});
   save();
 }
 let recYm=null;
@@ -1025,7 +1154,7 @@ function viewReconcile(){
 const isLocked=()=>{if(S.locked[pKey()]){toast('This payroll is locked. Unlock it in the Payroll tab to edit.');return true}return false};
 const empById=id=>S.employees.find(e=>e.id===id);
 function dedRowHTML(l,a){return '<div class="dedrow"><input type="text" class="txt dl" placeholder="Label, for example Cash advance" value="'+esc(l)+'" aria-label="Deduction label"><input type="number" class="num da" step="0.01" min="0" placeholder="0.00" value="'+(a||'')+'" aria-label="Amount"><button class="btn sm" type="button" data-act="dedDel">Remove</button></div>'}
-function dedPreHTML(d,on,amt){return '<div class="dedrow dedpre" data-k="'+esc(d.k)+'"><label class="chk" style="margin:0;flex:1"><input type="checkbox" class="dt" data-dedtick="1"'+(on?' checked':'')+'> '+esc(d.n)+(d.k==='Cash Advance'?' <span class="muted" style="font-weight:400">(total amount)</span>':'')+'</label><input type="number" class="num da" step="0.01" min="0" placeholder="0.00" value="'+(amt||'')+'"'+(on?'':' disabled')+' aria-label="'+esc(d.n)+' amount"></div>'}
+function dedPreHTML(d,on,amt){return '<div class="dedrow dedpre" data-k="'+esc(d.k)+'"><label class="chk" style="margin:0;flex:1"><input type="checkbox" class="dt" data-dedtick="1"'+(on?' checked':'')+'> '+esc(d.n)+(d.k==='Cash Advance'?' <span class="muted" style="font-weight:400">(total amount)</span>':d.k==='Late'?' <span class="muted" style="font-weight:400">(minutes)</span>':'')+'</label><input type="number" class="num da" step="'+(d.k==='Late'?'1':'0.01')+'" min="0" placeholder="'+(d.k==='Late'?'0 min':'0.00')+'" value="'+(amt||'')+'"'+(on?'':' disabled')+' aria-label="'+esc(d.n)+' amount"></div>'}
 function caLogHTML(e){const L=(e.caLog||[]).slice(-6).reverse();if(!L.length)return '';
   return '<div class="flog"><table><thead><tr><th>When</th><th>By</th><th>Cash advance</th><th class="n">Balance</th></tr></thead><tbody>'+L.map(l=>'<tr><td>'+esc(new Date(l.t).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}))+'</td><td>'+esc(l.by||'')+'</td><td>'+esc(({start:'Set',add:'Added',edit:'Changed'})[l.kind]||l.kind)+' '+money(l.amt)+(l.n?' over '+l.n+' payrolls':'')+(l.note?' ('+esc(l.note)+')':'')+'</td><td class="n">'+money(l.bal)+'</td></tr>').join('')+'</tbody></table></div>'}
 function caBoxHTML(e,on,n,pp){const semi=isSemi(e),hasPlan=!!(e.caPlan&&num(e.caPlan.total)>0);
@@ -1040,10 +1169,11 @@ function caInfoUpdate(){const e=empById(window.__caE);if(!e)return;const box=$('
 function dedForm(e){
   const a=adjOf(e),P=prefsOf(e);window.__caE=e.id;window.__caAdd=null;
   const sum=k=>a.ded.filter(x=>dedKey(x.l)===k).reduce((t,x)=>t+num(x.a),0);
-  const has=k=>a.ded.some(x=>dedKey(x.l)===k&&num(x.a));
+  const has=k=>a.ded.some(x=>dedKey(x.l)===k&&(num(x.a)||num(x.m)));const lm=a.ded.find(x=>dedKey(x.l)==='Late'),legacy=lm&&lm.m==null&&num(lm.a)>0?num(lm.a):0;
   const planMode=!!((P['Cash Advance']||{}).on&&e.caPlan&&num(e.caPlan.n)>0);
   const pre=DED_PRESETS.map(d=>{const on=!!(P[d.k]||{}).on||has(d.k);
     if(d.k==='Cash Advance')return dedPreHTML(d,on,planMode?num(e.caPlan.total):sum(d.k)||'')+caBoxHTML(e,on,planMode?e.caPlan.n:'',planMode?e.caPlan:null);
+    if(d.k==='Late')return dedPreHTML(d,on,lm&&lm.m!=null?num(lm.m):'')+lateInfoHTML(e,a,legacy);
     return dedPreHTML(d,on,sum(d.k)||'')}).join('');
   const cus=a.ded.filter(x=>!dedKey(x.l));
   openModal('<h2>Deductions: '+esc(e.name)+'</h2><div class="muted">'+esc(periodLabel())+'</div>'+
@@ -1055,8 +1185,8 @@ function dedForm(e){
 }
 function hoursForm(e){
   const rows=periodDates().map(d=>{const h=dayHrs(e,d);
-    return '<tr data-d="'+d+'"><td>'+DOW[dowOf(d)]+' '+fmtMD(d)+'</td>'+['r','o','s','v'].map(k=>'<td class="n"><input class="num hr" type="number" step="0.25" min="0" data-k="'+k+'" value="'+(h[k]||'')+'" aria-label="'+k+' hours '+d+'"></td>').join('')+'</tr>'}).join('');
-  openModal('<h2>Hours: '+esc(e.name)+'</h2><div class="muted">'+esc(periodLabel())+'. Leave a box empty for zero.</div><div class="scroll" style="max-height:60vh"><table><thead><tr><th>Day</th><th class="n">Regular</th><th class="n">Overtime</th><th class="n">Sick</th><th class="n">Vacation</th></tr></thead><tbody>'+rows+'</tbody></table></div><div class="actions"><button class="btn" data-act="closeModal">Cancel</button><button class="btn primary" data-act="hoursSave" data-e="'+e.id+'">Save hours</button></div>');
+    return '<tr data-d="'+d+'"><td>'+DOW[dowOf(d)]+' '+fmtMD(d)+'</td>'+['r','o'].map(k=>'<td class="n"><input class="num hr" type="number" step="0.25" min="0" data-k="'+k+'" value="'+(h[k]||'')+'" aria-label="'+k+' hours '+d+'"></td>').join('')+'</tr>'}).join('');
+  openModal('<h2>Hours: '+esc(e.name)+'</h2><div class="muted">'+esc(periodLabel())+'. Leave a box empty for zero.</div><div class="scroll" style="max-height:60vh"><table><thead><tr><th>Day</th><th class="n">Regular</th><th class="n">Overtime</th></tr></thead><tbody>'+rows+'</tbody></table></div><div class="actions"><button class="btn" data-act="closeModal">Cancel</button><button class="btn primary" data-act="hoursSave" data-e="'+e.id+'">Save hours</button></div>');
 }
 /* Step by step working of one person's pay for the period on screen. */
 function whyForm(e){
@@ -1081,8 +1211,9 @@ function whyForm(e){
   if(c.ot)add('Overtime','+'+money(c.payOt),fh(c.ot)+' hours × '+money(c.hourly)+' × '+s.otRate+' (Settings: Overtime pay multiplier)');
   if(c.paySick)add('Sick leave pay','+'+money(c.paySick),fh(c.sick)+' hours × '+money(c.hourly));
   if(c.payVac)add('Vacation leave pay','+'+money(c.payVac),fh(c.vac)+' hours × '+money(c.hourly));
+  if(c.payOt||c.paySick||c.payVac)add('<b>Gross pay with overtime</b>','<b>'+money(grossAll(c))+'</b>','Printed as Gross Pay on the payroll, payslip and Excel');
   if(c.funds)add('Fund','-'+money(c.funds),'Taken from the pay as a deduction. It is added to the Total Funds when the payroll is marked as paid.');
-  c.ded.forEach(x=>add('Deduction: '+esc(x.l||'(no label)'),'-'+money(num(x.a)),x.auto?fd(x.days)+(x.half?' half day':' absent day')+(x.days===1?'':'s')+' × '+money(c.eqDay)+' (from Attendance)':''));
+  c.ded.forEach(x=>add('Deduction: '+esc(x.l||'(no label)'),'-'+money(num(x.a)),x.auto?fd(x.days)+(x.half?' half day':' absent day')+(x.days===1?'':'s')+' × '+money(c.eqDay)+' (from Attendance)':x.m!=null?(num(x.m)+' min late'+(x.gm!=null?(x.gm<num(x.m)-0.0001?', '+(Math.round((num(x.m)-x.gm)*100)/100)+' min free (monthly grace)':'')+' × '+money(c.eqDay/(S.settings.hoursPerDay||8)/60)+' per minute':'')):''));
   add('<b>Net pay</b>','<b>'+money(c.net)+'</b>','Gross + overtime + leave pay − deductions');
   const pr=((S.paid[pKey()]||{}).rows||{})[e.id];
   openModal('<h2>Computation: '+esc(e.name)+'</h2><div class="muted">'+esc(periodLabel())+'</div><div class="scroll" style="max-height:55vh"><table class="why"><tbody>'+L.join('')+'</tbody></table></div>'+
@@ -1121,7 +1252,7 @@ const actions={
     delete S.settings.sites[k];if(S.siteFilter===k)S.siteFilter='all';save();render();toast('Location deleted')},
   fReset(t){const k=t.dataset.f;S.settings[k]=defaults().settings[k];save();render();toast('Standard formula restored.')},
   goSettings(){closeModal();tab='settings';render()},
-  tab(t){tab=t.dataset.tab;empMode=null;empSel=new Set();render()},
+  tab(t){if(ENC)return;tab=t.dataset.tab;empMode=null;empSel=new Set();render()},
   part(t){S.period.part=t.dataset.part;if(S.period.part==='week')S.period.ym=S.period.end.slice(0,7);save();render()},
   shiftWeek(t){const d=parseISO(S.period.end);d.setDate(d.getDate()+7*(+t.dataset.dir));S.period.end=isoOf(d);S.period.ym=S.period.end.slice(0,7);save();render()},
   cell(t){
@@ -1130,15 +1261,11 @@ const actions={
     const seq=isWork(d)?['P','H','A']:['P','H'],i=seq.indexOf(cur),next=i+1<seq.length?seq[i+1]:null;
     if(next)S.att[id][d]=next;else delete S.att[id][d];
     if(S.review[id])delete S.review[id][d];if(S.hrs[id])delete S.hrs[id][d];
-    save();refreshAtt();
+    save();refreshAtt();popEl(document.querySelector('td.cell[data-e="'+id+'"][data-d="'+d+'"]'));
   },
   dayHead(t){
     if(isLocked())return;const d=t.dataset.d;
     visibleEmps().forEach(e=>{S.att[e.id]=S.att[e.id]||{};S.att[e.id][d]='P';if(S.hrs[e.id])delete S.hrs[e.id][d]});save();refreshAtt();
-  },
-  rowAll(t){
-    if(isLocked())return;const e=empById(t.dataset.e);S.att[e.id]=S.att[e.id]||{};
-    periodDates().filter(isWork).forEach(d=>{S.att[e.id][d]='P';if(S.hrs[e.id])delete S.hrs[e.id][d]});save();refreshAtt();
   },
   markAll(){
     if(isLocked())return;let n=0;
@@ -1156,9 +1283,8 @@ const actions={
     visibleEmps().forEach(e=>{ds.forEach(d=>{if(S.att[e.id])delete S.att[e.id][d];if(S.review[e.id])delete S.review[e.id][d];if(S.hrs[e.id])delete S.hrs[e.id][d]})});
     save();closeModal();refreshAtt();toast('Marks cleared');
   },
-  import(){$('#fileIn').value='';$('#fileIn').click()},
-  addEmp(){empForm()},
-  editEmp(t){empForm(empById(t.dataset.e))},
+  import(){if(ENC)return toast('Only the admin can import the biometric file.');$('#fileIn').value='';$('#fileIn').click()},
+  addEmp(){if(ENC)return;empForm()},
   empMode(t){const m=t.dataset.m;empMode=empMode===m?null:m;empSel=new Set();render()},
   empCancel(){empMode=null;empSel=new Set();render()},
   empGo(){
@@ -1171,14 +1297,6 @@ const actions={
     const ids=[...empSel];ids.forEach(id=>{S.employees=S.employees.filter(e=>e.id!==id);delete S.att[id];delete S.review[id];delete S.hrs[id];
       Object.keys(S.adj).forEach(k=>delete S.adj[k][id]);Object.keys(S.paid).forEach(k=>delete S.paid[k].rows[id])});
     empMode=null;empSel=new Set();save();closeModal();render();toast(ids.length===1?'Employee deleted':ids.length+' employees deleted');
-  },
-  delEmp(t){
-    const e=empById(t.dataset.e);
-    openModal('<h2>Delete '+esc(e.name)+'?</h2><p style="margin:0">Their attendance and pay adjustments are removed too. To keep past records, set them to inactive in Edit instead.</p><div class="actions"><button class="btn" data-act="closeModal">Cancel</button><button class="btn danger" data-act="delEmpYes" data-e="'+e.id+'">Delete employee</button></div>');
-  },
-  delEmpYes(t){
-    const id=t.dataset.e;S.employees=S.employees.filter(e=>e.id!==id);delete S.att[id];delete S.review[id];delete S.hrs[id];
-    Object.keys(S.adj).forEach(k=>delete S.adj[k][id]);Object.keys(S.paid).forEach(k=>delete S.paid[k].rows[id]);save();closeModal();render();toast('Employee deleted');
   },
   closeModal(){closeModal()},
   empSave(){
@@ -1194,7 +1312,7 @@ const actions={
   hoursSave(t){
     const e=empById(t.dataset.e),H=S.settings.hoursPerDay;S.att[e.id]=S.att[e.id]||{};S.hrs[e.id]=S.hrs[e.id]||{};
     document.querySelectorAll('#modal tbody tr').forEach(tr=>{
-      const d=tr.dataset.d,v={};tr.querySelectorAll('input').forEach(i=>v[i.dataset.k]=num(i.value));
+      const d=tr.dataset.d,old=S.hrs[e.id][d]||{},v={s:old.s||0,v:old.v||0};tr.querySelectorAll('input').forEach(i=>v[i.dataset.k]=num(i.value));
       const m=S.att[e.id][d],def=m==='P'?H:m==='H'?H/2:0;
       if(v.r===def&&!v.o&&!v.s&&!v.v){delete S.hrs[e.id][d];return}
       const ov={r:v.r};if(v.o)ov.o=v.o;if(v.s)ov.s=v.s;if(v.v)ov.v=v.v;S.hrs[e.id][d]=ov;
@@ -1217,6 +1335,7 @@ const actions={
     const e=empById(t.dataset.e);
     const P=e.dedPrefs=Object.assign({},e.dedPrefs||{});const lines=[];
     document.querySelectorAll('#dedRows .dedpre').forEach(r=>{const k=r.dataset.k,d=DED_PRESETS.find(x=>x.k===k),on=r.querySelector('.dt').checked,amt=num(r.querySelector('.da').value);
+      if(k==='Late'){const cur=adjOf(e).ded.find(x=>dedKey(x.l)==='Late'),lg=cur&&cur.m==null?num(cur.a):0;P[k]={on,a:0};if(on){if(amt>0)lines.push({l:k,m:amt});else if(lg>0)lines.push({l:k,a:lg})}return}
       if(k==='Cash Advance'){const n=+$('#ca_n').value;P[k]={on,a:0};
         if(on&&amt){if(n){const prev=e.caPlan,np=caPlanFrom(e,amt,n,$('#ca_paid').value,$('#ca_paidamt').value),A=window.__caAdd&&window.__caAdd.e===e.id?window.__caAdd:null,bal=caR2(np.total-np.paidAmt),L=e.caLog=e.caLog||[],base={t:new Date().toISOString(),by:who(),bal,n};
           if(A)L.push(Object.assign(base,{kind:'add',amt:A.amt,note:A.note}));
@@ -1232,8 +1351,8 @@ const actions={
     const pk=pKey();
     if(S.locked[pk]){if(S.paid[pk]&&Object.keys(S.paid[pk].rows).length)return toast('Undo the payment first, then unlock.');delete S.locked[pk];save();render();return toast('Unlocked')}
     S.adj[pk]=S.adj[pk]||{};
-    visibleEmps().forEach(e=>{const a=adjOf(e);S.adj[pk][e.id]=Object.assign(S.adj[pk][e.id]||{},{rate:a.rate,type:a.type,funds:a.funds,ded:a.ded.map(x=>x.cap?{l:x.l,a:x.a,cap:x.cap}:{l:x.l,a:x.a})})});
-    S.locked[pk]=true;save();render();toast('Payroll locked');
+    visibleEmps().forEach(e=>{const a=adjOf(e);S.adj[pk][e.id]=Object.assign(S.adj[pk][e.id]||{},{rate:a.rate,type:a.type,funds:a.funds,ded:a.ded.map(x=>x.cap?{l:x.l,a:x.a,cap:x.cap}:x.m!=null?{l:x.l,a:x.a,m:x.m,gm:x.gm}:{l:x.l,a:x.a})})});
+    S.locked[pk]=true;save();render();lockPop();toast('Payroll locked');
   },
   markPaid(){
     const emps=visibleEmps();if(!emps.length)return toast('No employees to mark as paid.');
@@ -1245,15 +1364,16 @@ const actions={
       '<p class="muted" style="margin:0">This locks the payroll and saves the amounts paid, so later salary changes do not alter them.</p>'+
       '<div class="actions"><button class="btn" data-act="closeModal">Cancel</button><button class="btn primary" data-act="paySave">Mark as paid</button></div>');
   },
-  paySave(){const date=$('#pd').value;if(!date)return toast('Choose the payment date');recordPaid(date,$('#pr').value.trim());closeModal();render();toast('Payment recorded')},
+  paySave(){const date=$('#pd').value;if(!date)return toast('Choose the payment date');recordPaid(date,$('#pr').value.trim());closeModal();render();lockPop();toast('Payment recorded')},
   unpay(){openModal('<h2>Undo payment record?</h2><p style="margin:0">The paid amounts for these employees are removed from the monthly reconciliation. The payroll stays locked until you unlock it.</p><div class="actions"><button class="btn" data-act="closeModal">Cancel</button><button class="btn danger" data-act="unpayYes">Undo payment</button></div>')},
   unpayYes(){const pk=pKey(),P=S.paid[pk];if(P){visibleEmps().forEach(e=>{const r=P.rows[e.id];if(r&&num(r.funds))fundsMove(e,-num(r.funds),'reversed','Payment undone: '+(P.label||pk));if(r&&r.ca&&e.caPlan){e.caPlan.paid=Math.max(0,num(e.caPlan.paid)-1);e.caPlan.paidAmt=Math.max(0,caR2(num(e.caPlan.paidAmt)-r.ca.a))}delete P.rows[e.id]});if(!Object.keys(P.rows).length)delete S.paid[pk]}save();closeModal();render();toast('Payment record removed')},
   slip(t){slipJpg(empById(t.dataset.e))},
   menu(t){const l=t.nextElementSibling,open=l.hidden;closeMenus();l.hidden=!open;t.setAttribute('aria-expanded',String(open))},
-  runExport(t){closeMenus();if(t.dataset.k==='sum'){sumType=t.dataset.t;summaryJpg()}else if(t.dataset.k==='xls'){zipType=t.dataset.t;slipsXlsx()}else{zipType=t.dataset.t;allSlips()}},
-  excel(){excelOut()},
+  runExport(t){closeMenus();if(t.dataset.k==='sum'){sumType=t.dataset.t;summaryJpg()}else{zipType=t.dataset.t;allSlips()}},
+  excel(){closeMenus();excelOut()},
   sigPick(){$('#sigIn').value='';$('#sigIn').click()},
   sigClear(){S.settings.signature='';save();render()},
+  x13Export(){x13Export()},
   backup(){saveFile('payroll-backup-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(S,null,1))},
   restore(){if(RO)return toast('View only.');$('#restoreIn').value='';$('#restoreIn').click()},
   reset(){if(RO)return toast('View only.');openModal('<h2>Erase all data?</h2><p style="margin:0 0 10px">All employees, attendance and payroll records are removed from the database. Download a backup first if you may need them.</p><label class="muted">Type ERASE to confirm<input type="text" id="cfm" autocomplete="off"></label><div class="actions"><button class="btn" data-act="closeModal">Cancel</button><button class="btn danger" data-act="resetYes">Erase everything</button></div>')},
@@ -1272,8 +1392,8 @@ const actions={
 document.addEventListener('click',e=>{if(!e.target.closest('.menu'))closeMenus();const t=e.target.closest('[data-act]');if(t&&actions[t.dataset.act])actions[t.dataset.act](t,e)});
 
 function refreshAtt(){
-  const v=$('#view'),sc=v.querySelector('.scroll'),x=sc?sc.scrollLeft:0;
-  v.innerHTML=viewAttendance();const n=v.querySelector('.scroll');if(n)n.scrollLeft=x;
+  const v=$('#view'),keep=scrollSnap();
+  v.innerHTML=viewAttendance();scrollBack(keep);
 }
 $('#monthIn').addEventListener('change',e=>{if(e.target.value){S.period.ym=e.target.value;save();render()}});
 $('#endIn').addEventListener('change',e=>{if(e.target.value){S.period.end=e.target.value;S.period.ym=e.target.value.slice(0,7);save();render()}});
@@ -1286,7 +1406,7 @@ document.addEventListener('input',e=>{
     if(v===emp.rate)setAdj(emp,'rate',null);else setAdj(emp,'rate',v);
     save();refreshPayroll();
   }
-  if(t.id==='empSearch'){window.__q=t.value;const p=t.selectionStart;$('#view').innerHTML=viewEmployees();const s=$('#empSearch');s.focus();s.setSelectionRange(p,p)}
+  if(t.id==='empSearch'){window.__q=t.value;const p=t.selectionStart,keep=scrollSnap();$('#view').innerHTML=viewEmployees();scrollBack(keep);const s=$('#empSearch');s.focus();s.setSelectionRange(p,p)}
 });
 document.addEventListener('change',e=>{
   const t=e.target;
@@ -1296,13 +1416,17 @@ document.addEventListener('change',e=>{
   if(t.dataset.sel){if(empMode==='edit')empSel=new Set();if(t.checked)empSel.add(t.dataset.sel);else empSel.delete(t.dataset.sel);render()}
   if(t.id==='selAll'){const q=(window.__q||'').toLowerCase(),f=S.siteFilter;
     S.employees.filter(e=>(f==='all'||((S.settings.sites[f]!==undefined)?e.site===f:('g:'+(e.group||''))===f))&&(!q||(e.name+' '+(e.position||'')+' '+(e.group||'')+' '+(e.bioId||'')).toLowerCase().includes(q))).forEach(e=>t.checked?empSel.add(e.id):empSel.delete(e.id));render()}
+  if(t.dataset.x13){if(RO){t.checked=!t.checked;return toast('View only.')}
+    const ex=new Set(x13Excl());if(t.checked)ex.delete(t.dataset.x13);else ex.add(t.dataset.x13);
+    S.settings.x13Excl=[...ex];save();const c=$('#x13Count');if(c)c.textContent=S.employees.length-ex.size+' of '+S.employees.length;return}
+  if(t.id==='s_x13y'){if(RO){render();return toast('View only.')}const y=Math.round(num(t.value));S.settings.x13Year=y>=2000&&y<=2100?y:new Date().getFullYear();save();render();return}
   if(t.dataset.sfb){S.settings[t.dataset.sfb]=t.checked;save();render()}
   if(t.dataset.loc==='pick'){locSel=t.value;render()}
   if(t.dataset.loc==='rename'){const n=t.value.trim();
     if(!n){t.value=siteName(locSel);return toast('The location needs a name.')}
     S.settings.sites[locSel]=n;save();render()}
   if(t.dataset.sf){const k=t.dataset.sf;let v=t.value;
-    if(k==='factor')v=[313,261,365].includes(+v)?+v:313;
+    if(k==='factor')v=[312,313,261,365].includes(+v)?+v:313;
     if(k==='hoursPerDay')v=Math.max(1,Math.min(24,num(v)||8));
     if(k==='otRate')v=Math.max(0,num(v)||1);
     if(k==='fDaily'||k==='fMonthly'){const err=checkF(v,k==='fDaily'?'daily':'monthly');
@@ -1395,9 +1519,8 @@ $('#fileIn').addEventListener('change',async e=>{
 });
 function showImport(parsed,fname){
   const r=parsed.range;let ym=r?r.start.slice(0,7):S.period.ym;
-  pending={parsed,ym,rows:parsed.employees.map(pe=>{const ex=matchEmp(pe);const none=!pe.days.some(d=>d.n>0);
+  pending={parsed,ym,rows:parsed.employees.map(pe=>{const ex=matchEmp(pe);
     return {pe,ex,on:false};})};
-  const first=parsed.employees[0].days[0];
   openModal('<h2>Import attendance</h2><div class="muted">'+esc(fname)+(r?' · file dates '+r.start+' to '+r.end:'')+'</div>'+
     '<div class="form two"><div class="field"><label for="imp_ym">Save these days to month</label><input type="month" id="imp_ym" value="'+ym+'" data-noFocus="1"><span class="hint" id="imp_warn"></span></div>'+
     '<div class="field"><label for="imp_type">New employees are paid</label><select id="imp_type"><option value="daily">Daily wage</option><option value="monthly">Monthly salary</option></select></div></div>'+
@@ -1456,8 +1579,18 @@ function applyImport(){
 
 /* ---------- files out ---------- */
 async function saveFile(filename,data){
-  try{const blob=data instanceof Blob?data:new Blob([data]),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);toast('Saved '+filename)}
-  catch(e){toast('Could not save the file here.')}
+  try{
+    const blob=data instanceof Blob?data:new Blob([data]),a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download=filename;
+    a.rel='noopener';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{a.remove();URL.revokeObjectURL(a.href);},1000);
+    toast('Saved '+filename);
+  }catch(e){
+    toast('Could not save the file here.');
+  }
 }
 const jpg=cv=>new Promise(r=>cv.toBlob(r,'image/jpeg',0.92));
 const FS=(w,s)=>w+' '+s+'px "IBM Plex Sans","Segoe UI",Arial,sans-serif';
@@ -1468,8 +1601,6 @@ function makeCanvas(w,draw){
   const cv=document.createElement('canvas');cv.width=w*2;cv.height=h*2;const x=cv.getContext('2d');x.scale(2,2);
   x.fillStyle='#fff';x.fillRect(0,0,w,h);draw(x,w);return cv;
 }
-/* Location printed on the Salary line. Shown for every site. Set SLIP_LOC_ALL to false to limit it to SLIP_LOC_ONLY. */
-const SLIP_LOC_ALL=true,SLIP_LOC_ONLY=['BINANGONAN SITE'];
 let slipEnd=0;
 const DAYN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 function loadSig(){return new Promise(res=>{if(!S.settings.signature)return res(null);const i=new Image();i.onload=()=>{
@@ -1479,83 +1610,59 @@ function loadSig(){return new Promise(res=>{if(!S.settings.signature)return res(
     if(x1<0)return res(i);const o=document.createElement('canvas');o.width=x1-x0+1;o.height=y1-y0+1;o.getContext('2d').drawImage(c,x0,y0,o.width,o.height,0,0,o.width,o.height);res(o)}catch(e){res(i)}};i.onerror=()=>res(null);i.src=S.settings.signature})}
 /* Payslip: black and white, written values sit on an underline whose length follows the text, tags sit under the line. */
 function drawSlip(e,sig,compact,rhOver){
+  if(!S.settings.newSlip)return drawSlipGreen(e,sig,compact,rhOver);
   const c=calc(e),dates=periodDates(),n=dates.length,long=n>8;
   const RH=rhOver||(long?22:30),G=long?27:32;
-  const PLS='Please provide details',INK='#000',SANS='Arial,"Segoe UI","Helvetica Neue",sans-serif',X0=115,X1=735,T=49;
+  const INK='#000',SANS='Arial,"Segoe UI","Helvetica Neue",sans-serif',X0=115,X1=735,T=49;
   const paidRow=((S.paid[pKey()]||{}).rows||{})[e.id];
   const fundsBal=(fundOn(e)||c.funds||num(e.fundsTotal))?num(e.fundsTotal)+(paidRow?0:c.funds):null;
   const dl=c.ded.filter(l=>num(l.a)||l.l).map(l=>({l:l.l||'Deduction',a:num(l.a)}));if(c.funds)dl.push({l:'Fund',a:c.funds});
-  const pay=c.gross+c.payOt+c.paySick+c.payVac;
+  const pay=grossAll(c);
   return (x)=>{
     const F=(w,sz)=>(w?w+' ':'')+sz+'px '+SANS;
     const txt=(t,tx,ty,font,align,maxW)=>{x.font=font;x.fillStyle=INK;x.textAlign=align||'left';x.textBaseline='alphabetic';if(maxW)x.fillText(t,tx,ty,maxW);else x.fillText(t,tx,ty)};
     const wid=(t,font)=>{x.font=font;return x.measureText(t).width};
     const line=(x0,x1,y,lw)=>{x.strokeStyle=INK;x.lineWidth=lw||1;x.beginPath();x.moveTo(x0,y+.5);x.lineTo(x1,y+.5);x.stroke()};
     const rect=(x0,y0,x1,y1)=>{x.strokeStyle=INK;x.lineWidth=1;x.strokeRect(x0+.5,y0+.5,x1-x0-1,y1-y0-1)};
-    /* value on a line that is only as long as the value, tag under the line */
-    const field=(tag,val,lx,y,maxX,size,bold,tagC)=>{
-      let sz=size;const room=maxX-lx-10;while(sz>10&&wid(val,F(bold?'600':'',sz))>room)sz--;
-      const font=F(bold?'600':'',sz),w=val?wid(val,font):0,end=Math.min(maxX,lx+Math.max(70,w+16));
-      if(val)txt(val,lx+2,y-6,font);line(lx,end,y);
-      if(tag)txt(tag,tagC?(lx+end)/2:lx,y+16,F('600',13),tagC?'center':'left');};
-    /* label then a line after it (Salary:, Location:, Period:) */
-    const inline=(label,val,lx,y,maxX,bold)=>{
-      txt(label,lx,y,F('600',15));const sx=lx+wid(label,F('600',15))+8;
-      if(val)txt(val,sx,y,F(bold?'600':'',15),'left',maxX-sx-6)};
     const nm=S.settings.company||'';let fs=19,lines=[nm];
-    if(false){const w=nm.split(' ');let best=1,bd=1e9;for(let i=1;i<w.length;i++){const d=Math.abs(wid(w.slice(0,i).join(' '),F('600',fs))-wid(w.slice(i).join(' '),F('600',fs)));if(d<bd){bd=d;best=i}}lines=[w.slice(0,best).join(' '),w.slice(best).join(' ')]}
     const lh=lines.length>1?21:0;
     lines.forEach((t,i)=>{let f=fs;while(f>12&&wid(t,F('600',f))>(compact?618:700))f--;txt(t,425,T+20+i*21,F('600',f),'center')});
     if(S.settings.companyAddress)txt(S.settings.companyAddress,425,T+42+lh,F('600',13),'center',610);
     let y=T+84+lh;
-    if(true){
+    {
       /* payslip layout (single JPG and sheets): labels are right-aligned in a column, the value starts right after them */
       const LR=X0+148,RR=575,rl=(t,lx,yv)=>txt(t,lx,yv,F('600',15),'right'),val=(v,vx,yv,maxX)=>{if(v)txt(v,vx,yv,F('',15),'left',maxX-vx-4)};
       rl('Employee Name:',LR,y);val(e.name||'',LR+7,y,RR-135);rl('Location:',RR,y);val(siteName(e.site),RR+7,y,X1);
-      y+=30;rl('Salary:',LR,y);val(e.group||'',LR+7,y,RR-135);rl('Contact details:',RR,y);val(e.contact||PLS,RR+7,y,X1);
-      y+=30;rl('Employee Address:',LR,y);val(e.address||PLS,LR+7,y,X1);
-      y+=30;rl('Period:',LR,y);val(periodDateText(),LR+7,y,X1);
+      y+=30;rl('Salary:',LR,y);val(e.group||'',LR+7,y,RR-135);rl('Salary Period:',RR,y);val(periodDateText(),RR+7,y,X1);
       y+=22;
-    }else{
-    inline('Salary:',e.group||'',X0,y,450);inline('Location:',siteName(e.site),460,y,X1);
-    y+=30;inline('Employee Name:',e.name||'',X0,y,450);inline('Contact details:',e.contact||PLS,460,y,X1);
-    y+=30;inline('Employee Address:',e.address||PLS,X0,y,X1);
-    y+=30;inline('Period:',periodDateText(),X0,y,X1);
-    y+=22;}
+    }
     /* table */
     const xs=[X0,245,355,485,615,X1];
     const hh=34;
     const heads=['Day','Date (mm/dd)','Attendance','Overtime','Total'];
     heads.forEach((t,i)=>{rect(xs[i],y,xs[i+1],y+hh);txt(t,(xs[i]+xs[i+1])/2,y+hh/2+5,F('600',13),'center',xs[i+1]-xs[i]-6)});
     y+=hh;let sr=0,so=0;
-    dates.forEach(d=>{const h=dayHrs(e,d),w=isWork(d),tot=h.r+h.o+h.s+h.v;sr+=h.r;so+=h.o;
+    dates.forEach(d=>{const h=dayHrs(e,d),w=isWork(d);sr+=h.r;so+=h.o;
       const mk=((S.att[e.id]||{})[d]),att=mk==='P'?'P':mk==='H'?'1/2':mk==='A'?'A':((!h.r&&!w)?'OFF':(h.r>0?'P':''));
       const cells=[DAYN[dowOf(d)],fmtMD(d),att,h.o.toFixed(2),(h.r+h.o).toFixed(2)];
       cells.forEach((t,i)=>{rect(xs[i],y,xs[i+1],y+RH);txt(t,(xs[i]+xs[i+1])/2,y+RH/2+5,F(t==='OFF'?'600':'',13),'center',xs[i+1]-xs[i]-6)});y+=RH});
     ['Total','','',so.toFixed(2),(sr+so).toFixed(2)].forEach((t,i)=>{rect(xs[i],y,xs[i+1],y+RH+2);if(t)txt(t,(xs[i]+xs[i+1])/2,y+RH/2+6,F('600',13),'center')});
     y+=RH+2;txt('P - Present     1/2 - Half day     A - Absent',X0,y+17,F('',12));y+=17+18;
     /* summary on the left, signature on the right */
-    const capL=c.ded.find(x=>x.cap&&x.cap.bal!=null),LX=X0,VX0=X0+112,VX1=X0+318,yS=y+G-8;
-    const sumLine=(label,tag,amt,bold,yy)=>{if(label&&label.includes('\n')){const q=label.split('\n');txt(q[0],LX,yy-8,F('600',13));txt(q[1],LX,yy+6,F('600',13))}else if(label)txt(label,LX,yy,F('600',15));line(VX0,VX1,yy+3);if(tag)txt(tag,VX0+3,yy-3,F('',13),'left',126);if(amt!=null)txt(money(amt),VX1-3,yy-3,F(bold?'600':'',15),'right')};
+    const capL=c.ded.find(x=>x.cap&&x.cap.bal!=null),yS=y+G-8;
     let yy=yS;
-    if(true){
+    {
       /* payslip layout (single JPG and sheets): each deduction is listed under "Deductions:", its name in the label column, and the lines below move down */
       const LRs=X0+148,VA=LRs+8,VB=VA+190,rl2=(t,yv,sz,w)=>txt(t,LRs,yv,F('600',sz||15),'right',w),
         ln2=(a,b,yv)=>{line(VA,VB,yv+3);if(a!=null)txt(money(a),VB-3,yv-3,F(b?'600':'',15),'right')};
+      if(c.payOt>0.004){rl2('Regular Pay:',yy);ln2(pay-c.payOt,false,yy);yy+=G;rl2('Overtime Pay:',yy);ln2(c.payOt,false,yy);yy+=G}
       rl2('Gross Pay:',yy);ln2(pay,false,yy);
       yy+=G;rl2('Deductions:',yy);
       dl.forEach(l=>{yy+=G;rl2(l.l,yy,13,LRs-X0);ln2(l.a,false,yy)});
       if(capL){yy+=G;txt('Cash Advance',LRs,yy-8,F('600',13),'right');txt('Balance:',LRs,yy+6,F('600',13),'right');ln2(capL.cap.bal,false,yy)}
       if(fundsBal!=null){yy+=G;rl2('Total Funds:',yy);ln2(fundsBal,false,yy)}
       yy+=G;rl2('Net Pay:',yy);ln2(c.net,true,yy);
-    }else{
-    sumLine('Gross Pay:','',pay,false,yy);
-    yy+=G;
-    if(!dl.length){sumLine('Deductions:','',null,false,yy)}
-    else dl.forEach((l,i)=>{sumLine(i===0?'Deductions:':'',l.l,l.a,false,yy);if(i<dl.length-1)yy+=G});
-    if(capL){yy+=G;sumLine('Cash Advance\nBalance:','',capL.cap.bal,false,yy)}
-    if(fundsBal!=null){yy+=G;sumLine('Total Funds:','',fundsBal,false,yy)}
-    yy+=G;sumLine('Net Pay:','',c.net,true,yy);}
+    }
     /* signature */
     const sx0=470,sx1=620,dx0=640,sy=yy+3;
     if(sig){const r=Math.min(150/sig.width,90/sig.height),w=sig.width*r,h=sig.height*r;x.drawImage(sig,(sx0+sx1)/2-w/2,sy+2-h,w,h)}
@@ -1564,6 +1671,73 @@ function drawSlip(e,sig,compact,rhOver){
     txt(S.settings.signLabel||'',(sx0+sx1)/2,sy+16,F('600',13),'center','150');
     txt('Date',(dx0+X1)/2,sy+16,F('',13),'center');
     const end=Math.max(yy+8,sy+38);slipEnd=end;
+    return Math.max(compact?0:1100,end+84);
+  };
+}
+/* Old payslip format (the green one): used unless Settings > Payslip format > "Use the new payslip format" is ticked. Same numbers as the new format. */
+function drawSlipGreen(e,sig,compact,rhOver){
+  const c=calc(e),dates=periodDates(),n=dates.length,long=n>8;
+  const RH=rhOver||(long?22:30),X0=115,X1=735,T=49,W=X1-X0,CW=W/7,LW=265;
+  const GREEN='#3f7d6c',BAR='#5ba592',BAND='#e6faf0',G1='#d3f7e6',G2='#e4fbef',GREY='#f2f2f2',HEAD='#595959',LINE='#8c8c8c',INK='#1f2937';
+  const SERIF='Cambria,"Palatino Linotype",Georgia,"Times New Roman",serif',SANS='Arial,"Segoe UI","Helvetica Neue",sans-serif';
+  const paidRow=((S.paid[pKey()]||{}).rows||{})[e.id];
+  const fundsBal=(fundOn(e)||c.funds||num(e.fundsTotal))?num(e.fundsTotal)+(paidRow?0:c.funds):null;
+  const dl=c.ded.filter(l=>num(l.a)||l.l).map(l=>({l:l.l||'Deduction',a:num(l.a)}));if(c.funds)dl.push({l:'Fund',a:c.funds});
+  const capL=c.ded.find(x=>x.cap&&x.cap.bal!=null),pay=grossAll(c),grp=(e.group||'').trim();
+  const sub=(slipKind(e)==='monthly'?'Semi-monthly Salary':'Weekly Salary')+(grp&&!/^(week|semi)/i.test(grp)?': '+grp:'');
+  return (x)=>{
+    const F=(w,sz,f)=>(w?w+' ':'')+sz+'px '+(f||SANS);
+    const txt=(t,tx,ty,font,align,col,maxW)=>{x.font=font;x.fillStyle=col||INK;x.textAlign=align||'left';x.textBaseline='alphabetic';if(maxW)x.fillText(t,tx,ty,maxW);else x.fillText(t,tx,ty)};
+    const fill=(x0,y0,x1,y1,col)=>{x.fillStyle=col;x.fillRect(x0,y0,x1-x0,y1-y0)};
+    const box=(x0,y0,x1,y1,col)=>{if(col)fill(x0,y0,x1,y1,col);x.strokeStyle=LINE;x.lineWidth=1.2;x.strokeRect(x0+.5,y0+.5,x1-x0-1,y1-y0-1)};
+    const hl=(x0,x1,y,col)=>{x.strokeStyle=col||GREEN;x.lineWidth=1.3;x.beginPath();x.moveTo(x0,y+.5);x.lineTo(x1,y+.5);x.stroke()};
+    /* title band */
+    fill(X0,T,X1,T+14,BAR);fill(X0,T+14,X1,T+134,BAND);
+    const nm=S.settings.company||'';let fs=30;while(fs>13){x.font=F('',fs,SERIF);if(x.measureText(nm).width<=W-24)break;fs--}
+    txt(nm,X0+8,T+66,F('',fs,SERIF),'left',GREEN,W-16);txt(sub,X0+8,T+104,F('',22,SERIF),'left',GREEN,W-24);
+    /* employee block */
+    let y=T+172;const cx=X1-LW,lab=(t,lx,ly)=>txt(t,lx,ly,F('',15,SERIF),'left',GREEN);
+    lab('Employee name',X0+14,y);hl(X0,X0+LW,y+7);txt(e.name||'',X0+14,y+31,F('',17),'left',INK,LW-20);
+    y+=88;lab('Employee address',X0+14,y);hl(X0,X0+LW,y+7);lab('Contact details',cx+14,y);hl(cx,X1,y+7);
+    txt(e.address||'',X0+14,y+30,F('',14),'left',INK,LW-20);txt(e.contact||'',cx+14,y+30,F('',14),'left',INK,LW-20);
+    y+=92;lab('Period:',X0+14,y);txt(fmtUS(dates[0])+' – '+fmtUS(dates[n-1]),X0+14+104,y,F('',15),'left',INK);
+    y+=26;
+    /* day table: Day (name and date) | Regular | Overtime | Sick | Vacation | Total */
+    const cxn=i=>X0+i*CW,mid=i=>cxn(i)+CW/2,hh=46;
+    [[0,2,'Day'],[2,1,'Regular|hours'],[3,1,'Overtime|hours'],[4,1,'Sick'],[5,1,'Vacation'],[6,1,'Total']].forEach(h=>{
+      box(cxn(h[0]),y,cxn(h[0]+h[1]),y+hh,HEAD);const L=h[2].split('|'),m=(cxn(h[0])+cxn(h[0]+h[1]))/2;
+      if(L.length>1){txt(L[0],m,y+19,F('600',13),'center','#fff',CW-8);txt(L[1],m,y+35,F('600',13),'center','#fff',CW-8)}else txt(L[0],m,y+hh/2+5,F('600',13),'center','#fff',CW-8)});
+    y+=hh;let sr=0,so=0,ss=0,sv=0;
+    dates.forEach((d,i)=>{const h=dayHrs(e,d),w=isWork(d),mk=(S.att[e.id]||{})[d];sr+=h.r;so+=h.o;ss+=h.s;sv+=h.v;
+      const f=i%2?GREY:'#fff',f6=i%2?G1:G2,reg=h.r>0?h.r.toFixed(2):(mk==='A'?'A':(!w?'OFF':''));
+      const cells=[DAYN[dowOf(d)],fmtMD(d),reg,h.o>0?h.o.toFixed(2):'',h.s>0?h.s.toFixed(2):'',h.v>0?h.v.toFixed(2):'',(h.r+h.o+h.s+h.v).toFixed(2)];
+      cells.forEach((t,k)=>{box(cxn(k),y,cxn(k+1),y+RH,k===6?f6:f);if(t)txt(t,mid(k),y+RH/2+5,F(t==='OFF'?'600':'',13),'center',INK,CW-6)});y+=RH});
+    /* summary table */
+    y+=28;let r=0;
+    const row=(label,vals,o)=>{o=o||{};const f=o.fill||(r%2?GREY:'#fff');r++;
+      box(X0,y,cxn(2),y+RH,f);box(cxn(2),y,cxn(7),y+RH,f);
+      for(let k=2;k<7;k++){box(cxn(k),y,cxn(k+1),y+RH,k===6?(o.last||G2):f);const t=vals&&vals[k-2];if(t)txt(t,mid(k),y+RH/2+5,F(o.bold?'600':'',13),'center',INK,CW-6)}
+      if(o.center)txt(label,(X0+cxn(2))/2,y+RH/2+5,F(o.bold?'600':'',13),'center',INK,2*CW-10);else txt(label,X0+4,y+RH/2+5,F('',13),'left',INK,2*CW-10);
+      y+=RH};
+    const t2=v=>v.toFixed(2);
+    row('Total hours',[t2(sr),t2(so),t2(ss),t2(sv),t2(sr+so+ss+sv)],{center:1,fill:'#fff',last:G1});
+    row('Rate per hour',[money(c.hourly),c.ot>0?money(c.hourly*(S.settings.otRate||1)):'',c.sick>0&&!c.monthly?money(c.hourly):'',c.vac>0&&!c.monthly?money(c.hourly):''],{center:1,fill:GREY});
+    const extra=c.payOt+c.paySick+c.payVac>0.004;
+    row('Gross pay',[money(c.gross),c.payOt>0.004?money(c.payOt):'',c.paySick>0.004?money(c.paySick):'',c.payVac>0.004?money(c.payVac):'',extra?money(pay):''],{fill:G1,last:G1});
+    r=1;row('Deductions:',null);
+    dl.forEach(l=>row(l.l,[money(l.a)]));
+    if(capL)row('Cash advance balance',[money(capL.cap.bal)]);
+    if(fundsBal!=null)row('Total funds',[money(fundsBal)]);
+    row('Total pay',[money(c.gross-c.dedTotal),money(c.payOt),money(c.paySick),money(c.payVac),money(c.net)],{center:1,bold:1,fill:G1,last:G1});
+    /* signatures */
+    y+=54;const sy=y;
+    if(sig){const k=Math.min(150/sig.width,84/sig.height),w=sig.width*k,h=sig.height*k;x.drawImage(sig,cx+LW*.33-w/2,sy+2-h,w,h)}
+    hl(X0,X0+LW,sy);hl(cx,X1,sy);
+    txt(fmtUS(dates[n-1]),cx+LW*.85,sy-8,F('',13),'center');
+    const sl=y2=>{txt("Employee's signature",X0+LW*.33,y2,F('',13),'center');txt('Date',X0+LW*.85,y2,F('',13),'center');txt(S.settings.signLabel||'',cx+LW*.33,y2,F('',13),'center',INK,LW*.6);txt('Date',cx+LW*.85,y2,F('',13),'center')};
+    sl(sy+20);
+    const yb=sy+44;fill(X0,yb,X1,yb+14,BAR);
+    const end=yb+14;slipEnd=end;
     return Math.max(compact?0:1100,end+84);
   };
 }
@@ -1616,122 +1790,49 @@ async function sheetBlob(items,sig){
 async function allSlips(){
   const emps=ofSlipType(visibleEmps(),zipType);if(!emps.length)return toast('No employees with this group on payslip to export.');
   let dir=null;
-  if(window.showDirectoryPicker){try{dir=await window.showDirectoryPicker({mode:'readwrite'});
-      if(dir.requestPermission){const p=await dir.requestPermission({mode:'readwrite'});if(p!=='granted')dir=null}}
-    catch(e){if(e&&e.name==='AbortError')return;dir=null}}
+  if(window.showDirectoryPicker){
+    try{
+      dir=await window.showDirectoryPicker({mode:'readwrite'}).catch(()=>null);
+      if(dir&&dir.requestPermission){
+        const p=await dir.requestPermission({mode:'readwrite'}).catch(()=>null);
+        if(p!=='granted')dir=null;
+      }
+    }catch(e){dir=null;}
+  }
   const long=m=>{toast(m);clearTimeout(toastT);toastT=setTimeout(()=>$('#toast').style.display='none',9000)};
   try{
   await fonts();const sig=await loadSig();
   const wk=emps.filter(e=>!semiOnWeek(e)),sm=emps.filter(semiOnWeek),sp=semiPeriod();
   const smTag='-semi-monthly-'+(sp.part==='first'?'1-15':'16-end')+'-'+sp.ym;
   const jobs=[];for(let i=0;i<wk.length;i+=4)jobs.push({l:wk.slice(i,i+4),t:''});for(let i=0;i<sm.length;i+=4)jobs.push({l:sm.slice(i,i+4),t:smTag});
-  toast('Building '+jobs.length+' sheet'+(jobs.length===1?'':'s')+' for '+emps.length+' payslips…');
-  const files=[];for(let i=0;i<jobs.length;i++)files.push({n:('payslips-sheet-'+String(i+1).padStart(2,'0')+jobs[i].t+'.jpg').replace(/[^\w.\-]/g,'-'),b:await sheetBlob(jobs[i].l,sig)});
+  let done=0;prog.show('Building payslips: 0 of '+emps.length,0,emps.length);await new Promise(r=>setTimeout(r,0));
+  const files=[];for(let i=0;i<jobs.length;i++){files.push({n:('payslips-sheet-'+String(i+1).padStart(2,'0')+jobs[i].t+'.jpg').replace(/[^\w.\-]/g,'-'),b:await sheetBlob(jobs[i].l,sig)});done+=jobs[i].l.length;prog.show('Building payslips: '+done+' of '+emps.length,done,emps.length);await new Promise(r=>setTimeout(r,0))}
   const base=('payslips-'+pTag()+typeTag(zipType)+(S.siteFilter==='all'?'':'-'+slug(filterLabel()))).replace(/[^\w.\-]/g,'-');
   if(dir){
-    try{toast('Saving to the folder you chose…');
+    try{prog.show('Saving to the folder you chose…',0,files.length);
       const sub=await dir.getDirectoryHandle(base,{create:true});
-      for(const f of files){const w=await (await sub.getFileHandle(f.n,{create:true})).createWritable();await w.write(f.b);await w.close()}
+      let k=0;for(const f of files){const w=await (await sub.getFileHandle(f.n,{create:true})).createWritable();await w.write(f.b);await w.close();k++;prog.show('Saving files: '+k+' of '+files.length,k,files.length)}
       return long('Saved '+files.length+' sheet'+(files.length===1?'':'s')+' in the folder "'+base+'" inside the folder you chose.')}
     catch(e){toast('Could not write to that folder ('+(e&&e.name||'error')+'). Downloading a ZIP instead. Tip: pick a new empty folder, not Documents or Downloads itself.')}
   }
   if(typeof JSZip==='undefined')return long('The ZIP tool did not load. Check your internet connection and reload.');
-  const z=new JSZip();files.forEach(f=>z.file(f.n,f.b));
-  await saveFile(base+'.zip',await z.generateAsync({type:'blob'}));
-  }catch(e){long('Export failed: '+(e&&e.message||e))}
-}
-/* ---------- Editable payslips in Excel: 4 per Letter page; the dashed frame marks each quarter of the page ---------- */
-function slipData(e){
-  const keep=S.period;if(semiOnWeek(e))S.period=semiPeriod();
-  try{
-    const c=calc(e),dates=periodDates(),n=dates.length,paidRow=((S.paid[pKey()]||{}).rows||{})[e.id];
-    const fundsBal=(fundOn(e)||c.funds||num(e.fundsTotal))?num(e.fundsTotal)+(paidRow?0:c.funds):null;
-    const dl=c.ded.filter(l=>num(l.a)||l.l).map(l=>({l:l.l||'Deduction',a:num(l.a)}));if(c.funds)dl.push({l:'Fund',a:c.funds});
-    const capL=c.ded.find(x=>x.cap&&x.cap.bal!=null);let sr=0,so=0;
-    const rows=dates.map(d=>{const h=dayHrs(e,d),w=isWork(d),mk=(S.att[e.id]||{})[d];sr+=h.r;so+=h.o;
-      const att=mk==='P'?'P':mk==='H'?'1/2':mk==='A'?'A':((!h.r&&!w)?'OFF':(h.r>0?'P':''));
-      return [DAYN[dowOf(d)],fmtMD(d),att,h.o,h.r+h.o]});
-    return {e,n,rows,sr,so,pay:c.gross+c.payOt+c.paySick+c.payVac,dl,capBal:capL?capL.cap.bal:null,fundsBal,net:c.net,period:periodDateText(),site:siteName(e.site),date:fmtUS(dates[n-1])};
-  }finally{S.period=keep}
-}
-async function slipsXlsx(){
-  if(typeof JSZip==='undefined')return toast('The ZIP tool did not load. Check your internet connection and reload.');
-  const emps=ofSlipType(visibleEmps(),zipType);if(!emps.length)return toast('No employees with this group on payslip to export.');
-  const wk=emps.filter(e=>!semiOnWeek(e)).map(slipData),sm=emps.filter(semiOnWeek).map(slipData),sheets=[];
-  if(wk.length)sheets.push({name:S.period.part==='week'?'Weekly':'Payslips',list:wk});if(sm.length)sheets.push({name:'Semi-monthly',list:sm});
-  const PLS='Please provide details',W5=[17,12,14,15,12],FR='FF000000';
-  const fonts=['<font><sz val="11"/><name val="Arial"/><family val="2"/></font>'],borders=['<border><left/><right/><top/><bottom/><diagonal/></border>'],xfs=[];
-  const reg=(a,x)=>{let i=a.indexOf(x);if(i<0){i=a.length;a.push(x)}return i};
-  const bs=(side,k)=>k==='fr'?'<'+side+' style="medium"><color rgb="'+FR+'"/></'+side+'>':k?'<'+side+' style="thin"><color auto="1"/></'+side+'>':'<'+side+'/>';
-  const styleId=o=>{const f=reg(fonts,'<font>'+(o.b?'<b/>':'')+(o.i?'<i/>':'')+'<sz val="'+o.sz+'"/><name val="Arial"/><family val="2"/></font>'),
-    b=reg(borders,'<border>'+bs('left',o.l)+bs('right',o.r)+bs('top',o.t)+bs('bottom',o.bt)+'<diagonal/></border>');
-    return reg(xfs,'<xf numFmtId="'+(o.nf||0)+'" fontId="'+f+'" fillId="0" borderId="'+b+'" xfId="0" applyNumberFormat="1" applyFont="1" applyBorder="1" applyAlignment="1"><alignment horizontal="'+(o.h||'general')+'" vertical="center"'+(o.wrap?' wrapText="1"':'')+(o.shrink?' shrinkToFit="1"':'')+'/></xf>')};
-  const box={l:1,r:1,t:1,bt:1},z=new JSZip(),sheetXml=[];
-  sheets.forEach((sh,si)=>{
-    const list=sh.list,n=Math.max(...list.map(d=>d.n)),cap=Math.max(8,...list.map(d=>d.dl.length+(d.capBal!=null?1:0)+(d.fundsBal!=null?1:0))),R=18+n+cap;
-    /* sizes follow the layout you set up: 9 pt and 14.85 pt rows for a week, 8 pt for a 15/16-day period (table rows stay 14.85 pt, the other rows 12 pt) */
-    const long=n>8,sz=long?8:9,szCo=long?10:11,szAd=long?7:8,szLg=long?7:8,H0=long?12:14.85,HT=14.85;
-    const rowH=r=>(r>=8&&r<=9+n)?HT:H0,hBlock=Array.from({length:R},(_,r)=>rowH(r)).reduce((t,x)=>t+x,0);
-    const cells={},merges=[],mny=long?'right':'center';
-    const put=(r,c,v,o)=>{const k=r+','+c;cells[k]=cells[k]||{sp:{sz}};cells[k].v=v;Object.assign(cells[k].sp,o)};
-    const mrg=(r0,c0,r1,c1,v,o)=>{for(let r=r0;r<=r1;r++)for(let c=c0;c<=c1;c++)put(r,c,r===r0&&c===c0?v:'',o);merges.push(colL(c0)+(r0+1)+':'+colL(c1)+(r1+1))};
-    const pages=Math.ceil(list.length/4);
-    list.forEach((d,i)=>{
-      const r0=(Math.floor(i/4)*2+Math.floor((i%4)/2))*R,c0=(i%2)*5,n=d.n;
-      const T=(r,c,v,o)=>put(r0+r,c0+c,v,o||{}),M=(r,c,r2,c2,v,o)=>mrg(r0+r,c0+c,r0+r2,c0+c2,v,o||{});
-      const lab={b:1,h:'right'};
-      M(0,0,0,4,S.settings.company||'',{b:1,h:'center',shrink:1,sz:szCo});
-      M(1,0,1,4,S.settings.companyAddress||'',{b:1,h:'center',shrink:1,sz:szAd});
-      T(3,0,'Employee Name:',lab);M(3,1,3,2,d.e.name||'',{shrink:1,h:'left'});T(3,3,'Location:',lab);T(3,4,d.site,{shrink:1,h:'left'});
-      T(4,0,'Salary:',lab);M(4,1,4,2,d.e.group||'',{h:'left'});T(4,3,'Contact details:',Object.assign({shrink:1},lab));T(4,4,d.e.contact||PLS,{shrink:1,h:'left'});
-      T(5,0,'Employee Address:',Object.assign({shrink:1},lab));M(5,1,5,4,d.e.address||PLS,{shrink:1,h:'left'});
-      T(6,0,'Period:',lab);M(6,1,6,2,d.period,{h:'left'});
-      ['Day','Date (mm/dd)','Attendance','Overtime','Total'].forEach((t,k)=>T(8,k,t,Object.assign({b:1,h:'center'},box)));
-      d.rows.forEach((row,j)=>row.forEach((v,k)=>T(9+j,k,v,Object.assign({h:'center',nf:k>=3?2:0,b:v==='OFF'},box))));
-      ['Total','','',d.so,d.sr+d.so].forEach((v,k)=>T(9+n,k,v,Object.assign({b:1,h:'center',nf:k>=3?2:0},box)));
-      M(10+n,0,10+n,4,'P - Present     1/2 - Half day     A - Absent',{i:1,sz:szLg});
-      /* summary: every line sits right under the one before it, so the rows below move down when a deduction is added */
-      const ln={bt:'thin'},amt={nf:164,h:mny,bt:'thin'};let r=12+n;
-      T(r,0,'Gross Pay:',lab);T(r,1,d.pay,amt);r++;
-      T(r,0,'Deductions:',lab);T(r,1,'',{t:'thin',bt:'thin'});r++;
-      d.dl.forEach(l=>{T(r,0,l.l,Object.assign({shrink:1},lab));T(r,1,l.a,amt);r++});
-      if(d.capBal!=null){T(r,0,'Cash Advance Balance:',Object.assign({shrink:1},lab));T(r,1,d.capBal,amt);r++}
-      if(d.fundsBal!=null){T(r,0,'Total Funds:',lab);T(r,1,d.fundsBal,amt);r++}
-      T(r,0,'Net Pay:',lab);T(r,1,d.net,Object.assign({},amt,{b:1}));T(r,4,d.date,{h:'center',bt:'thin'});
-      T(r+1,3,S.settings.signLabel||'',{b:1,h:'center',shrink:1});T(r+1,4,'Date',{h:'center'});
-      T(r+2,3,'Accounting Clerk',{h:'center',shrink:1});
-      /* solid black frame = the limit of this quarter of the page */
-      for(let rr=0;rr<R;rr++)for(let c=0;c<5;c++){const k=(r0+rr)+','+(c0+c);cells[k]=cells[k]||{sp:{sz},v:''};const sp=cells[k].sp;if(rr===0)sp.t='fr';if(rr===R-1)sp.bt='fr';if(c===0)sp.l='fr';if(c===4)sp.r='fr'}
-    });
-    const total=pages*2*R,rowsX=[];
-    for(let r=0;r<total;r++){let x='<row r="'+(r+1)+'" ht="'+rowH(r%R)+'" customHeight="1">';
-      for(let c=0;c<10;c++){const cell=cells[r+','+c];if(!cell)continue;const ref=colL(c)+(r+1),st=styleId(cell.sp),v=cell.v;
-        if(typeof v==='number')x+='<c r="'+ref+'" s="'+st+'"><v>'+(Math.round(v*100)/100)+'</v></c>';
-        else if(v===''||v==null)x+='<c r="'+ref+'" s="'+st+'"/>';
-        else x+='<c r="'+ref+'" s="'+st+'" t="inlineStr"><is><t xml:space="preserve">'+xe(v)+'</t></is></c>'}
-      rowsX.push(x+'</row>')}
-    const brk=[];for(let p=1;p<pages;p++)brk.push('<brk id="'+(p*2*R)+'" max="16383" man="1"/>');
-    sheetXml.push({name:sh.name,last:total,xml:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetPr><pageSetUpPr fitToPage="1"/></sheetPr><sheetViews><sheetView workbookViewId="0" showGridLines="0"'+(si?'':' tabSelected="1"')+'/></sheetViews><sheetFormatPr defaultRowHeight="14.85"/><cols>'+W5.concat(W5).map((w,i)=>'<col min="'+(i+1)+'" max="'+(i+1)+'" width="'+w+'" customWidth="1"/>').join('')+'</cols><sheetData>'+rowsX.join('')+'</sheetData>'+(merges.length?'<mergeCells count="'+merges.length+'">'+merges.map(m=>'<mergeCell ref="'+m+'"/>').join('')+'</mergeCells>':'')+'<printOptions horizontalCentered="1"/><pageMargins left="0.25" right="0.25" top="0.25" bottom="0.25" header="0" footer="0"/><pageSetup paperSize="1" orientation="portrait" fitToWidth="1" fitToHeight="0"/>'+(brk.length?'<rowBreaks count="'+brk.length+'" manualBreakCount="'+brk.length+'">'+brk.join('')+'</rowBreaks>':'')+'</worksheet>'});
-  });
-  const H='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
-  z.file('[Content_Types].xml',H+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>'+sheetXml.map((_,i)=>'<Override PartName="/xl/worksheets/sheet'+(i+1)+'.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>').join('')+'</Types>');
-  z.file('_rels/.rels',H+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>');
-  z.file('xl/workbook.xml',H+'<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>'+sheetXml.map((x,i)=>'<sheet name="'+xe(x.name)+'" sheetId="'+(i+1)+'" r:id="rId'+(i+1)+'"/>').join('')+'</sheets><definedNames>'+sheetXml.map((x,i)=>'<definedName name="_xlnm.Print_Area" localSheetId="'+i+'">\''+xe(x.name)+'\'!$A$1:$J$'+x.last+'</definedName>').join('')+'</definedNames></workbook>');
-  z.file('xl/_rels/workbook.xml.rels',H+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+sheetXml.map((_,i)=>'<Relationship Id="rId'+(i+1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet'+(i+1)+'.xml"/>').join('')+'<Relationship Id="rId'+(sheetXml.length+1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
-  sheetXml.forEach((x,i)=>z.file('xl/worksheets/sheet'+(i+1)+'.xml',x.xml));
-  z.file('xl/styles.xml',H+'<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="164" formatCode="'+xe('"₱"#,##0.00')+'"/></numFmts><fonts count="'+fonts.length+'">'+fonts.join('')+'</fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="'+borders.length+'">'+borders.join('')+'</borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="'+xfs.length+'">'+xfs.join('')+'</cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>');
-  saveFile('payslips-'+pTag()+typeTag(zipType)+(S.siteFilter==='all'?'':'-'+slug(filterLabel()))+'.xlsx',await z.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
+  const z=new JSZip();
+  for(const f of files){
+    z.file(f.n, await f.b.arrayBuffer());
+  }
+  await saveFile(base+'.zip',await z.generateAsync({type:'blob'},m=>prog.show('Making the ZIP: '+Math.round(m.percent)+'%',m.percent,100)));
+  }catch(e){long('Export failed: '+(e&&e.message||e))}finally{prog.hide()}
 }
 async function summaryJpg(){
   await fonts();const emps=ofType(visibleEmps(),sumType);if(!emps.length)return toast('No employees with this wage type to export.');
-  const pdWeek=semiPaydayThisWeek(),rows=emps.map(e=>({e,c:calc(e)})),T={reg:0,ot:0,gross:0,ded:0,net:0};
-  rows.forEach(r=>{T.reg+=r.c.reg;T.ot+=r.c.ot;T.gross+=r.c.gross;T.ded+=r.c.dedTotal;T.net+=r.c.net});
-  const P=40,rh=38,GAP=34,heads=['Employee','Group','Rate','Regular hrs','Overtime','Gross pay','Deductions','Deduction details','Cash Advance Balance','Net pay'];
-  const cells=rows.map(r=>{const cb=r.c.ded.find(q=>q.cap&&q.cap.bal!=null);return {dl:dedLines(r.c,true),t:[r.e.name,r.e.group||'',money(r.c.rate)+(r.c.type==='daily'?'/day':'/mo'),fh(r.c.reg),fh(r.c.ot),money(r.c.gross),money(r.c.dedTotal),null,cb?money(cb.cap.bal):'',money(r.c.net)]}});
+  const pdWeek=semiPaydayThisWeek(),rows=emps.map(e=>({e,c:calc(e)})),T={reg:0,ot:0,rp:0,op:0,gross:0,ded:0,net:0};
+  rows.forEach(r=>{T.reg+=r.c.reg;T.ot+=r.c.ot;T.rp+=regPay(r.c);T.op+=r.c.payOt;T.gross+=grossAll(r.c);T.ded+=r.c.dedTotal;T.net+=r.c.net});
+  const P=40,rh=38,GAP=34,heads=['Employee','Group','Rate','Regular hrs','Overtime','Regular pay','OT pay','Gross pay','Deductions','Deduction details','Cash Advance Balance','Net pay'];
+  const cells=rows.map(r=>{const cb=r.c.ded.find(q=>q.cap&&q.cap.bal!=null);return {dl:dedLines(r.c,true),t:[r.e.name,r.e.group||'',money(r.c.rate)+(r.c.type==='daily'?'/day':'/mo'),fh(r.c.reg),fh(r.c.ot),money(regPay(r.c)),money(r.c.payOt),money(grossAll(r.c)),money(r.c.dedTotal),null,cb?money(cb.cap.bal):'',money(r.c.net)]}});
   const mx=document.createElement('canvas').getContext('2d'),mw=(t,f)=>{mx.font=f;return mx.measureText(t).width};
-  const fonts_=[FS(500,16),FS(400,14),FM(400,14),FM(400,14),FM(400,14),FM(400,14),FM(400,14),FS(400,13),FM(400,14),FM(500,15)];
-  const tot=[null,null,null,fh(T.reg),fh(T.ot),money(T.gross),money(T.ded),null,null,money(T.net)];
-  const cw=heads.map((h,i)=>{let w=mw(h.toUpperCase(),FS(600,12));cells.forEach(c=>{w=Math.max(w,i===7?Math.max(0,...c.dl.map(t=>mw(t,fonts_[7]))):mw(c.t[i],fonts_[i]))});if(i===0)w=Math.max(w,mw('TOTAL',FS(600,16)));if(tot[i]!=null)w=Math.max(w,mw(tot[i],i===9?FM(500,18):FM(500,15)));return Math.ceil(w)});
+  const fonts_=[FS(500,16),FS(400,14),FM(400,14),FM(400,14),FM(400,14),FM(400,14),FM(400,14),FM(400,14),FM(400,14),FS(400,13),FM(400,14),FM(500,15)];
+  const tot=[null,null,null,fh(T.reg),fh(T.ot),money(T.rp),money(T.op),money(T.gross),money(T.ded),null,null,money(T.net)];
+  const cw=heads.map((h,i)=>{let w=mw(h.toUpperCase(),FS(600,12));cells.forEach(c=>{w=Math.max(w,i===9?Math.max(0,...c.dl.map(t=>mw(t,fonts_[9]))):mw(c.t[i],fonts_[i]))});if(i===0)w=Math.max(w,mw('TOTAL',FS(600,16)));if(tot[i]!=null)w=Math.max(w,mw(tot[i],i===11?FM(500,18):FM(500,15)));return Math.ceil(w)});
   const xs=[P];cw.forEach((w,i)=>xs.push(xs[i]+w+GAP));
   const CW=Math.max(1000,xs[xs.length-1]-GAP+P);
   const cv=makeCanvas(CW,(x,W)=>{
@@ -1743,13 +1844,13 @@ async function summaryJpg(){
     x.strokeStyle='#17211e';x.beginPath();x.moveTo(P,y+10);x.lineTo(W-P,y+10);x.stroke();y+=rh;
     rows.forEach((r,i)=>{const c=cells[i],dl=c.dl,h=Math.max(rh,16+Math.max(1,dl.length)*19);if(i%2){x.fillStyle='#f3f6f5';x.fillRect(P-8,y-24,W-2*P+16,h)}
       x.fillStyle='#17211e';x.textAlign='left';
-      if(semiHl(r.e,pdWeek)){x.fillStyle='#ffe55c';x.fillRect(xs[5]-8,y-20,cw[5]+16,28);x.fillStyle='#17211e'}
-      c.t.forEach((t,k)=>{if(k===7)return;x.font=fonts_[k];x.fillText(t,xs[k],y)});
-      x.font=fonts_[7];dl.forEach((t,k)=>x.fillText(t,xs[7],y+k*19));
+      if(semiHl(r.e,pdWeek)){x.fillStyle='#ffe55c';x.fillRect(xs[7]-8,y-20,cw[7]+16,28);x.fillStyle='#17211e'}
+      c.t.forEach((t,k)=>{if(k===9)return;x.font=fonts_[k];x.fillText(t,xs[k],y)});
+      x.font=fonts_[9];dl.forEach((t,k)=>x.fillText(t,xs[9],y+k*19));
       y+=h});
     x.strokeStyle='#17211e';x.beginPath();x.moveTo(P,y-20);x.lineTo(W-P,y-20);x.stroke();y+=10;
     x.textAlign='left';x.font=FS(600,16);x.fillText('TOTAL',P,y);x.font=FM(500,15);
-    [fh(T.reg),fh(T.ot),money(T.gross),money(T.ded)].forEach((t,k)=>x.fillText(t,xs[k+3],y));x.fillStyle='#1c3a8c';x.font=FM(500,18);x.fillText(money(T.net),xs[9],y);
+    [fh(T.reg),fh(T.ot),money(T.rp),money(T.op),money(T.gross),money(T.ded)].forEach((t,k)=>x.fillText(t,xs[k+3],y));x.fillStyle='#1c3a8c';x.font=FM(500,18);x.fillText(money(T.net),xs[11],y);
     return y+50;
   });
   saveFile('payroll-summary-'+pTag()+typeTag(sumType)+'.jpg',await jpg(cv));
@@ -1759,65 +1860,140 @@ async function summaryJpg(){
 function dedLines(c,nb){const L=c.ded.filter(x=>num(x.a)||x.l).map(x=>x.cap&&x.cap.bal!=null&&!nb?x.l+' - Balance '+money(x.cap.bal):(x.l||'Deduction')+' '+money(num(x.a)));if(c.funds)L.push('Fund '+money(c.funds));return L}
 function surFirst(n){
   n=String(n||'').trim().replace(/\s+/g,' ');if(!n)return '';if(n.includes(','))return n.toUpperCase();
-  const p=n.split(' ');let suf='';if(p.length>2&&/^(jr\.?|sr\.?|ii|iii|iv)$/i.test(p[p.length-1]))suf=' '+p.pop();
-  if(p.length<2)return n.toUpperCase();const last=p.pop();return (last+suf+', '+p.join(' ')).toUpperCase();
+  const p=nameParts(n);if(!p.given)return n.toUpperCase();
+  return (p.sur+(p.suf?' '+p.suf:'')+', '+p.given).toUpperCase();
 }
 const xe=t=>String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const colL=i=>String.fromCharCode(65+i);
 /* Builds the .xlsx by hand so fonts, borders, merged cells and the peso format come out like the sample. */
-async function buildXlsx(rows,merges,widths){
+async function buildBook(sheets){
   const z=new JSZip(),NF='"₱"#,##0.00_-;\\-"₱"#,##0.00_-;"-"_-;@_-';
-  z.file('[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>');
+  z.file('[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>'+sheets.map((s,i)=>'<Override PartName="/xl/worksheets/sheet'+(i+1)+'.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>').join('')+'<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>');
   z.file('_rels/.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>');
-  z.file('xl/workbook.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Payroll" sheetId="1" r:id="rId1"/></sheets></workbook>');
-  z.file('xl/_rels/workbook.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
+  z.file('xl/workbook.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>'+sheets.map((s,i)=>'<sheet name="'+xe(s.name||'Payroll')+'" sheetId="'+(i+1)+'" r:id="rId'+(i+1)+'"/>').join('')+'</sheets></workbook>');
+  z.file('xl/_rels/workbook.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+sheets.map((s,i)=>'<Relationship Id="rId'+(i+1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet'+(i+1)+'.xml"/>').join('')+'<Relationship Id="rId'+(sheets.length+1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
   /* style ids: 0 plain, 1 bold, 2 bold centred, 3 name cell, 4 header, 5 money, 6 money yellow, 7 bold with border (total label) */
   z.file('xl/styles.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="164" formatCode="'+xe(NF)+'"/></numFmts><fonts count="2"><font><sz val="11"/><name val="Cambria"/><family val="1"/></font><font><b/><sz val="11"/><name val="Cambria"/><family val="1"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFFFFF00"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color auto="1"/></left><right style="thin"><color auto="1"/></right><top style="thin"><color auto="1"/></top><bottom style="thin"><color auto="1"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="8"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1"><alignment horizontal="center"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyFont="1" applyBorder="1" applyAlignment="1"><alignment vertical="center" wrapText="1"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyFont="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf><xf numFmtId="164" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="164" fontId="0" fillId="2" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="1" fillId="0" borderId="1" xfId="0" applyFont="1" applyBorder="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>');
-  const sd=rows.map((r,i)=>'<row r="'+(i+1)+'"'+(r.ht?' ht="'+r.ht+'" customHeight="1"':'')+'>'+r.map((c,j)=>{
+  sheets.forEach((s,si)=>{const rows=s.rows,merges=s.merges||[],widths=s.widths;
+    const sd=rows.map((r,i)=>'<row r="'+(i+1)+'"'+(r.ht?' ht="'+r.ht+'" customHeight="1"':'')+'>'+r.map((c,j)=>{
     if(c==null)return '';const ref=colL(j)+(i+1),st=c.s||0;
     if(c.f)return '<c r="'+ref+'" s="'+st+'"><f>'+xe(c.f)+'</f><v>'+(c.v==null?0:c.v)+'</v></c>';
     if(typeof c.v==='number')return '<c r="'+ref+'" s="'+st+'"><v>'+c.v+'</v></c>';
     if(c.v===''||c.v==null)return '<c r="'+ref+'" s="'+st+'"/>';
     return '<c r="'+ref+'" s="'+st+'" t="inlineStr"><is><t xml:space="preserve">'+xe(c.v)+'</t></is></c>'}).join('')+'</row>').join('');
-  z.file('xl/worksheets/sheet1.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetPr><pageSetUpPr fitToPage="1"/></sheetPr><sheetViews><sheetView workbookViewId="0" showGridLines="0"/></sheetViews><sheetFormatPr defaultRowHeight="15"/><cols>'+widths.map((w,i)=>'<col min="'+(i+1)+'" max="'+(i+1)+'" width="'+w+'" customWidth="1"/>').join('')+'</cols><sheetData>'+sd+'</sheetData><mergeCells count="'+merges.length+'">'+merges.map(m=>'<mergeCell ref="'+m+'"/>').join('')+'</mergeCells><pageMargins left="0.5" right="0.5" top="0.6" bottom="0.6" header="0.3" footer="0.3"/><pageSetup orientation="portrait" fitToWidth="1" fitToHeight="0"/></worksheet>');
+    z.file('xl/worksheets/sheet'+(si+1)+'.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetPr><pageSetUpPr fitToPage="1"/></sheetPr><sheetViews><sheetView workbookViewId="0" showGridLines="0"/></sheetViews><sheetFormatPr defaultRowHeight="15"/><cols>'+widths.map((w,i)=>'<col min="'+(i+1)+'" max="'+(i+1)+'" width="'+w+'" customWidth="1"/>').join('')+'</cols><sheetData>'+sd+'</sheetData>'+(merges.length?'<mergeCells count="'+merges.length+'">'+merges.map(m=>'<mergeCell ref="'+m+'"/>').join('')+'</mergeCells>':'')+'<pageMargins left="0.5" right="0.5" top="0.6" bottom="0.6" header="0.3" footer="0.3"/><pageSetup orientation="'+(s.landscape?'landscape':'portrait')+'" fitToWidth="1" fitToHeight="0"/></worksheet>');
+  });
   return z.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 }
+const buildXlsx=(rows,merges,widths,sheetName,landscape)=>buildBook([{rows,merges,widths,name:sheetName,landscape}]);
 const withEmpPeriod=(e,fn)=>{const keep=S.period;if(semiOnWeek(e))S.period=semiPeriod();try{return fn()}finally{S.period=keep}};
-async function excelOut(){
-  const emps=visibleEmps();if(!emps.length)return toast('No employees to export.');
-  if(typeof JSZip==='undefined')return toast('The ZIP tool did not load. Check your internet connection and reload.');
+/* ---------- 13th month pay: basic pay for the year (from Attendance) ÷ 12 ---------- */
+const X13_DEFAULT_OUT=['jose jaypee pacli-an','alejandro','arthuro','arturo'];
+const x13Excl=()=>Array.isArray(S.settings.x13Excl)?S.settings.x13Excl:S.employees.filter(e=>X13_DEFAULT_OUT.includes(String(e.name||'').trim().replace(/\s+/g,' ').toLowerCase())).map(e=>e.id);
+const x13Year=()=>{const y=+S.settings.x13Year;return y>=2000&&y<=2100?y:new Date().getFullYear()};
+function x13Panel(){
+  const ex=new Set(x13Excl()),fac=+S.settings.factor||313,n=S.employees.length;
+  return '<div class="panel settings"><h3>13th month pay</h3><p class="muted" style="margin:0">Worked out from the Attendance tab for the whole year (Jan 1 to Dec 31): Present = 1 day, Half day = 0.5 day, Absent or no mark = 0. Daily-rate staff: rate × days worked. Monthly-salary staff: salary × 12 minus absent days × (salary × 12 ÷ '+fac+'). 13th month pay = that total ÷ 12. Sundays, overtime and premiums are not counted. When Use the holiday calendar is ticked (Rest day and holiday pay), a regular holiday you did not work counts as a paid day, as in Payroll. It uses each person\'s current rate, so encode the attendance of every month first.</p>'+
+  '<div class="field" style="max-width:160px"><label for="s_x13y">Year</label><input type="number" id="s_x13y" min="2000" max="2100" step="1" value="'+x13Year()+'"></div>'+
+  '<details><summary>Employees included: <b id="x13Count">'+(n-[...ex].filter(id=>empById(id)).length)+' of '+n+'</b> (tick to include)</summary>'+
+  '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:4px 14px;margin-top:8px">'+
+  bySurname(S.employees).map(e=>'<label class="chk" style="margin:0"><input type="checkbox" data-x13="'+esc(e.id)+'"'+(ex.has(e.id)?'':' checked')+'> '+esc(e.name)+'</label>').join('')+'</div></details>'+
+  '<div class="bar" style="margin:0"><button class="btn primary" data-act="x13Export">Export 13th month pay (Excel)</button></div></div>';
+}
+async function x13Export(){
+  try{
+    if(typeof JSZip==='undefined')return toast('The ZIP tool did not load. Check your internet connection and reload.');
+    const ex=new Set(x13Excl()),fac=+S.settings.factor||313,yr=x13Year(),r2=n=>Math.round(n*100)/100;
+    const inc=S.employees.filter(e=>!ex.has(e.id)).sort(empCmp),out=bySurname(S.employees.filter(e=>ex.has(e.id)));
+    if(!inc.length)return toast('No employees are included. Tick at least one in Settings.');
+    /* every working day of the year (the rest day, Sunday, is not counted) */
+    const days=[];for(let d=new Date(yr,0,1);d.getFullYear()===yr;d.setDate(d.getDate()+1)){const iso=isoOf(d);if(isWork(iso))days.push(iso)}
+    const hol=!!S.settings.holidays;
+    const data=inc.map(e=>{
+      const at=S.att[e.id]||{},mo=e.wageType==='monthly',rate=num(e.rate);
+      let p=0,h=0,ph=0,ab=0;
+      for(const d of days){const m=at[d];
+        if(m==='P')p++;else if(m==='H')h++;
+        else if(hol&&holidayOf(d)==='regular'&&paidHoliday(at,d))ph++;   /* unworked regular holiday: paid, as in Payroll */
+        else ab++}
+      const annual=r2(mo?Math.max(0,rate*12-rate*12/fac*(ab+h/2)):rate*(p+h/2+ph));
+      return {e,name:surFirst(e.name),type:mo?'Monthly':'Daily',mo,rate,p,h,ph,ab,annual,th:r2(annual/12)};
+    });
+    /* columns: B NAME, C Pay type, D Rate, E Days present, F Half days, [G Paid holidays], Absent or no mark, Annual basic pay, 13th Month Pay */
+    const cA=hol?'H':'G',cN=hol?'I':'H',cT=hol?'J':'I',last=cT,nc=hol?9:8;
+    const heads=['NAME','Pay type','Rate','Days present','Half days'].concat(hol?['Paid holidays']:[],['Absent or no mark','Annual basic pay','13th Month Pay']);
+    const mny=n=>'₱'+n.toLocaleString('en-US',{minimumFractionDigits:2}),sm=k=>data.reduce((t,d)=>t+d[k],0);
+    const mw=a=>Math.max(...a.map(t=>String(t).length))*1.15+3;
+    const widths=[3,mw(['NAME'].concat(data.map(d=>d.name))),12,mw(['Rate'].concat(data.map(d=>mny(d.rate)))),10,10].concat(hol?[10]:[],[12,mw(['Annual basic pay'].concat(data.map(d=>mny(d.annual)),mny(sm('annual')))),mw(['13th Month Pay'].concat(data.map(d=>mny(d.th)),mny(sm('th'))))]);
+    const R=[],M=[],blank=()=>R.push([]),row=c=>R.push([null].concat(c));
+    R.push([null,{v:S.settings.company,s:2}]);M.push('B1:'+last+'1');
+    R.push([null,{v:S.settings.companyAddress||'',s:2}]);M.push('B2:'+last+'2');blank();
+    R.push([null,{v:'13TH MONTH PAY : YEAR '+yr,s:1}]);
+    R.push([null,{v:'From the Attendance tab, Jan 1 to Dec 31 '+yr+' ('+days.length+' working days, Sunday is the rest day). Present = 1 day, Half day = 0.5, Absent or no mark = 0.'+(hol?' Regular holidays not worked = 1 day (paid).':''),s:0}]);
+    R.push([null,{v:'Daily staff: rate × (days present + half days ÷ 2'+(hol?' + paid holidays':'')+'). Monthly staff: salary × 12 − absent days × (salary × 12 ÷ '+fac+'). 13th month pay = annual basic pay ÷ 12. Overtime and premiums are not included.',s:0}]);blank();
+    const order=[...new Set(data.map(d=>d.e.site))].sort((a,b)=>siteRank(a)-siteRank(b)||siteName(a).localeCompare(siteName(b)));
+    const tot=[],blanks=(st)=>Array.from({length:nc-2},()=>({v:'',s:st}));
+    order.forEach(site=>{
+      const L=data.filter(d=>d.e.site===site);
+      row([{v:siteName(site),s:1}]);
+      row(heads.map(h=>({v:h,s:4})));R[R.length-1].ht=32;const r0=R.length+1;
+      L.forEach(d=>{const rn=R.length+1,f=d.mo?'MAX(0,D'+rn+'*12-D'+rn+'*12/'+fac+'*('+cA+rn+'+F'+rn+'/2))':'D'+rn+'*(E'+rn+'+F'+rn+'/2'+(hol?'+G'+rn:'')+')';
+        row([{v:d.name,s:3},{v:d.type,s:4},{v:d.rate,s:5},{v:d.p,s:4},{v:d.h,s:4}].concat(hol?[{v:d.ph,s:4}]:[],[{v:d.ab,s:4},{f,v:d.annual,s:5},{f:'ROUND('+cN+rn+'/12,2)',v:d.th,s:5}]))});
+      const r1=R.length,a=r2(L.reduce((t,d)=>t+d.annual,0)),b=r2(L.reduce((t,d)=>t+d.th,0));tot.push(R.length+2);
+      row(blanks(6).concat([{f:'SUM('+cN+r0+':'+cN+r1+')',v:a,s:6},{f:'SUM('+cT+r0+':'+cT+r1+')',v:b,s:6}]));
+      blank();
+    });
+    if(order.length>1){row([{v:'TOTAL',s:7}].concat(blanks(7).slice(1)).concat([{f:tot.map(r=>cN+r).join('+'),v:r2(sm('annual')),s:6},{f:tot.map(r=>cT+r).join('+'),v:r2(sm('th')),s:6}]));blank()}
+    if(out.length){R.push([null,{v:'Not included (start date not known): '+out.map(e=>e.name).join(', '),s:0}])}
+    saveFile('13th-month-pay-'+yr+'.xlsx',await buildXlsx(R,M,widths,'13th Month Pay'));
+  }catch(e){toast('Could not create the 13th month file: '+(e&&e.message||e))}
+}
+function payrollSheet(emps,name,gl){
   const r2=n=>Math.round(n*100)/100;
-  /* Total Funds = balance after this payroll: if the payroll is not recorded as paid yet, this payroll's Funds is counted in. */
   const pdWeek=semiPaydayThisWeek();
   const data=emps.map(e=>withEmpPeriod(e,()=>{const c=calc(e),paid=((S.paid[pKey()]||{}).rows||{})[e.id],lines=dedLines(c,true);
     const showBal=fundOn(e)||num(e.fundsTotal)||c.funds;
-    return {e,name:surFirst(e.name),gross:r2(c.gross+c.payOt+c.paySick+c.payVac),ded:r2(c.dedTotal),why:lines,cab:(c.ded.find(x=>x.cap&&x.cap.bal!=null)||{cap:{}}).cap.bal!=null?r2(c.ded.find(x=>x.cap&&x.cap.bal!=null).cap.bal):0,bal:showBal?r2(num(e.fundsTotal)+(paid?0:c.funds)):0,net:r2(c.net)}}));
+    return {e,name:surFirst(e.name),reg:r2(regPay(c)),ot:r2(c.payOt),gross:r2(r2(regPay(c))+r2(c.payOt)),ded:r2(c.dedTotal),why:lines,cab:(c.ded.find(x=>x.cap&&x.cap.bal!=null)||{cap:{}}).cap.bal!=null?r2(c.ded.find(x=>x.cap&&x.cap.bal!=null).cap.bal):0,bal:showBal?r2(num(e.fundsTotal)+(paid?0:c.funds)):0,net:r2(c.net)}}));
   data.forEach(d=>d.hl=semiHl(d.e,pdWeek));
-  const last='H';   /* columns B..H */
-  const heads=['NAME','Gross Pay','Deduction','Deduction Details','Cash Advance Remaining Balance','Total Funds','Net Pay'];
-  const mw=a=>Math.max(...a.map(t=>String(t).length))*1.15+3,mny=n=>'₱'+n.toLocaleString('en-US',{minimumFractionDigits:2}),sm=k=>data.reduce((t,d)=>t+d[k],0);
-  const widths=[3,mw(['NAME'].concat(data.map(d=>d.name))),mw(['Gross Pay'].concat(data.map(d=>mny(d.gross)),mny(sm('gross')))),mw(['Deduction'].concat(data.map(d=>mny(d.ded)),mny(sm('ded')))),mw(['Deduction Details'].concat(data.flatMap(d=>d.why))),Math.max(21,mw(data.map(d=>mny(d.cab)).concat(mny(sm('cab'))))),mw(['Total Funds'].concat(data.map(d=>mny(d.bal)),mny(sm('bal')))),mw(['Net Pay'].concat(data.map(d=>mny(d.net)),mny(sm('net'))))];
-  const R=[],M=[],blank=()=>R.push([]);
+  const last='J';   /* columns B..J */
+  const heads=['NAME','Regular Pay','OT Pay','Gross Pay','Deduction','Deduction Details','Cash Advance Remaining Balance','Total Funds','Net Pay'];
+  const mw=a=>Math.max(8,...a.map(t=>String(t).length))*1.15+3,mny=n=>'₱'+n.toLocaleString('en-US',{minimumFractionDigits:2}),sm=k=>data.reduce((t,d)=>t+d[k],0);
+  const widths=[3,mw(['NAME'].concat(data.map(d=>d.name))),mw(['Regular Pay'].concat(data.map(d=>mny(d.reg)),mny(sm('reg')))),mw(['OT Pay'].concat(data.map(d=>mny(d.ot)),mny(sm('ot')))),mw(['Gross Pay'].concat(data.map(d=>mny(d.gross)),mny(sm('gross')))),mw(['Deduction'].concat(data.map(d=>mny(d.ded)),mny(sm('ded')))),mw(['Deduction Details'].concat(data.flatMap(d=>d.why))),Math.max(21,mw(data.map(d=>mny(d.cab)).concat(mny(sm('cab'))))),mw(['Total Funds'].concat(data.map(d=>mny(d.bal)),mny(sm('bal')))),mw(['Net Pay'].concat(data.map(d=>mny(d.net)),mny(sm('net'))))];
+  const R=[],M=[],blank=()=>R.push([]),totRows=[];
   const row=(cells)=>R.push([null].concat(cells));
   R.push([null,{v:S.settings.company,s:2}]);M.push('B1:'+last+'1');
   R.push([null,{v:S.settings.companyAddress||'',s:2}]);M.push('B2:'+last+'2');blank();
   const semi=data.some(d=>semiOnWeek(d.e));
-  R.push([null,{v:'PAYROLL : ',s:1},{v:periodLabel()+(semi?'   |   Semi-monthly staff: '+withEmpPeriod(data.find(d=>semiOnWeek(d.e)).e,periodLabel):''),s:1}]);blank();
+  R.push([null,{v:'PAYROLL : ',s:1},{v:periodLabel()+(semi?'   |   Semi-monthly staff: '+withEmpPeriod(data.find(d=>semiOnWeek(d.e)).e,periodLabel):'')+(gl?'   |   '+gl:''),s:1}]);blank();
   const order=[...new Set(data.map(d=>d.e.site))].sort((a,b)=>siteRank(a)-siteRank(b)||siteName(a).localeCompare(siteName(b)));
+  if(!data.length){R.push([null,{v:'No employees in this group for this period.',s:0}])}
   order.forEach((site,li)=>{
     const L=data.filter(d=>d.e.site===site);   /* same order as the Payroll screen */
     row([{v:siteName(site),s:1}]);
     row(heads.map(h=>({v:h,s:4})));R[R.length-1].ht=32;const r0=R.length+1;
     L.forEach(d=>{const rn=R.length+1,k=Math.max(1,d.why.length);
-      row([{v:d.name,s:3},{v:d.gross,s:d.hl?6:5},d.ded?{v:d.ded,s:5}:{v:'',s:5},{v:d.why[0]||'',s:3},d.cab?{v:d.cab,s:5}:{v:'',s:5},d.bal?{v:d.bal,s:5}:{v:'',s:5},{f:'C'+rn+'-N(D'+rn+')',v:d.net,s:5}]);
+      row([{v:d.name,s:3},{v:d.reg,s:5},{v:d.ot,s:5},{f:'C'+rn+'+D'+rn,v:d.gross,s:d.hl?6:5},d.ded?{v:d.ded,s:5}:{v:'',s:5},{v:d.why[0]||'',s:3},d.cab?{v:d.cab,s:5}:{v:'',s:5},d.bal?{v:d.bal,s:5}:{v:'',s:5},{f:'E'+rn+'-N(F'+rn+')',v:d.net,s:5}]);
       /* one deduction per row: the other cells of the employee are merged down */
-      for(let i=1;i<k;i++)row([{v:'',s:3},{v:'',s:5},{v:'',s:5},{v:d.why[i],s:3},{v:'',s:5},{v:'',s:5},{v:'',s:5}]);
-      if(k>1)['B','C','D','F','G','H'].forEach(cl=>M.push(cl+rn+':'+cl+(rn+k-1)))});
+      for(let i=1;i<k;i++)row([{v:'',s:3},{v:'',s:5},{v:'',s:5},{v:'',s:5},{v:'',s:5},{v:d.why[i],s:3},{v:'',s:5},{v:'',s:5},{v:'',s:5}]);
+      if(k>1)['B','C','D','E','F','H','I','J'].forEach(cl=>M.push(cl+rn+':'+cl+(rn+k-1)))});
     const r1=R.length,sum=k=>L.reduce((t,d)=>t+d[k],0),S_=(c,k,st)=>({f:'SUM('+c+r0+':'+c+r1+')',v:r2(sum(k)),s:st});
-    row([{v:'',s:6},S_('C','gross',6),S_('D','ded',6),{v:'',s:6},S_('F','cab',6),S_('G','bal',6),S_('H','net',6)]);
+    row([{v:'',s:6},S_('C','reg',6),S_('D','ot',6),S_('E','gross',6),S_('F','ded',6),{v:'',s:6},S_('H','cab',6),S_('I','bal',6),S_('J','net',6)]);totRows.push(R.length);
     if(li<order.length-1)blank();
   });
-  saveFile('payroll-'+pTag()+(S.siteFilter==='all'?'':'-'+slug(filterLabel()))+'.xlsx',await buildXlsx(R,M,widths));
+  return {name,rows:R,merges:M,widths,totRows,data,landscape:false};
+}
+function mjSheet(A){
+  const r2=n=>Math.round(n*100)/100,q="'"+A.name+"'!",sm=k=>r2(A.data.reduce((t,d)=>t+d[k],0));
+  const fG=A.totRows.map(r=>q+'E'+r).join('+')||'0',fN=A.totRows.map(r=>q+'J'+r+'+'+q+'I'+r).join('+')||'0';
+  const loc=S.siteFilter==='all'?'All Location':filterLabel();
+  return {name:'SUMMARY FOR MJ',rows:[[{v:'Location',s:4},{v:'Gross Pay',s:4},{v:'Net Pay with Total Funds',s:4}],[{v:loc,s:3},{f:fG,v:sm('gross'),s:5},{f:fN,v:r2(sm('net')+sm('bal')),s:5}]],merges:[],widths:[18,20,28],landscape:false};
+}
+async function excelOut(){
+  const all=visibleEmps();if(!all.length)return toast('No employees to export.');
+  if(typeof JSZip==='undefined')return toast('The ZIP tool did not load. Check your internet connection and reload.');
+  const sheets=[payrollSheet(all,'All Groups','')];
+  sheets.push(mjSheet(sheets[0]));
+  saveFile('payroll-summary-'+pTag()+(S.siteFilter==='all'?'':'-'+slug(filterLabel()))+'.xlsx',await buildBook(sheets));
 }
 $('#restoreIn').addEventListener('change',async e=>{
   const f=e.target.files[0];if(!f)return;
@@ -1827,13 +2003,35 @@ $('#restoreIn').addEventListener('change',async e=>{
 });
 
 (function(){const el=document.querySelector('.stick');if(!el)return;const set=()=>document.documentElement.style.setProperty('--stick',el.offsetHeight+'px');set();window.addEventListener('resize',set);if(window.ResizeObserver)new ResizeObserver(set).observe(el)})();
-// Presentation-only theme control. Stored separately from payroll/business data.
+/* ---- Keyboard access for the attendance grid. Uses the existing click handler; nothing else in the app changes. ---- */
+(function(){
+  const view=document.getElementById('view'),SEL='td.cell[data-act="cell"]';
+  let last=null,refocus=false;
+  const state=c=>c.classList.contains('P')?'present':c.classList.contains('A')?'absent':c.classList.contains('H')?'half day':c.classList.contains('rest')?'rest day':'not marked';
+  const pick=()=>{const cs=view.querySelectorAll(SEL);if(!cs.length)return null;
+    const t=last&&view.querySelector(SEL+'[data-e="'+CSS.escape(last.e)+'"][data-d="'+CSS.escape(last.d)+'"]')||cs[0];
+    cs.forEach(c=>{const n=c.closest('tr').querySelector('.lead b');c.setAttribute('role','button');c.setAttribute('tabindex',c===t?'0':'-1');c.setAttribute('aria-label',(n?n.textContent+', ':'')+c.dataset.d+': '+state(c))});
+    return t};
+  new MutationObserver(()=>{const t=pick();if(t&&refocus){refocus=false;t.focus({preventScroll:true})}}).observe(view,{childList:true,subtree:true});
+  view.addEventListener('keydown',ev=>{
+    const c=ev.target.closest&&ev.target.closest(SEL);if(!c)return;
+    const k=ev.key;
+    if(k==='Enter'||k===' '){ev.preventDefault();last={e:c.dataset.e,d:c.dataset.d};refocus=true;c.click();setTimeout(()=>{refocus=false},250);return}
+    const dx={ArrowLeft:-1,ArrowRight:1}[k],dy={ArrowUp:-1,ArrowDown:1}[k];
+    if(!dx&&!dy)return;
+    ev.preventDefault();
+    let n=null;
+    if(dx)n=dx>0?c.nextElementSibling:c.previousElementSibling;
+    else{const r=dy>0?c.parentElement.nextElementSibling:c.parentElement.previousElementSibling;n=r&&r.children[[...c.parentElement.children].indexOf(c)]}
+    if(n&&n.matches(SEL)){c.setAttribute('tabindex','-1');n.setAttribute('tabindex','0');n.focus({preventScroll:false});last={e:n.dataset.e,d:n.dataset.d}}
+  });
+})();
+/* ---- Presentation-only theme control. Stored separately from payroll data. ---- */
 (function(){
   const root=document.documentElement,btn=document.getElementById('themeToggle'),key='payrolldesk.visualTheme';
-  let saved='light';try{saved=localStorage.getItem(key)||'light'}catch(e){}
-  const apply=theme=>{root.dataset.theme=theme;if(btn){btn.textContent=theme==='dark'?'☀ Light mode':'☾ Dark mode';btn.setAttribute('aria-label',theme==='dark'?'Switch to light theme':'Switch to dark theme')}};
-  apply(saved==='dark'?'dark':'light');
-  if(btn)btn.addEventListener('click',()=>{const next=root.dataset.theme==='dark'?'light':'dark';apply(next);try{localStorage.setItem(key,next)}catch(e){}});
+  const apply=t=>{root.dataset.theme=t;if(btn){btn.textContent=t==='dark'?'☀ Light mode':'☾ Dark mode';btn.setAttribute('aria-label',t==='dark'?'Switch to light theme':'Switch to dark theme')}};
+  apply(root.dataset.theme==='dark'?'dark':'light');
+  if(btn)btn.addEventListener('click',()=>{const n=root.dataset.theme==='dark'?'light':'dark';apply(n);try{localStorage.setItem(key,n)}catch(e){}});
 })();
 boot();
 </script>
