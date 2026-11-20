@@ -19,3 +19,7 @@ ROLLBACK: put back the index.html and _headers from PayrollDesk-Cloud-limited-us
 Nov 17 (later): Settings > Payslip format has a tick box "Use the new payslip format". Unticked = old format (default). Ticked = new format with Salary Period beside Salary. Factor 312 (26 working days a month) added in Settings.
 
 Nov 18: Payslip format tick box in Settings. Unticked = old green format (default), ticked = new black and white format. Factor 312 (26 working days a month) added.
+
+SALARY ADJUSTMENT UPDATE: only index.html changed. Upload it to public/ in your repo, then hard refresh (Ctrl+Shift+R). The database table already exists.
+
+GLASS UPDATE: only index.html changed. To undo the glass look, use index.html from the previous zip.

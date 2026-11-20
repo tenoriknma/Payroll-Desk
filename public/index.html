@@ -121,6 +121,9 @@ input.txt{width:100%;min-width:140px}
 .field input[type=checkbox]{width:auto;height:auto}
 .fundsbox{max-width:640px;box-sizing:border-box;border:1px solid var(--line);border-radius:8px;padding:12px;margin-top:12px;background:var(--surface)}
 .fundsbox h3{margin:0 0 8px;font-size:14px}
+.infoi{position:relative;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;margin-left:8px;border-radius:50%;border:1.5px solid var(--muted);color:var(--muted);font:700 11px/1 Georgia,serif;font-style:italic;cursor:help;vertical-align:middle;outline:none}.infoi:hover,.infoi:focus{color:var(--accent,#4f46e5);border-color:var(--accent,#4f46e5)}.infoi .tip{display:none;position:absolute;left:-8px;top:24px;z-index:60;width:min(300px,70vw);padding:9px 11px;border-radius:8px;background:#1f2937;color:#fff;font:400 12px/1.45 Inter,system-ui,sans-serif;font-style:normal;text-align:left;box-shadow:0 6px 20px rgba(0,0,0,.3)}.infoi:hover .tip,.infoi:focus .tip{display:block}
+.fundsrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;align-items:start;margin-top:12px}.fundsrow .fundsbox{margin-top:0;max-width:none}
+.sadjrow{display:grid;grid-template-columns:minmax(0,1fr) 104px 34px;gap:6px;margin-bottom:6px;align-items:center}.sadjrow input{width:100%;min-width:0}
 .flog{max-height:130px;overflow:auto;font-size:12px;margin-top:8px}
 .flog td,.flog th{padding:3px 8px;white-space:normal}
 .settings{display:grid;gap:16px;padding:18px;margin-bottom:16px}
@@ -448,6 +451,29 @@ tbody tr:last-child>td{border-bottom-color:var(--line)}
 .plink a:hover,.gfoot a:hover{color:var(--accent-text)}
 .gfoot{margin:16px 0 0;text-align:center;font-size:12px}
 @media(max-width:700px){.plink{display:none}}
+
+/* ---- glass layer: frosted translucent surfaces over a soft colour backdrop (remove this block to go back) ---- */
+:root[data-theme="dark"]{
+  --bg:#070a14;--surface:rgba(255,255,255,.055);--soft:rgba(255,255,255,.07);--hover:rgba(255,255,255,.10);--line:rgba(255,255,255,.13);
+  --gl-blur:blur(22px) saturate(160%);--gl-edge:inset 0 1px 0 rgba(255,255,255,.14);--gl-sh:0 10px 36px -8px rgba(0,0,0,.55);
+  --bgfx:radial-gradient(46rem 34rem at 8% 6%,rgba(99,102,241,.55),transparent 62%),radial-gradient(40rem 30rem at 96% 12%,rgba(236,72,153,.32),transparent 60%),radial-gradient(44rem 34rem at 70% 105%,rgba(20,184,166,.38),transparent 62%),radial-gradient(34rem 26rem at 0% 90%,rgba(59,130,246,.30),transparent 60%)}
+:root[data-theme="light"]{
+  --surface:rgba(255,255,255,.58);--soft:rgba(255,255,255,.55);--hover:rgba(255,255,255,.8);--line:rgba(70,80,140,.20);
+  --gl-blur:blur(20px) saturate(170%);--gl-edge:inset 0 1px 0 rgba(255,255,255,.9);--gl-sh:0 10px 32px -10px rgba(60,72,120,.28);
+  --bgfx:radial-gradient(46rem 34rem at 6% 4%,rgba(129,140,248,.45),transparent 62%),radial-gradient(40rem 30rem at 98% 10%,rgba(244,114,182,.30),transparent 60%),radial-gradient(44rem 34rem at 72% 104%,rgba(45,212,191,.34),transparent 62%)}
+.panel,.card,.fundsbox,.dlg,.stick,.seg,.tabs,.top{-webkit-backdrop-filter:var(--gl-blur);backdrop-filter:var(--gl-blur)}
+.panel,.card,.fundsbox,.dlg{background:var(--surface);border:1px solid var(--line);box-shadow:var(--gl-edge),var(--gl-sh)}
+.stick{background:transparent}
+.dlg{background:color-mix(in srgb,var(--surface) 55%,#0b1020 45%)}
+:root[data-theme="light"] .dlg{background:rgba(255,255,255,.82)}
+#modal{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+input[type=text],input[type=email],input[type=number],input[type=month],input[type=search],input[type=password],select,textarea{background:rgba(255,255,255,.06);border-color:var(--line)}
+:root[data-theme="light"] input[type=text],:root[data-theme="light"] input[type=email],:root[data-theme="light"] input[type=number],:root[data-theme="light"] input[type=month],:root[data-theme="light"] input[type=search],:root[data-theme="light"] input[type=password],:root[data-theme="light"] select,:root[data-theme="light"] textarea{background:rgba(255,255,255,.7)}
+.btn{background:var(--soft);border-color:var(--line);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn.primary{background:linear-gradient(135deg,var(--accent-strong),var(--accent));border-color:transparent;color:#fff;box-shadow:0 6px 18px -6px rgba(99,102,241,.7)}
+.grid th,.grid thead th{background:color-mix(in srgb,var(--bg) 70%,transparent)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){:root[data-theme="dark"]{--surface:#111827}:root[data-theme="light"]{--surface:#fff}}
+@media (prefers-reduced-transparency:reduce){:root{--gl-blur:none}:root[data-theme="dark"]{--surface:#111827}:root[data-theme="light"]{--surface:#fff}}
 </style>
 
 </head>
@@ -513,7 +539,7 @@ function lastFriday(){const n=new Date();n.setDate(n.getDate()-((n.getDay()-5+7)
 /* ---------- state + storage ---------- */
 function defaults(){
   const n=new Date();
-  return {employees:[],att:{},review:{},hrs:{},adj:{},locked:{},paid:{},siteFilter:'all',savedAt:0,
+  return {employees:[],att:{},review:{},hrs:{},adj:{},sadj:{},locked:{},paid:{},siteFilter:'all',savedAt:0,
     period:{ym:n.getFullYear()+'-'+pad(n.getMonth()+1),part:'week',end:lastFriday()},
     settings:{company:'EASTLAND MANAGEMENT CONSULTANCY and ASSISTANCE SERVICES CO.',sites:{office:'Office',field:'Site'},currency:'₱',factor:313,restDays:[0],punchRule:'any',hoursPerDay:8,otRate:1,companyAddress:'Unit G-H Everex Minimart BLDG., Sitio Halang na Gubat, Brgy. Sampaloc Tanay, Rizal',locOrder:['office','field','loc_pyq544v','loc_hnshxwb','loc_rteac26','loc_kb6zvme'],restPremium:false,holidays:false,holidayList:[],fDaily:'rate * days',fMonthly:'max(0, salary * share - absentDays * dailyRate) + restDays * dailyRate',signature:'',signLabel:"Accounting Head's signature"}};
 }
@@ -522,7 +548,7 @@ function migrate(s){
   const o=Object.assign(defaults(),s);
   o.settings=Object.assign(defaults().settings,s.settings||{});if(o.settings.company==='Eastland Management Consultancy & Ass.')o.settings.company='EASTLAND MANAGEMENT CONSULTANCY and ASSISTANCE SERVICES CO.';o.settings.restDays=[0];if(!o.settings.companyAddress)o.settings.companyAddress='Unit G-H Everex Minimart BLDG., Sitio Halang na Gubat, Brgy. Sampaloc Tanay, Rizal';
   {const sv=(s.settings||{}).sites;o.settings.sites=sv&&Object.keys(sv).length?Object.assign({},sv):{office:'Office',field:'Site'}}
-  ['att','review','hrs','adj','locked','paid'].forEach(k=>o[k]=o[k]||{});
+  ['att','review','hrs','adj','sadj','locked','paid'].forEach(k=>o[k]=o[k]||{});
   o.employees=o.employees||[];
   o.employees.forEach(e=>{if(!e.dedPrefs||typeof e.dedPrefs!=='object')e.dedPrefs=e.fundsOn?{Fund:{on:true,a:(e.fundsAmt!=null&&e.fundsAmt!==''?num(e.fundsAmt):FUNDS_DEFAULT)}}:{}});
   o.period=Object.assign({part:'month',end:lastFriday()},o.period||{});
@@ -540,11 +566,11 @@ function uiLoad(){try{const u=JSON.parse(localStorage.getItem(UIKEY)||'null');if
 function uiSave(){try{localStorage.setItem(UIKEY,JSON.stringify({period:S.period,siteFilter:S.siteFilter,tab}))}catch(e){}}
 
 /* tables, keys and order (parents first when writing, children first when deleting) */
-const KEYS={locations:['key'],employees:['id'],payroll_paid:['payroll_key'],payroll_locks:['payroll_key'],attendance:['employee_id','work_date'],hour_overrides:['employee_id','work_date'],payroll_adjustments:['payroll_key','employee_id'],payroll_paid_rows:['payroll_key','employee_id'],settings:['id']};
-const UP=['locations','employees','payroll_paid','payroll_locks','attendance','hour_overrides','payroll_adjustments','payroll_paid_rows','settings'];
+const KEYS={locations:['key'],employees:['id'],payroll_paid:['payroll_key'],payroll_locks:['payroll_key'],attendance:['employee_id','work_date'],hour_overrides:['employee_id','work_date'],payroll_adjustments:['payroll_key','employee_id'],payroll_salary_adjustments:['payroll_key','employee_id'],payroll_paid_rows:['payroll_key','employee_id'],settings:['id']};
+const UP=['locations','employees','payroll_paid','payroll_locks','attendance','hour_overrides','payroll_adjustments','payroll_salary_adjustments','payroll_paid_rows','settings'];
 /* The attendance-only role may write these two tables and nothing else. */
 const ENC_T=['attendance','hour_overrides'];
-const DOWN=['payroll_paid_rows','payroll_adjustments','hour_overrides','attendance','payroll_locks','payroll_paid','employees','locations'];
+const DOWN=['payroll_paid_rows','payroll_salary_adjustments','payroll_adjustments','hour_overrides','attendance','payroll_locks','payroll_paid','employees','locations'];
 
 function normalize(){
   const T={};UP.forEach(t=>T[t]=new Map());
@@ -561,6 +587,7 @@ function normalize(){
     put('hour_overrides',{employee_id:id,work_date:d,regular:o.r!=null?num(o.r):null,overtime:num(o.o),sick:num(o.s),vacation:num(o.v)})}}
   for(const pk in S.adj){for(const id in S.adj[pk]){if(!ids.has(id))continue;const a=S.adj[pk][id];
     put('payroll_adjustments',{payroll_key:pk,employee_id:id,rate:a.rate!=null?num(a.rate):null,wage_type:a.type==='monthly'||a.type==='daily'?a.type:null,deductions:(a.ded||[]).map(x=>x.m!=null?{l:x.l,a:num(x.a),m:num(x.m),gm:x.gm!=null?num(x.gm):null}:{l:x.l,a:x.a})})}}
+  for(const pk in (S.sadj||{})){for(const id in S.sadj[pk]){if(!ids.has(id))continue;const L=(S.sadj[pk][id]||[]).filter(x=>num(x.a)>0).map(x=>({l:String(x.l||''),a:num(x.a)}));if(L.length)put('payroll_salary_adjustments',{payroll_key:pk,employee_id:id,lines:L})}}
   for(const pk in S.locked)if(S.locked[pk])put('payroll_locks',{payroll_key:pk});
   for(const pk in S.paid){const P=S.paid[pk];put('payroll_paid',{payroll_key:pk,label:P.label||''});
     for(const id in P.rows){if(!ids.has(id))continue;const r=P.rows[id];
@@ -622,7 +649,7 @@ async function rpcAll(fn){const {data,error}=await sb.rpc(fn);if(error)throw err
   return (data||[]).map(r=>Object.assign({wage_type:'daily',rate:0,deduction:0,address:'',contact:'',email:'',manager:'',ca_plan:null,ca_log:[],funds_on:false,funds_amount:0,funds_total:0,funds_log:[],ded_prefs:{}},r))}
 async function rpcSettings(){const {data,error}=await sb.rpc('get_settings_basic');if(error)throw error;return [{data:data||{}}]}
 async function loadAll(){
-  const [loc,emp,att,hrs,adj,lck,pd,pdr,set]=await Promise.all([fetchAll('locations',['key']),ENC?rpcAll('get_employees_basic'):fetchAll('employees',['created_at','id']),fetchAll('attendance',['employee_id','work_date']),fetchAll('hour_overrides',['employee_id','work_date']),ENC?[]:fetchAll('payroll_adjustments',['payroll_key','employee_id']),fetchAll('payroll_locks',['payroll_key']),ENC?[]:fetchAll('payroll_paid',['payroll_key']),ENC?[]:fetchAll('payroll_paid_rows',['payroll_key','employee_id']),ENC?rpcSettings():fetchAll('settings',['id'])]);
+  const [loc,emp,att,hrs,adj,lck,pd,pdr,set,sad]=await Promise.all([fetchAll('locations',['key']),ENC?rpcAll('get_employees_basic'):fetchAll('employees',['created_at','id']),fetchAll('attendance',['employee_id','work_date']),fetchAll('hour_overrides',['employee_id','work_date']),ENC?[]:fetchAll('payroll_adjustments',['payroll_key','employee_id']),fetchAll('payroll_locks',['payroll_key']),ENC?[]:fetchAll('payroll_paid',['payroll_key']),ENC?[]:fetchAll('payroll_paid_rows',['payroll_key','employee_id']),ENC?rpcSettings():fetchAll('settings',['id']),ENC?[]:fetchAll('payroll_salary_adjustments',['payroll_key','employee_id'])]);
   const o=defaults();
   o.settings=Object.assign(o.settings,(set[0]&&set[0].data)||{});if(o.settings.company==='Eastland Management Consultancy & Ass.')o.settings.company='EASTLAND MANAGEMENT CONSULTANCY and ASSISTANCE SERVICES CO.';o.settings.restDays=[0];if(!o.settings.companyAddress)o.settings.companyAddress='Unit G-H Everex Minimart BLDG., Sitio Halang na Gubat, Brgy. Sampaloc Tanay, Rizal';
   const sites={};loc.forEach(l=>sites[l.key]=l.name);o.settings.sites=Object.keys(sites).length?sites:{office:'Office',field:'Site'};
@@ -630,6 +657,7 @@ async function loadAll(){
   att.forEach(r=>{if(r.mark){(o.att[r.employee_id]=o.att[r.employee_id]||{})[r.work_date]=r.mark}if(r.needs_review){(o.review[r.employee_id]=o.review[r.employee_id]||{})[r.work_date]=1}});
   hrs.forEach(r=>{const v={};if(r.regular!=null)v.r=Number(r.regular);if(Number(r.overtime))v.o=Number(r.overtime);if(Number(r.sick))v.s=Number(r.sick);if(Number(r.vacation))v.v=Number(r.vacation);(o.hrs[r.employee_id]=o.hrs[r.employee_id]||{})[r.work_date]=v});
   adj.forEach(r=>{const a={};if(r.rate!=null)a.rate=Number(r.rate);if(r.wage_type)a.type=r.wage_type;a.ded=r.deductions||[];(o.adj[r.payroll_key]=o.adj[r.payroll_key]||{})[r.employee_id]=a});
+  sad.forEach(r=>{const L=Array.isArray(r.lines)?r.lines.map(x=>({l:String(x.l||''),a:Number(x.a)||0})).filter(x=>x.a>0):[];if(L.length)(o.sadj[r.payroll_key]=o.sadj[r.payroll_key]||{})[r.employee_id]=L});
   lck.forEach(r=>o.locked[r.payroll_key]=true);
   pd.forEach(r=>o.paid[r.payroll_key]={label:r.label,rows:{}});
   pdr.forEach(r=>{const P=o.paid[r.payroll_key];if(P)P.rows[r.employee_id]={date:r.paid_on,ref:r.reference,pay:Number(r.pay),ded:Number(r.deductions),funds:Number(r.funds),ca:r.cash_adv||null,net:Number(r.net),by:r.by_date||{}}});
@@ -715,6 +743,7 @@ function remapIds(o){
   const re=obj=>{const n={};for(const k in obj)n[f(k)]=obj[k];return n};
   o.att=re(o.att);o.review=re(o.review);o.hrs=re(o.hrs);
   for(const pk in o.adj)o.adj[pk]=re(o.adj[pk]);
+  for(const pk in (o.sadj||{}))o.sadj[pk]=re(o.sadj[pk]);
   for(const pk in o.paid)o.paid[pk].rows=re(o.paid[pk].rows||{});
   return o;
 }
@@ -764,7 +793,7 @@ const ofType=(l,t)=>t==='all'?l:l.filter(e=>adjOf(e).type===t);
 const slipKind=e=>{const g=(e.group||'').toLowerCase().replace(/[^a-z]/g,'');return g.startsWith('semi')?'monthly':g.startsWith('week')?'daily':adjOf(e).type};
 const ofSlipType=(l,t)=>t==='all'?l:l.filter(e=>slipKind(e)===t);
 /* Gross pay as printed everywhere: regular pay + overtime pay + any leave pay. Net = gross - deductions. */
-const regPay=c=>c.gross+c.paySick+c.payVac;   /* regular pay: full pay for the period (absences are a deduction), plus any leave pay */
+const regPay=c=>c.gross+c.paySick+c.payVac+c.payAdj;   /* regular pay: full pay for the period (absences are a deduction), plus any leave pay */
 const grossAll=c=>regPay(c)+c.payOt;
 function visibleEmps(){
   const pk=pKey(),lk=S.locked[pk],f=S.siteFilter;
@@ -810,7 +839,8 @@ function adjOf(e){
   const rt=a.rate!=null?a.rate:e.rate,ty=a.type||e.wageType;
   if(!S.locked[pKey()])ded=ded.map(x=>{if(dedKey(x.l)!=='Late'||x.m==null)return x;const r=lateCalc(e,rt,ty,num(x.m));return Object.assign({},x,{a:r.a,gm:r.gm})});
   const funds=a.funds!=null?num(a.funds):0;
-  return {rate:a.rate!=null?a.rate:e.rate,type:a.type||e.wageType,ded,funds,edited:a.rate!=null&&a.rate!==e.rate&&!S.locked[pKey()]};
+  const sadj=((((S.sadj||{})[pKey()]||{})[e.id])||[]).filter(x=>num(x.a)>0).map(x=>({l:x.l||'',a:num(x.a)}));
+  return {sadj,rate:a.rate!=null?a.rate:e.rate,type:a.type||e.wageType,ded,funds,edited:a.rate!=null&&a.rate!==e.rate&&!S.locked[pKey()]};
 }
 function setAdj(e,k,v){
   const pk=pKey();S.adj[pk]=S.adj[pk]||{};const o=S.adj[pk][e.id]=S.adj[pk][e.id]||{};
@@ -849,9 +879,9 @@ function calcCore(e,dates,a,part){
   /* Absence is shown as a deduction: Gross is the full pay, and Absent = absent days x one day's rate. Net pay is unchanged. */
   const gross0=gross,absX=monthly?Math.min(aEq,absentDays):aEq,absAmt=absX>0?absX*eqDay:0;gross=gross0+absAmt;
   const payOt=ot*hourly*otR,paySick=monthly?0:sick*hourly,payVac=monthly?0:vac*hourly;
-  const ded0=a.ded||[],hX=aEq>0?absX*hEq/aEq:0,aX=absX-hX,ded=(aX*eqDay>0.004?[{l:'Absent',a:aX*eqDay,auto:true,days:aX}]:[]).concat(hX*eqDay>0.004?[{l:'Half day',a:hX*eqDay,auto:true,days:hX,half:true}]:[]).concat(ded0.filter(x=>!['Fund','Absent','Half day'].includes(dedKey(x.l))&&!(x.m!=null&&!(num(x.a)>0)))),funds=num(a.funds)+ded0.filter(x=>dedKey(x.l)==='Fund').reduce((t,x)=>t+num(x.a),0),dedOther=ded.reduce((t,x)=>t+num(x.a),0),dedTotal=dedOther+funds,net=gross-dedTotal+payOt+paySick+payVac;
-  const by={};dates.forEach(d=>{const h=per[d];by[d]=(monthly?gross0/dates.length:(days>0?gross0*dEq[d]/days:0))+h.o*hourly*otR+(monthly?0:(h.s+h.v)*hourly)});
-  return {absAmt,absDays:absX,reg,ot,sick,vac,unmarked,absent,rate:a.rate,type:a.type,hourly,gross,payOt,paySick,payVac,ded,dedOther,funds,dedTotal,net,edited:a.edited,by,monthly,eqDay,absEq,restEq:premEq,frac,workDays,vars,formula,days};
+  const ded0=a.ded||[],hX=aEq>0?absX*hEq/aEq:0,aX=absX-hX,ded=(aX*eqDay>0.004?[{l:'Absent',a:aX*eqDay,auto:true,days:aX}]:[]).concat(hX*eqDay>0.004?[{l:'Half day',a:hX*eqDay,auto:true,days:hX,half:true}]:[]).concat(ded0.filter(x=>!['Fund','Absent','Half day'].includes(dedKey(x.l))&&!(x.m!=null&&!(num(x.a)>0)))),funds=num(a.funds)+ded0.filter(x=>dedKey(x.l)==='Fund').reduce((t,x)=>t+num(x.a),0),dedOther=ded.reduce((t,x)=>t+num(x.a),0),dedTotal=dedOther+funds,sl=(a.sadj||[]).filter(x=>num(x.a)>0).map(x=>({l:x.l||'',a:num(x.a)})),payAdj=sl.reduce((t,x)=>t+x.a,0),net=gross-dedTotal+payOt+paySick+payVac+payAdj;
+  const by={};dates.forEach(d=>{const h=per[d];by[d]=(monthly?gross0/dates.length:(days>0?gross0*dEq[d]/days:0))+h.o*hourly*otR+(monthly?0:(h.s+h.v)*hourly)});if(payAdj&&dates.length)by[dates[dates.length-1]]+=payAdj;
+  return {absAmt,absDays:absX,reg,ot,sick,vac,unmarked,absent,rate:a.rate,type:a.type,hourly,gross,payOt,paySick,payVac,payAdj,sadj:sl,ded,dedOther,funds,dedTotal,net,edited:a.edited,by,monthly,eqDay,absEq,restEq:premEq,frac,workDays,vars,formula,days};
 }
 /* Formula check and evaluation. Only numbers, + - * / ( ) , and the listed names are allowed. */
 const F_NAMES={daily:['rate','days','hours','hourly'],monthly:['salary','share','absentDays','dailyRate','restDays','workDays']};
@@ -1001,7 +1031,7 @@ function viewPayroll(){
   const T={reg:0,ot:0,sick:0,vac:0,rp:0,op:0,gross:0,ded:0,net:0};let unm=0,rows='';
   for(const e of emps){
     const c=calc(e);T.reg+=c.reg;T.ot+=c.ot;T.sick+=c.sick;T.vac+=c.vac;T.rp+=regPay(c);T.op+=c.payOt;T.gross+=grossAll(c);T.ded+=c.dedTotal;T.net+=c.net;unm+=c.unmarked;
-    rows+='<tr data-e="'+e.id+'"><td class="name">'+esc(e.name)+(paidRows[e.id]?' <span class="badge good" title="'+esc('Paid '+fmtUS(paidRows[e.id].date)+(paidRows[e.id].ref?' · '+paidRows[e.id].ref:''))+'">Paid '+esc(fmtMD(paidRows[e.id].date))+'</span>':'')+(paidRows[e.id]&&Math.abs(paidRows[e.id].net-c.net)>0.005?' <span class="badge warn" title="'+esc('Paid '+money(paidRows[e.id].net)+', now '+money(c.net))+'">Changed since paid</span>':'')+(c.unmarked?' <span class="badge warn" title="Working days not marked pay nothing">'+c.unmarked+' unmarked</span>':'')+'<small>'+esc(e.group||siteName(e.site))+' · '+(c.type==='daily'?'Daily wage':'Monthly salary')+'</small></td>'+
+    rows+='<tr data-e="'+e.id+'"><td class="name">'+esc(e.name)+(paidRows[e.id]?' <span class="badge good" title="'+esc('Paid '+fmtUS(paidRows[e.id].date)+(paidRows[e.id].ref?' · '+paidRows[e.id].ref:''))+'">Paid '+esc(fmtMD(paidRows[e.id].date))+'</span>':'')+(paidRows[e.id]&&Math.abs(paidRows[e.id].net-c.net)>0.005?' <span class="badge warn" title="'+esc('Paid '+money(paidRows[e.id].net)+', now '+money(c.net))+'">Changed since paid</span>':'')+(c.unmarked?' <span class="badge warn" title="Working days not marked pay nothing">'+c.unmarked+' unmarked</span>':'')+(c.payAdj?' <span class="badge good" title="Salary adjustment, counted in Regular pay. Change it in Employees, Edit.">Adj '+esc(money(c.payAdj))+'</span>':'')+'<small>'+esc(e.group||siteName(e.site))+' · '+(c.type==='daily'?'Daily wage':'Monthly salary')+'</small></td>'+
     '<td><input class="num'+(c.edited?' edited':'')+(c.rate?'':' missing')+'" type="number" step="0.01" min="0" inputmode="decimal" data-f="rate" value="'+c.rate+'" aria-label="Rate for '+esc(e.name)+'"'+dis+(c.edited?' title="Changed for this payroll only"':'')+'><small class="muted" data-c="hourly" style="display:block;text-align:right">'+money(c.hourly)+' / hr</small></td>'+
     '<td class="n" data-c="reg">'+fh(c.reg)+'</td><td class="n" data-c="ot">'+fh(c.ot)+'</td><td class="n" data-c="sick">'+fh(c.sick)+'</td><td class="n" data-c="vac">'+fh(c.vac)+'</td>'+
     '<td class="n" data-c="regpay">'+money(regPay(c))+'</td><td class="n" data-c="otpay">'+money(c.payOt)+'</td><td class="n" data-c="gross">'+money(grossAll(c))+'</td>'+
@@ -1128,7 +1158,8 @@ function viewReconcile(){
   if(!S.employees.length)return emptyState();
   const ym=recYm||S.period.ym,dates=datesOf(ym,'month'),emps=visibleEmps(),T={earned:0,paid:0,bal:0,net:0};let rows='';
   for(const e of emps){
-    const c=calcCore(e,dates,{rate:e.rate,type:e.wageType,ded:[]},'month'),earned=dates.reduce((t,d)=>t+c.by[d],0);
+    const c=calcCore(e,dates,{rate:e.rate,type:e.wageType,ded:[]},'month');let earned=dates.reduce((t,d)=>t+c.by[d],0);
+    for(const pk in (S.sadj||{})){const L=S.sadj[pk][e.id],en=pkEnd(pk);if(L&&en&&en.slice(0,7)===ym)earned+=L.reduce((t,x)=>t+num(x.a),0)}
     let paidFor=0,netIn=0;
     for(const pk in S.paid){const r=S.paid[pk].rows[e.id];if(!r)continue;for(const d in r.by)if(d.slice(0,7)===ym)paidFor+=r.by[d];if(r.date.slice(0,7)===ym)netIn+=r.net}
     const bal=earned-paidFor;T.earned+=earned;T.paid+=paidFor;T.bal+=bal;T.net+=netIn;
@@ -1212,9 +1243,10 @@ function whyForm(e){
   if(c.paySick)add('Sick leave pay','+'+money(c.paySick),fh(c.sick)+' hours × '+money(c.hourly));
   if(c.payVac)add('Vacation leave pay','+'+money(c.payVac),fh(c.vac)+' hours × '+money(c.hourly));
   if(c.payOt||c.paySick||c.payVac)add('<b>Gross pay with overtime</b>','<b>'+money(grossAll(c))+'</b>','Printed as Gross Pay on the payroll, payslip and Excel');
+  c.sadj.forEach(x=>add('Salary adjustment: '+esc(x.l||'(no label)'),'+'+money(x.a),'Added by hand in Edit employee. Counted in Regular pay.'));
   if(c.funds)add('Fund','-'+money(c.funds),'Taken from the pay as a deduction. It is added to the Total Funds when the payroll is marked as paid.');
   c.ded.forEach(x=>add('Deduction: '+esc(x.l||'(no label)'),'-'+money(num(x.a)),x.auto?fd(x.days)+(x.half?' half day':' absent day')+(x.days===1?'':'s')+' × '+money(c.eqDay)+' (from Attendance)':x.m!=null?(num(x.m)+' min late'+(x.gm!=null?(x.gm<num(x.m)-0.0001?', '+(Math.round((num(x.m)-x.gm)*100)/100)+' min free (monthly grace)':'')+' × '+money(c.eqDay/(S.settings.hoursPerDay||8)/60)+' per minute':'')):''));
-  add('<b>Net pay</b>','<b>'+money(c.net)+'</b>','Gross + overtime + leave pay − deductions');
+  add('<b>Net pay</b>','<b>'+money(c.net)+'</b>','Gross + overtime + leave pay + salary adjustment − deductions');
   const pr=((S.paid[pKey()]||{}).rows||{})[e.id];
   openModal('<h2>Computation: '+esc(e.name)+'</h2><div class="muted">'+esc(periodLabel())+'</div><div class="scroll" style="max-height:55vh"><table class="why"><tbody>'+L.join('')+'</tbody></table></div>'+
     (pr?'<div class="note">Recorded as paid: '+money(pr.net)+(Math.abs(pr.net-c.net)>0.005?'. Today\'s computation is different.':'.')+'</div>':'')+
@@ -1295,17 +1327,22 @@ const actions={
   },
   delSelYes(){
     const ids=[...empSel];ids.forEach(id=>{S.employees=S.employees.filter(e=>e.id!==id);delete S.att[id];delete S.review[id];delete S.hrs[id];
-      Object.keys(S.adj).forEach(k=>delete S.adj[k][id]);Object.keys(S.paid).forEach(k=>delete S.paid[k].rows[id])});
+      Object.keys(S.adj).forEach(k=>delete S.adj[k][id]);Object.keys(S.sadj||{}).forEach(k=>delete S.sadj[k][id]);Object.keys(S.paid).forEach(k=>delete S.paid[k].rows[id])});
     empMode=null;empSel=new Set();save();closeModal();render();toast(ids.length===1?'Employee deleted':ids.length+' employees deleted');
   },
   closeModal(){closeModal()},
+  sadjAdd(){const h=$('#sadjRows');if(!h)return;h.insertAdjacentHTML('beforeend',sadjRow({},''));const i=h.querySelectorAll('.sadjL');i[i.length-1].focus()},
+  sadjDel(t){const r=t.closest('.sadjrow');if(r)r.remove()},
   empSave(){
     const g=id=>$('#'+id).value,name=g('f_name').trim();
     if(!name){$('#f_name').focus();return toast('Enter the employee name')}
     const id=$('#f_id').value,rec={name,group:g('f_group').trim(),bioId:g('f_bio').trim(),site:g('f_site'),position:g('f_pos').trim(),wageType:g('f_type'),rate:num(g('f_rate')),deduction:num(g('f_ded')),address:g('f_addr').trim(),contact:g('f_contact').trim(),email:g('f_email').trim(),active:$('#f_active').checked};
     const newTot=num(g('f_fundstot'));
+    const sadjOn=!!($('#sadjRows')&&!S.locked[pKey()]),sadjL=sadjOn?[...document.querySelectorAll('#sadjRows .sadjrow')].map(r=>({l:r.querySelector('.sadjL').value.trim(),a:Math.round(num(r.querySelector('.sadjA').value)*100)/100})):[];
+    if(sadjL.some(x=>x.a<0))return toast('Salary Adjustment can only add pay. Use Deductions to subtract.');
     if(id){const old=empById(id),was=num(old.fundsTotal);Object.assign(old,rec);if(Math.abs(newTot-was)>0.004)fundsMove(old,newTot-was,'edit','Edited in Edit employee')}
     else{const ne=Object.assign({id:newId(),fundsTotal:0,fundsLog:[],dedPrefs:{}},rec);S.employees.push(ne);if(newTot)fundsMove(ne,newTot,'opening','Opening balance')}
+    if(sadjOn&&id){const pk=pKey(),L=sadjL.filter(x=>x.a>0);S.sadj=S.sadj||{};S.sadj[pk]=S.sadj[pk]||{};if(L.length)S.sadj[pk][id]=L;else delete S.sadj[pk][id]}
     empMode=null;empSel=new Set();save();closeModal();render();
   },
   hours(t){if(isLocked())return;hoursForm(empById(t.dataset.e))},
@@ -1443,6 +1480,15 @@ $('#sigIn').addEventListener('change',e=>{
   img.onerror=()=>toast('That file is not an image I can read.');img.src=url;
 });
 
+/* Salary Adjustment: extra pay for one pay period (for example a day marked absent because of a missed time-in or time-out). Shown in Edit employee, saved per payroll. */
+const infoI=t=>'<span class="infoi" tabindex="0" role="note" aria-label="'+esc(t)+'">i<span class="tip" aria-hidden="true">'+esc(t)+'</span></span>';
+const sadjRow=(l,dis)=>'<div class="sadjrow"><input type="text" class="sadjL" maxlength="60" placeholder="Label, e.g. Forgot to time-in 11/10" value="'+esc(l.l||'')+'" aria-label="Adjustment label"'+(dis||'')+'><input type="number" class="sadjA num" step="0.01" min="0" inputmode="decimal" placeholder="0.00" value="'+(l.a||'')+'" aria-label="Adjustment amount"'+(dis||'')+'><button type="button" class="btn sm" data-act="sadjDel" aria-label="Remove this line"'+(dis||'')+'>\u2715</button></div>';
+function sadjBox(e){
+  const pk=pKey(),lk=!!S.locked[pk],L=(((S.sadj||{})[pk]||{})[e.id])||[],dis=lk?' disabled':'';
+  return '<div class="fundsbox" id="sadjBox"><h3>Salary Adjustment'+infoI('For '+periodLabel()+' only. Added to the net pay and printed on the payslip between Gross pay and Deductions. Use it when a day was marked absent because of a missed time-in or time-out.')+'</h3>'+
+    (lk?'<div class="note">This payroll is locked. Unlock it in the Payroll tab to change the adjustment.</div>':'')+
+    '<div id="sadjRows">'+L.map(l=>sadjRow(l,dis)).join('')+'</div><button type="button" class="btn sm" data-act="sadjAdd"'+dis+'>+ Add line</button></div>';
+}
 function empForm(e){
   const x=e||{fundsOn:false,fundsAmt:FUNDS_DEFAULT,fundsTotal:0,fundsLog:[],name:'',group:'',bioId:'',site:S.settings.sites[S.siteFilter]!==undefined?S.siteFilter:Object.keys(S.settings.sites)[0],position:'',wageType:'daily',rate:0,deduction:0,address:'',contact:'',email:'',active:true};
   openModal('<h2>'+(e?'Edit employee':'Add employee')+'</h2><input type="hidden" id="f_id" value="'+esc(e?e.id:'')+'"><div class="form two">'+
@@ -1457,9 +1503,9 @@ function empForm(e){
   '<div class="field"><label for="f_addr">Employee address</label><input type="text" id="f_addr" value="'+esc(x.address||'')+'"></div>'+
   '<div class="field"><label for="f_contact">Contact details</label><input type="text" id="f_contact" value="'+esc(x.contact||'')+'"></div>'+
   '<div class="field"><label for="f_email">Email Address</label><input type="email" id="f_email" value="'+esc(x.email||'')+'" autocomplete="off" spellcheck="false"><span class="hint">Used to email the payslip. It is not printed on the payslip.</span></div>'+
-  '</div><div class="fundsbox"><h3>Total Funds</h3><div class="form two">'+
-  '<div class="field"><label for="f_fundstot">Total Funds</label><input type="number" id="f_fundstot" step="0.01" value="'+num(x.fundsTotal)+'"><span class="hint">Grows when a payroll with a Fund deduction is marked as paid. You can correct it here. Each change is recorded.</span></div></div>'+
-  ((x.fundsLog||[]).length?'<div class="flog"><table><thead><tr><th>When</th><th>By</th><th>Change</th><th class="n">Balance</th></tr></thead><tbody>'+(x.fundsLog||[]).slice(-8).reverse().map(l=>'<tr><td>'+esc(new Date(l.t).toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}))+'</td><td>'+esc(l.by||'')+'</td><td>'+esc(({opening:'Opening balance',edit:'Edited',deposit:'Deposit',reversed:'Payment undone',correction:'Correction'})[l.kind]||l.kind)+' '+(l.amt>0?'+':'')+money(l.amt)+(l.note?' ('+esc(l.note)+')':'')+'</td><td class="n">'+money(l.bal)+'</td></tr>').join('')+'</tbody></table></div>':'')+'</div>'+
+  '</div><div class="fundsrow"><div class="fundsbox"><h3>Total Funds'+infoI('Grows when a payroll with a Fund deduction is marked as paid. You can correct it here. Each change is recorded.')+'</h3><div class="form two">'+
+  '<div class="field"><input type="number" id="f_fundstot" aria-label="Total Funds" step="0.01" value="'+num(x.fundsTotal)+'"></div></div>'+
+  ((x.fundsLog||[]).length?'<div class="flog"><table><thead><tr><th>When</th><th>By</th><th>Change</th><th class="n">Balance</th></tr></thead><tbody>'+(x.fundsLog||[]).slice(-8).reverse().map(l=>'<tr><td>'+esc(new Date(l.t).toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}))+'</td><td>'+esc(l.by||'')+'</td><td>'+esc(({opening:'Opening balance',edit:'Edited',deposit:'Deposit',reversed:'Payment undone',correction:'Correction'})[l.kind]||l.kind)+' '+(l.amt>0?'+':'')+money(l.amt)+(l.note?' ('+esc(l.note)+')':'')+'</td><td class="n">'+money(l.bal)+'</td></tr>').join('')+'</tbody></table></div>':'')+'</div>'+(e?sadjBox(e):'')+'</div>'+
   '<label style="display:flex;gap:8px;align-items:center;margin-top:12px"><input type="checkbox" id="f_active"'+(x.active!==false?' checked':'')+'> Active (included in new payrolls)</label>'+
   '<div class="actions"><button class="btn" data-act="closeModal">Cancel</button><button class="btn primary" data-act="empSave">Save</button></div>');
 }
@@ -1617,7 +1663,7 @@ function drawSlip(e,sig,compact,rhOver){
   const paidRow=((S.paid[pKey()]||{}).rows||{})[e.id];
   const fundsBal=(fundOn(e)||c.funds||num(e.fundsTotal))?num(e.fundsTotal)+(paidRow?0:c.funds):null;
   const dl=c.ded.filter(l=>num(l.a)||l.l).map(l=>({l:l.l||'Deduction',a:num(l.a)}));if(c.funds)dl.push({l:'Fund',a:c.funds});
-  const pay=grossAll(c);
+  const pay=grossAll(c)-c.payAdj;
   return (x)=>{
     const F=(w,sz)=>(w?w+' ':'')+sz+'px '+SANS;
     const txt=(t,tx,ty,font,align,maxW)=>{x.font=font;x.fillStyle=INK;x.textAlign=align||'left';x.textBaseline='alphabetic';if(maxW)x.fillText(t,tx,ty,maxW);else x.fillText(t,tx,ty)};
@@ -1657,6 +1703,7 @@ function drawSlip(e,sig,compact,rhOver){
         ln2=(a,b,yv)=>{line(VA,VB,yv+3);if(a!=null)txt(money(a),VB-3,yv-3,F(b?'600':'',15),'right')};
       if(c.payOt>0.004){rl2('Regular Pay:',yy);ln2(pay-c.payOt,false,yy);yy+=G;rl2('Overtime Pay:',yy);ln2(c.payOt,false,yy);yy+=G}
       rl2('Gross Pay:',yy);ln2(pay,false,yy);
+      c.sadj.forEach(l=>{yy+=G;rl2(l.l||'Salary Adjustment',yy,13,LRs-X0);ln2(l.a,false,yy)});
       yy+=G;rl2('Deductions:',yy);
       dl.forEach(l=>{yy+=G;rl2(l.l,yy,13,LRs-X0);ln2(l.a,false,yy)});
       if(capL){yy+=G;txt('Cash Advance',LRs,yy-8,F('600',13),'right');txt('Balance:',LRs,yy+6,F('600',13),'right');ln2(capL.cap.bal,false,yy)}
@@ -1683,7 +1730,7 @@ function drawSlipGreen(e,sig,compact,rhOver){
   const paidRow=((S.paid[pKey()]||{}).rows||{})[e.id];
   const fundsBal=(fundOn(e)||c.funds||num(e.fundsTotal))?num(e.fundsTotal)+(paidRow?0:c.funds):null;
   const dl=c.ded.filter(l=>num(l.a)||l.l).map(l=>({l:l.l||'Deduction',a:num(l.a)}));if(c.funds)dl.push({l:'Fund',a:c.funds});
-  const capL=c.ded.find(x=>x.cap&&x.cap.bal!=null),pay=grossAll(c),grp=(e.group||'').trim();
+  const capL=c.ded.find(x=>x.cap&&x.cap.bal!=null),pay=grossAll(c)-c.payAdj,grp=(e.group||'').trim();
   const sub=(slipKind(e)==='monthly'?'Semi-monthly Salary':'Weekly Salary')+(grp&&!/^(week|semi)/i.test(grp)?': '+grp:'');
   return (x)=>{
     const F=(w,sz,f)=>(w?w+' ':'')+sz+'px '+(f||SANS);
@@ -1724,11 +1771,12 @@ function drawSlipGreen(e,sig,compact,rhOver){
     row('Rate per hour',[money(c.hourly),c.ot>0?money(c.hourly*(S.settings.otRate||1)):'',c.sick>0&&!c.monthly?money(c.hourly):'',c.vac>0&&!c.monthly?money(c.hourly):''],{center:1,fill:GREY});
     const extra=c.payOt+c.paySick+c.payVac>0.004;
     row('Gross pay',[money(c.gross),c.payOt>0.004?money(c.payOt):'',c.paySick>0.004?money(c.paySick):'',c.payVac>0.004?money(c.payVac):'',extra?money(pay):''],{fill:G1,last:G1});
+    c.sadj.forEach(l=>row(l.l||'Salary Adjustment',[money(l.a)],{fill:G2}));
     r=1;row('Deductions:',null);
     dl.forEach(l=>row(l.l,[money(l.a)]));
     if(capL)row('Cash advance balance',[money(capL.cap.bal)]);
     if(fundsBal!=null)row('Total funds',[money(fundsBal)]);
-    row('Total pay',[money(c.gross-c.dedTotal),money(c.payOt),money(c.paySick),money(c.payVac),money(c.net)],{center:1,bold:1,fill:G1,last:G1});
+    row('Total pay',[money(c.gross-c.dedTotal+c.payAdj),money(c.payOt),money(c.paySick),money(c.payVac),money(c.net)],{center:1,bold:1,fill:G1,last:G1});
     /* signatures */
     y+=54;const sy=y;
     if(sig){const k=Math.min(150/sig.width,84/sig.height),w=sig.width*k,h=sig.height*k;x.drawImage(sig,cx+LW*.33-w/2,sy+2-h,w,h)}
