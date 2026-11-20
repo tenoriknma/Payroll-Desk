@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<script>/* apply the saved colour theme before first paint */try{var t=localStorage.getItem("payrolldesk.visualTheme");if(t!=="dark"&&t!=="light")t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t}catch(e){}</script>
+<script>/* apply the saved colour theme before first paint */try{var t=localStorage.getItem("payrolldesk.visualTheme");if(t!=="dark"&&t!=="light")t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t;var st=localStorage.getItem("payrolldesk.visualStyle");if(st!=="classic"&&st!=="glass1")st="glass2";document.documentElement.dataset.style=st}catch(e){document.documentElement.dataset.style="glass2"}</script>
 <style>
 /* Layout: one working surface. Header with period controls, four tabs, a wide scrollable grid or table underneath. */
 :root{
@@ -452,28 +452,58 @@ tbody tr:last-child>td{border-bottom-color:var(--line)}
 .gfoot{margin:16px 0 0;text-align:center;font-size:12px}
 @media(max-width:700px){.plink{display:none}}
 
-/* ---- glass layer: frosted translucent surfaces over a soft colour backdrop (remove this block to go back) ---- */
-:root[data-theme="dark"]{
+/* ---- style options: Glass v1 (saved as shipped) and Glass v2. Classic = no block applies. ---- */
+:root[data-style="glass1"][data-theme="dark"]{
   --bg:#070a14;--surface:rgba(255,255,255,.055);--soft:rgba(255,255,255,.07);--hover:rgba(255,255,255,.10);--line:rgba(255,255,255,.13);
   --gl-blur:blur(22px) saturate(160%);--gl-edge:inset 0 1px 0 rgba(255,255,255,.14);--gl-sh:0 10px 36px -8px rgba(0,0,0,.55);
   --bgfx:radial-gradient(46rem 34rem at 8% 6%,rgba(99,102,241,.55),transparent 62%),radial-gradient(40rem 30rem at 96% 12%,rgba(236,72,153,.32),transparent 60%),radial-gradient(44rem 34rem at 70% 105%,rgba(20,184,166,.38),transparent 62%),radial-gradient(34rem 26rem at 0% 90%,rgba(59,130,246,.30),transparent 60%)}
-:root[data-theme="light"]{
+:root[data-style="glass1"][data-theme="light"]{
   --surface:rgba(255,255,255,.58);--soft:rgba(255,255,255,.55);--hover:rgba(255,255,255,.8);--line:rgba(70,80,140,.20);
   --gl-blur:blur(20px) saturate(170%);--gl-edge:inset 0 1px 0 rgba(255,255,255,.9);--gl-sh:0 10px 32px -10px rgba(60,72,120,.28);
   --bgfx:radial-gradient(46rem 34rem at 6% 4%,rgba(129,140,248,.45),transparent 62%),radial-gradient(40rem 30rem at 98% 10%,rgba(244,114,182,.30),transparent 60%),radial-gradient(44rem 34rem at 72% 104%,rgba(45,212,191,.34),transparent 62%)}
-.panel,.card,.fundsbox,.dlg,.stick,.seg,.tabs,.top{-webkit-backdrop-filter:var(--gl-blur);backdrop-filter:var(--gl-blur)}
-.panel,.card,.fundsbox,.dlg{background:var(--surface);border:1px solid var(--line);box-shadow:var(--gl-edge),var(--gl-sh)}
-.stick{background:transparent}
-.dlg{background:color-mix(in srgb,var(--surface) 55%,#0b1020 45%)}
-:root[data-theme="light"] .dlg{background:rgba(255,255,255,.82)}
-#modal{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-input[type=text],input[type=email],input[type=number],input[type=month],input[type=search],input[type=password],select,textarea{background:rgba(255,255,255,.06);border-color:var(--line)}
-:root[data-theme="light"] input[type=text],:root[data-theme="light"] input[type=email],:root[data-theme="light"] input[type=number],:root[data-theme="light"] input[type=month],:root[data-theme="light"] input[type=search],:root[data-theme="light"] input[type=password],:root[data-theme="light"] select,:root[data-theme="light"] textarea{background:rgba(255,255,255,.7)}
-.btn{background:var(--soft);border-color:var(--line);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.btn.primary{background:linear-gradient(135deg,var(--accent-strong),var(--accent));border-color:transparent;color:#fff;box-shadow:0 6px 18px -6px rgba(99,102,241,.7)}
-.grid th,.grid thead th{background:color-mix(in srgb,var(--bg) 70%,transparent)}
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){:root[data-theme="dark"]{--surface:#111827}:root[data-theme="light"]{--surface:#fff}}
-@media (prefers-reduced-transparency:reduce){:root{--gl-blur:none}:root[data-theme="dark"]{--surface:#111827}:root[data-theme="light"]{--surface:#fff}}
+:root[data-style="glass1"] .panel,:root[data-style="glass1"] .card,:root[data-style="glass1"] .fundsbox,:root[data-style="glass1"] .dlg,:root[data-style="glass1"] .stick,:root[data-style="glass1"] .seg,:root[data-style="glass1"] .tabs,:root[data-style="glass1"] .top{-webkit-backdrop-filter:var(--gl-blur);backdrop-filter:var(--gl-blur)}
+:root[data-style="glass1"] .panel,:root[data-style="glass1"] .card,:root[data-style="glass1"] .fundsbox,:root[data-style="glass1"] .dlg{background:var(--surface);border:1px solid var(--line);box-shadow:var(--gl-edge),var(--gl-sh)}
+:root[data-style="glass1"] .stick{background:transparent}
+:root[data-style="glass1"] .dlg{background:color-mix(in srgb,var(--surface) 55%,#0b1020 45%)}
+:root[data-style="glass1"][data-theme="light"] .dlg{background:rgba(255,255,255,.82)}
+:root[data-style="glass1"] #modal{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+:root[data-style="glass1"] input[type=text],:root[data-style="glass1"] input[type=email],:root[data-style="glass1"] input[type=number],:root[data-style="glass1"] input[type=month],:root[data-style="glass1"] input[type=search],:root[data-style="glass1"] input[type=password],:root[data-style="glass1"] select,:root[data-style="glass1"] textarea{background-color:rgba(255,255,255,.06);border-color:var(--line)}
+:root[data-style="glass1"][data-theme="light"] input[type=text],:root[data-style="glass1"][data-theme="light"] input[type=email],:root[data-style="glass1"][data-theme="light"] input[type=number],:root[data-style="glass1"][data-theme="light"] input[type=month],:root[data-style="glass1"][data-theme="light"] input[type=search],:root[data-style="glass1"][data-theme="light"] input[type=password],:root[data-style="glass1"][data-theme="light"] select,:root[data-style="glass1"][data-theme="light"] textarea{background-color:rgba(255,255,255,.7)}
+:root[data-style="glass1"] .btn{background:var(--soft);border-color:var(--line);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+:root[data-style="glass1"] .btn.primary{background:linear-gradient(135deg,var(--accent-strong),var(--accent));border-color:transparent;color:#fff;box-shadow:0 6px 18px -6px rgba(99,102,241,.7)}
+:root[data-style="glass1"] .grid th,:root[data-style="glass1"] .grid thead th{background:color-mix(in srgb,var(--bg) 70%,transparent)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){:root[data-style="glass1"][data-theme="dark"]{--surface:#111827}
+:root[data-style="glass1"][data-theme="light"]{--surface:#fff}
+}
+@media (prefers-reduced-transparency:reduce){{--gl-blur:none}
+:root[data-style="glass1"][data-theme="dark"]{--surface:#111827}
+:root[data-style="glass1"][data-theme="light"]{--surface:#fff}
+}
+:root[data-style="glass2"][data-theme="dark"]{--bg:#050716;--surface:rgba(255,255,255,.065);--soft:rgba(255,255,255,.085);--hover:rgba(255,255,255,.12);--line:rgba(255,255,255,.16);--accent:#8b8ff8;
+ --gl-blur:blur(26px) saturate(190%);--gl-edge:inset 0 1px 0 rgba(255,255,255,.22),inset 0 0 0 1px rgba(255,255,255,.04);--gl-sh:0 18px 48px -12px rgba(0,0,0,.65),0 0 40px -18px rgba(139,143,248,.45);
+ --bgfx:radial-gradient(48rem 36rem at 6% 4%,rgba(99,102,241,.70),transparent 62%),radial-gradient(42rem 32rem at 98% 8%,rgba(236,72,153,.45),transparent 60%),radial-gradient(46rem 36rem at 72% 108%,rgba(20,184,166,.50),transparent 62%),radial-gradient(36rem 28rem at -4% 92%,rgba(56,189,248,.42),transparent 60%),radial-gradient(30rem 22rem at 50% 40%,rgba(168,85,247,.16),transparent 70%)}
+:root[data-style="glass2"][data-theme="light"]{--bg:#dfe6ff;--surface:rgba(255,255,255,.34);--soft:rgba(255,255,255,.40);--hover:rgba(255,255,255,.62);--line:rgba(255,255,255,.65);--ink:#141a33;--muted:#475069;
+ --gl-blur:blur(22px) saturate(190%);--gl-edge:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.25);--gl-sh:0 16px 44px -14px rgba(67,56,202,.38);
+ --bgfx:linear-gradient(135deg,#c7d2fe 0%,#e9d5ff 38%,#fbcfe8 62%,#a7f3d0 100%),radial-gradient(40rem 30rem at 12% 8%,rgba(99,102,241,.55),transparent 60%),radial-gradient(36rem 28rem at 92% 14%,rgba(244,114,182,.50),transparent 60%),radial-gradient(44rem 32rem at 70% 100%,rgba(20,184,166,.50),transparent 62%)}
+:root[data-style="glass2"] .panel,:root[data-style="glass2"] .card,:root[data-style="glass2"] .fundsbox,:root[data-style="glass2"] .dlg,:root[data-style="glass2"] .seg,:root[data-style="glass2"] .top{-webkit-backdrop-filter:var(--gl-blur);backdrop-filter:var(--gl-blur)}
+:root[data-style="glass2"] .panel,:root[data-style="glass2"] .card,:root[data-style="glass2"] .fundsbox{background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,0) 55%),var(--surface);border:1px solid var(--line);box-shadow:var(--gl-edge),var(--gl-sh)}
+:root[data-style="glass2"][data-theme="light"] .panel,:root[data-style="glass2"][data-theme="light"] .card,:root[data-style="glass2"][data-theme="light"] .fundsbox{background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(255,255,255,.10) 60%),var(--surface)}
+:root[data-style="glass2"] .dlg{background:color-mix(in srgb,var(--surface) 45%,#0b1020 55%);border:1px solid var(--line);box-shadow:var(--gl-edge),0 30px 80px -20px rgba(0,0,0,.7)}
+:root[data-style="glass2"][data-theme="light"] .dlg{background:rgba(255,255,255,.72)}
+:root[data-style="glass2"] .stick{background:transparent}
+:root[data-style="glass2"] #modal{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+:root[data-style="glass2"] input[type=text],:root[data-style="glass2"] input[type=email],:root[data-style="glass2"] input[type=number],:root[data-style="glass2"] input[type=month],:root[data-style="glass2"] input[type=search],:root[data-style="glass2"] input[type=password],:root[data-style="glass2"] select,:root[data-style="glass2"] textarea{background-color:rgba(255,255,255,.07);border-color:var(--line)}
+:root[data-style="glass2"][data-theme="light"] input[type=text],:root[data-style="glass2"][data-theme="light"] input[type=email],:root[data-style="glass2"][data-theme="light"] input[type=number],:root[data-style="glass2"][data-theme="light"] input[type=month],:root[data-style="glass2"][data-theme="light"] input[type=search],:root[data-style="glass2"][data-theme="light"] input[type=password],:root[data-style="glass2"][data-theme="light"] select,:root[data-style="glass2"][data-theme="light"] textarea{background-color:rgba(255,255,255,.55);border-color:rgba(255,255,255,.9)}
+:root[data-style="glass2"] .btn{background:var(--soft);border-color:var(--line);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+:root[data-style="glass2"] .btn.primary{background:linear-gradient(135deg,#6366f1,#8b5cf6 60%,#ec4899);border-color:transparent;color:#fff;box-shadow:0 8px 22px -8px rgba(124,58,237,.8)}
+:root[data-style="glass2"] .grid th,:root[data-style="glass2"] .grid thead th{background:color-mix(in srgb,var(--bg) 55%,transparent)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){:root[data-style="glass2"][data-theme="dark"]{--surface:#111827}
+:root[data-style="glass2"][data-theme="light"]{--surface:#fff}
+}
+@media (prefers-reduced-transparency:reduce){{--gl-blur:none}
+:root[data-style="glass2"][data-theme="dark"]{--surface:#111827}
+:root[data-style="glass2"][data-theme="light"]{--surface:#fff}
+}
 </style>
 
 </head>
@@ -497,7 +527,6 @@ input[type=text],input[type=email],input[type=number],input[type=month],input[ty
         <button class="btn sm" data-act="shiftWeek" data-dir="1" aria-label="Next week">▶</button>
       </span>
       <select id="siteSel" aria-label="Show employees"></select>
-      <button class="btn theme-toggle" type="button" id="themeToggle" aria-label="Switch color theme">☾ Dark mode</button>
     </div>
   </header>
   <nav class="tabs" role="tablist" id="tabs">
@@ -979,6 +1008,7 @@ function render(){
   else if(tab==='employees')v.innerHTML=viewEmployees();
   else v.innerHTML=viewSettings();
   scrollBack(keep);
+  if(window.syncAppearance)window.syncAppearance();
   if(tab==='payroll')refreshPayroll();
 }
 function emptyState(imp){
@@ -1088,7 +1118,8 @@ let locSel='office';
 const tipI=t=>'<span class="info" tabindex="0" role="note" aria-label="'+esc(t)+'" data-tip="'+esc(t)+'">i</span>';
 function viewSettings(){
   const s=S.settings;if(s.sites[locSel]===undefined)locSel=Object.keys(s.sites)[0];
-  return '<div class="panel settings"><h3>Company and payroll setup</h3><div class="form two setup">'+
+  return '<div class="panel settings" id="appearance"><h3>Appearance</h3><p class="muted" style="margin:0 0 12px">Only changes how the app looks on this device. Payroll data is not affected.</p><div class="form two"><div class="field"><label id="l_mode">Mode</label><div class="seg" style="width:fit-content;max-width:100%" role="group" aria-labelledby="l_mode"><button type="button" data-vmode="light">☀ Light</button><button type="button" data-vmode="dark">☾ Dark</button></div></div><div class="field"><label id="l_style">Style</label><div class="seg" style="width:fit-content;max-width:100%" role="group" aria-labelledby="l_style"><button type="button" data-vstyle="classic">Classic</button><button type="button" data-vstyle="glass1">Glass v1</button><button type="button" data-vstyle="glass2">Glass v2</button></div><span class="hint">Glass v1 is the first glass look. Glass v2 has richer colours and a tinted light mode.</span></div></div></div>'+
+  '<div class="panel settings"><h3>Company and payroll setup</h3><div class="form two setup">'+
   '<div class="field"><label for="s_company">Company name (top of every payslip)</label><input type="text" id="s_company" data-sf="company" value="'+esc(s.company)+'"></div>'+
   '<div class="field"><label for="s_addr">Company address (top of the Excel payroll)</label><input type="text" id="s_addr" data-sf="companyAddress" value="'+esc(s.companyAddress||'')+'"></div>'+
   '<div class="field"><label for="s_cur">Currency symbol</label><input type="text" id="s_cur" data-sf="currency" value="'+esc(s.currency)+'" maxlength="4"></div>'+
@@ -1105,8 +1136,8 @@ function viewSettings(){
   '</div>'+
   '<h4 class="sub">Gross pay formulas</h4>'+
   '<div class="form two">'+
-  '<div class="field"><label for="s_fd">Daily wage: gross pay ='+tipI('Names you can use: rate (pay per day), days (present = 1, half day = 0.5), hours, hourly. Example: rate * days')+'</label><input type="text" id="s_fd" data-sf="fDaily" value="'+esc(s.fDaily)+'" spellcheck="false" style="font-family:monospace"><button class="btn sm" type="button" data-act="fReset" data-f="fDaily" style="justify-self:start">Use standard formula</button></div>'+
-  '<div class="field"><label for="s_fm">Monthly salary: gross pay ='+tipI('Names you can use: salary, share (1 for a full month, 1/2 for semi-monthly), absentDays, dailyRate, restDays, workDays. Also max, min, round.')+'</label><input type="text" id="s_fm" data-sf="fMonthly" value="'+esc(s.fMonthly)+'" spellcheck="false" style="font-family:monospace"><button class="btn sm" type="button" data-act="fReset" data-f="fMonthly" style="justify-self:start">Use standard formula</button></div></div></div>'+
+  '<div class="field"><label for="s_fd">Daily wage: gross pay ='+tipI('Names you can use: rate (pay per day), days (present = 1, half day = 0.5), hours, hourly. Example: rate * days')+'</label><input type="text" id="s_fd" data-sf="fDaily" value="'+esc(s.fDaily)+'" spellcheck="false" style="font-family:monospace"><button class="btn sm" type="button" data-act="fReset" data-f="fDaily" style="width:fit-content;max-width:100%">Use standard formula</button></div>'+
+  '<div class="field"><label for="s_fm">Monthly salary: gross pay ='+tipI('Names you can use: salary, share (1 for a full month, 1/2 for semi-monthly), absentDays, dailyRate, restDays, workDays. Also max, min, round.')+'</label><input type="text" id="s_fm" data-sf="fMonthly" value="'+esc(s.fMonthly)+'" spellcheck="false" style="font-family:monospace"><button class="btn sm" type="button" data-act="fReset" data-f="fMonthly" style="width:fit-content;max-width:100%">Use standard formula</button></div></div></div>'+
   '<div class="panel settings"><h3>Payslip format</h3>'+
   '<div class="chk"><label class="chk" style="margin:0"><input type="checkbox" data-sfb="newSlip"'+(s.newSlip?' checked':'')+'> Use the new payslip format</label>'+tipI('Applies to the payslip JPG and the 4-up sheet. Unticked = old format (green, with Regular, Overtime, Sick and Vacation columns). Ticked = new format (black and white, with Salary Period beside Salary).')+'</div></div>'+
   '<div class="panel settings"><h3>Late, rest day and holiday pay</h3><p class="muted" style="margin:0 0 10px">These are off until you tick them. Tick the rest day and holiday options once management approves.</p>'+
@@ -1211,7 +1242,7 @@ function dedForm(e){
     '<div class="muted" style="margin:10px 0 6px">Tick the deductions that apply to this employee. Your ticks are remembered for every payroll. Fund, SSS, PHILHEALTH and Pag-Ibig also remember their amount.</div>'+
     '<div id="dedRows" style="display:grid;gap:8px">'+pre+'</div>'+
     '<div class="muted" style="margin:14px 0 6px">Other deductions</div><div id="dedCustom" style="display:grid;gap:8px">'+(cus.length?cus:[{l:'',a:0}]).map(x=>dedRowHTML(x.l,x.a)).join('')+'</div>'+
-    '<button class="btn sm" type="button" data-act="dedAdd" style="justify-self:start;margin-top:8px">Add line</button><div class="actions"><button class="btn" data-act="closeModal">Cancel</button><button class="btn primary" data-act="dedSave" data-e="'+e.id+'">Save</button></div>');
+    '<button class="btn sm" type="button" data-act="dedAdd" style="width:fit-content;max-width:100%;margin-top:8px">Add line</button><div class="actions"><button class="btn" data-act="closeModal">Cancel</button><button class="btn primary" data-act="dedSave" data-e="'+e.id+'">Save</button></div>');
   caInfoUpdate();
 }
 function hoursForm(e){
@@ -2074,12 +2105,15 @@ $('#restoreIn').addEventListener('change',async e=>{
     if(n&&n.matches(SEL)){c.setAttribute('tabindex','-1');n.setAttribute('tabindex','0');n.focus({preventScroll:false});last={e:n.dataset.e,d:n.dataset.d}}
   });
 })();
-/* ---- Presentation-only theme control. Stored separately from payroll data. ---- */
+/* ---- Presentation-only appearance control (Settings > Appearance). Stored separately from payroll data. ---- */
 (function(){
-  const root=document.documentElement,btn=document.getElementById('themeToggle'),key='payrolldesk.visualTheme';
-  const apply=t=>{root.dataset.theme=t;if(btn){btn.textContent=t==='dark'?'☀ Light mode':'☾ Dark mode';btn.setAttribute('aria-label',t==='dark'?'Switch to light theme':'Switch to dark theme')}};
-  apply(root.dataset.theme==='dark'?'dark':'light');
-  if(btn)btn.addEventListener('click',()=>{const n=root.dataset.theme==='dark'?'light':'dark';apply(n);try{localStorage.setItem(key,n)}catch(e){}});
+  const root=document.documentElement,kT='payrolldesk.visualTheme',kS='payrolldesk.visualStyle';
+  const sync=()=>document.querySelectorAll('[data-vmode],[data-vstyle]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vmode?b.dataset.vmode===root.dataset.theme:b.dataset.vstyle===root.dataset.style)));
+  window.syncAppearance=sync;
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-vmode],[data-vstyle]');if(!b)return;
+    if(b.dataset.vmode){root.dataset.theme=b.dataset.vmode;try{localStorage.setItem(kT,b.dataset.vmode)}catch(x){}}
+    else{root.dataset.style=b.dataset.vstyle;try{localStorage.setItem(kS,b.dataset.vstyle)}catch(x){}}
+    sync()});
 })();
 boot();
 </script>
